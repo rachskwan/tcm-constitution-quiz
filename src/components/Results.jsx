@@ -310,13 +310,13 @@ export default function Results({ results }) {
               </p>
             )}
 
-            {/* Emphasize */}
+            {/* Emphasize - Show 3 foods */}
             <div className="mb-6">
               <h4 className="text-sm font-medium text-sage-dark uppercase tracking-wide mb-3">
                 Emphasize These Foods
               </h4>
               <div className="space-y-2">
-                {seasonalRecs.emphasize.map((food, i) => (
+                {seasonalRecs.emphasize.slice(0, 3).map((food, i) => (
                   <div key={i} className="bg-sage/10 rounded-lg p-3">
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-medium text-slate-deep">{food.name}</span>
@@ -325,22 +325,46 @@ export default function Results({ results }) {
                       </span>
                     </div>
                     <p className="text-sage-dark text-sm">{food.benefit}</p>
-                    {food.note && (
-                      <p className="text-sage text-xs mt-1 italic">{food.note}</p>
-                    )}
                   </div>
                 ))}
               </div>
+              {seasonalRecs.emphasize.length > 3 && (
+                <p className="text-xs text-sage mt-2">+{seasonalRecs.emphasize.length - 3} more in full guide</p>
+              )}
             </div>
 
-            {/* Minimize */}
-            {seasonalRecs.minimize && seasonalRecs.minimize.length > 0 && (
-              <div>
-                <h4 className="text-sm font-medium text-earth uppercase tracking-wide mb-3">
-                  Minimize or Avoid
-                </h4>
-                <div className="space-y-2">
-                  {seasonalRecs.minimize.map((food, i) => (
+            {/* Minimize - Show 3 foods */}
+            <div>
+              <h4 className="text-sm font-medium text-earth uppercase tracking-wide mb-3">
+                Minimize or Avoid
+              </h4>
+              <div className="space-y-2">
+                {(() => {
+                  // Ensure at least 3 avoid items by combining minimize with general avoid guidance
+                  const minimizeItems = seasonalRecs.minimize || [];
+                  const avoidItems = [...minimizeItems];
+
+                  // Add general avoid items if we have less than 3
+                  if (avoidItems.length < 3 && seasonalRecs.avoid) {
+                    const generalAvoids = seasonalRecs.avoid.split(',').map(item => ({
+                      name: item.trim(),
+                      property: 'Varies',
+                      reason: 'Not ideal for your constitution'
+                    }));
+                    avoidItems.push(...generalAvoids);
+                  }
+
+                  // Add common items for this constitution if still less than 3
+                  if (avoidItems.length < 3) {
+                    const commonAvoids = [
+                      { name: 'Processed Foods', property: 'Varies', reason: 'Lack vital Qi, difficult to digest' },
+                      { name: 'Excessive Sugar', property: 'Varies', reason: 'Creates dampness, weakens spleen' },
+                      { name: 'Late Night Eating', property: 'Varies', reason: 'Disrupts digestive rhythm' }
+                    ];
+                    avoidItems.push(...commonAvoids.slice(0, 3 - avoidItems.length));
+                  }
+
+                  return avoidItems.slice(0, 3).map((food, i) => (
                     <div key={i} className="bg-gold/10 rounded-lg p-3">
                       <div className="flex items-center justify-between mb-1">
                         <span className="font-medium text-slate-deep">{food.name}</span>
@@ -349,14 +373,11 @@ export default function Results({ results }) {
                         </span>
                       </div>
                       <p className="text-earth text-sm">{food.reason}</p>
-                      {food.examples && (
-                        <p className="text-gold text-xs mt-1 italic">e.g., {food.examples}</p>
-                      )}
                     </div>
-                  ))}
-                </div>
+                  ));
+                })()}
               </div>
-            )}
+            </div>
 
             {/* Tea recommendation */}
             {seasonalRecs.tea && (
