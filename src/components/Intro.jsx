@@ -18,7 +18,7 @@ export default function Intro({ onStart }) {
 
       {/* Subtitle - using Crimson Pro for wisdom text */}
       <p className="font-serif text-lg text-slate-deep/70 text-center mb-10 max-w-md italic">
-        "Know thyself" — Discover your unique body type through Traditional Chinese Medicine
+        "Know thyself" — Discover your body's tendencies through Traditional Chinese Medicine
       </p>
 
       {/* Benefits */}
@@ -43,7 +43,7 @@ export default function Intro({ onStart }) {
           </div>
           <div>
             <h3 className="font-medium text-slate-deep">Seasonal Food Guide</h3>
-            <p className="text-sm text-slate-deep/60">Get food recommendations tailored to your constitution</p>
+            <p className="text-sm text-slate-deep/60">Get food recommendations tailored to your tendencies</p>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ export default function Intro({ onStart }) {
           </div>
           <div>
             <h3 className="font-medium text-slate-deep">Science Bridge</h3>
-            <p className="text-sm text-slate-deep/60">Learn which biomarkers relate to your body type</p>
+            <p className="text-sm text-slate-deep/60">Learn which biomarkers relate to your tendencies</p>
           </div>
         </div>
       </div>

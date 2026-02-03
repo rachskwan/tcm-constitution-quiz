@@ -112,7 +112,7 @@ export default function Results({ results }) {
           {results.tendencies && results.tendencies.length > 0 && (
             <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
               <h3 className="font-medium text-slate-deep mb-1">Secondary Tendencies</h3>
-              <p className="text-sm text-slate-deep/50 mb-4">Other patterns present in your constitution profile</p>
+              <p className="text-sm text-slate-deep/50 mb-4">Other patterns present in your tendency profile</p>
               <div className="space-y-3">
                 {results.tendencies.map(t => (
                   <div
@@ -245,7 +245,7 @@ export default function Results({ results }) {
                     <svg className="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                     </svg>
-                    <span className="text-sm text-slate-deep/60">Natural advantages of your constitution</span>
+                    <span className="text-sm text-slate-deep/60">Natural advantages of your tendencies</span>
                   </div>
                   <ul className="space-y-3">
                     {primaryConstitution.strengths.map((strength, i) => (
@@ -349,7 +349,7 @@ export default function Results({ results }) {
                     const generalAvoids = seasonalRecs.avoid.split(',').map(item => ({
                       name: item.trim(),
                       property: 'Varies',
-                      reason: 'Not ideal for your constitution'
+                      reason: 'Not ideal for your tendencies'
                     }));
                     avoidItems.push(...generalAvoids);
                   }
@@ -488,7 +488,7 @@ export default function Results({ results }) {
                       className="mt-1 w-4 h-4 rounded border-slate-deep/30 text-sage focus:ring-sage"
                     />
                     <span className="text-sm text-slate-deep/60">
-                      Save my results for later comparison (track how your constitution changes over time)
+                      Save my results for later comparison (track how your tendencies shift over time)
                     </span>
                   </label>
 
@@ -627,7 +627,7 @@ export default function Results({ results }) {
                 </button>
               </div>
               <p className="text-white/90 text-sm leading-relaxed">
-                Based on TCM research, these biomarkers are commonly associated with your constitution pattern and can provide deeper insights.
+                Based on TCM research, these biomarkers are commonly associated with your tendency patterns and can provide deeper insights.
               </p>
             </div>
 
@@ -748,7 +748,7 @@ export default function Results({ results }) {
                 <div className="text-center mb-4">
                   <h4 className="font-medium text-slate-deep mb-2">Ready to Learn More?</h4>
                   <p className="text-sm text-slate-deep/60">
-                    Order a comprehensive blood testing kit to get personalized insights based on your constitution.
+                    Order a comprehensive blood testing kit to get personalized insights based on your tendencies.
                   </p>
                 </div>
 

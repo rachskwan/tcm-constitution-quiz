@@ -164,7 +164,7 @@ export const seasonalFoods = {
           { name: 'Cooked Vegetables', property: 'Warm', benefit: 'Easier digestion than raw', category: 'Vegetable', note: 'Light cooking methods' }
         ],
         minimize: [
-          { name: 'Ice Cream', property: 'Cold', reason: 'Severely damages Yang', examples: 'Worst food for this constitution' },
+          { name: 'Ice Cream', property: 'Cold', reason: 'Severely damages Yang', examples: 'Worst for these tendencies' },
           { name: 'Iced Drinks', property: 'Cold', reason: 'Injures spleen and kidney Yang', examples: 'Room temperature minimum' },
           { name: 'Watermelon', property: 'Cold', reason: 'Too cooling for Yang deficient', examples: 'Very small amounts only' }
         ],
@@ -289,7 +289,7 @@ export const seasonalFoods = {
           { name: 'Seaweed', property: 'Cool', benefit: 'Transforms phlegm, softens hardness', category: 'Vegetable', note: 'Kelp, nori' }
         ],
         minimize: [
-          { name: 'Ice Cream', property: 'Cold', reason: 'Creates dampness and phlegm', examples: 'Worst for this constitution' },
+          { name: 'Ice Cream', property: 'Cold', reason: 'Creates dampness and phlegm', examples: 'Worst for these tendencies' },
           { name: 'Sugary Drinks', property: 'Neutral', reason: 'Creates dampness', examples: 'Soda, fruit juices' }
         ],
         tea: 'Lotus leaf tea'

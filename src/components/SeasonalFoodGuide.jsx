@@ -473,7 +473,7 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
 
                 <div className="relative z-10">
-                  <p className="text-white/80 text-xs">My TCM Constitution</p>
+                  <p className="text-white/80 text-xs">My TCM Tendencies</p>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-2xl">{constitution.emoji}</span>
                     <div>

@@ -215,7 +215,7 @@ export function getFoodDescription(foodName) {
     }
   }
 
-  return { thermal: 'Neutral', description: 'A nourishing food to support your constitution.' };
+  return { thermal: 'Neutral', description: 'A nourishing food to support your body.' };
 }
 
 // Food icons mapping
@@ -653,7 +653,7 @@ export const healthFocusFoods = {
         { name: 'Alcohol', reason: 'Creates intense damp-heat' },
         { name: 'Fried Foods', reason: 'Major damp-heat producer' },
         { name: 'Spicy Foods', reason: 'Adds heat to existing dampness' },
-        { name: 'Red Meat', reason: 'Too heating for this constitution' },
+        { name: 'Red Meat', reason: 'Too heating for these tendencies' },
         { name: 'Mango', reason: 'Creates damp-heat' }
       ],
       allFoods: ['Mung Beans', 'Cucumber', 'Barley', 'Bitter Melon', 'Green Tea', 'Celery', 'Lotus Root', 'Watermelon', 'Winter Melon', 'Tofu', 'Fish', 'Seaweed', 'Chrysanthemum', 'Pears'],

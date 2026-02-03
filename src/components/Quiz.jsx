@@ -8,7 +8,7 @@ const getMotivationalMessage = (progress) => {
   } else if (progress < 50) {
     return "Discovering your body's tendencies..."
   } else if (progress < 75) {
-    return "Building your constitutional profile..."
+    return "Building your tendency profile..."
   } else if (progress < 95) {
     return "Almost there — personalizing your results..."
   } else {

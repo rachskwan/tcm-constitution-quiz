@@ -67,7 +67,7 @@ export const constitutions = {
       gutMicrobiome: 'Diverse microbiome; high Bifidobacterium and Lactobacillus; healthy Firmicutes/Bacteroidetes ratio',
       explanation: 'Even with balanced constitution, regular monitoring helps maintain your excellent baseline and catch any shifts early.'
     },
-    bridgeMessage: "Your balanced constitution is wonderful! Regular wellness screening helps you maintain this harmony and catch any subtle shifts before they become patterns."
+    bridgeMessage: "Your balanced tendencies are wonderful! Regular wellness screening helps you maintain this harmony and catch any subtle shifts before they become patterns."
   },
 
   qi_deficient: {
@@ -125,7 +125,7 @@ export const constitutions = {
       other: 'Low energy metabolism markers; reduced ATP production',
       explanation: 'Fatigue and weakness symptoms often correlate with anemia markers and B-vitamin deficiencies.'
     },
-    bridgeMessage: "Your results suggest a Qi-Deficient pattern, often characterized by fatigue and low energy. A blood wellness panel can reveal if underlying factors like iron status (ferritin), B12, or thyroid markers may be contributing."
+    bridgeMessage: "Your results suggest Qi-Deficient tendencies, often characterized by fatigue and low energy. A blood wellness panel can reveal if underlying factors like iron status (ferritin), B12, or thyroid markers may be contributing."
   },
 
   yang_deficient: {
@@ -184,7 +184,7 @@ export const constitutions = {
       other: 'Low basal metabolic rate; cold extremity temperature',
       explanation: 'Research shows Yang deficiency correlates with thyroid function and vitamin D levels.'
     },
-    bridgeMessage: "Your constitution suggests sensitivity to cold and low metabolic warmth. Research shows this pattern correlates with thyroid function and vitamin D levels."
+    bridgeMessage: "Your tendencies suggest sensitivity to cold and low metabolic warmth. Research shows these patterns correlate with thyroid function and vitamin D levels."
   },
 
   yin_deficient: {
@@ -243,7 +243,7 @@ export const constitutions = {
       other: 'Signs of oxidative stress; increased internal heat markers',
       explanation: 'Heat and dryness symptoms are often associated with HPA axis patterns and hormonal balance.'
     },
-    bridgeMessage: "Your Yin-Deficient pattern suggests your body runs warm and may lack adequate cooling fluids. Cortisol patterns, inflammatory markers, and hormone levels often reflect this constitution."
+    bridgeMessage: "Your Yin-Deficient tendencies suggest your body may run warm and lack adequate cooling fluids. Cortisol patterns, inflammatory markers, and hormone levels often reflect these patterns."
   },
 
   phlegm_dampness: {
@@ -302,7 +302,7 @@ export const constitutions = {
       other: 'Elevated visceral fat markers; metabolic syndrome panel abnormalities',
       explanation: 'Research shows Phlegm-Dampness constitution correlates with metabolic markers.'
     },
-    bridgeMessage: "This constitution is associated with metabolic tendencies that often show up in lipid panels and blood sugar markers."
+    bridgeMessage: "These tendencies are associated with metabolic patterns that often show up in lipid panels and blood sugar markers."
   },
 
   damp_heat: {
@@ -359,7 +359,7 @@ export const constitutions = {
       other: 'Signs of oxidative stress combined with dampness markers',
       explanation: 'Damp-Heat patterns often show up in inflammatory markers and liver function tests.'
     },
-    bridgeMessage: "Your Damp-Heat constitution often correlates with inflammatory markers and liver function. Our blood panel includes hsCRP and liver enzymes to help you understand and address this pattern."
+    bridgeMessage: "Damp-Heat tendencies often correlate with inflammatory markers and liver function. Our blood panel includes hsCRP and liver enzymes to help you understand and address these patterns."
   },
 
   blood_stasis: {
@@ -417,7 +417,7 @@ export const constitutions = {
       other: 'Abnormal coagulation (elevated PT, APTT); elevated fibrin; blood viscosity changes; urinary albumin may be elevated',
       explanation: 'Blood stasis patterns correlate with coagulation markers and cardiovascular indicators.'
     },
-    bridgeMessage: "Your Blood Stasis pattern suggests circulation may benefit from support. Homocysteine, fibrinogen, and inflammatory markers often reflect this constitution."
+    bridgeMessage: "Blood Stasis tendencies suggest circulation may benefit from support. Homocysteine, fibrinogen, and inflammatory markers often reflect these patterns."
   },
 
   qi_stagnation: {
@@ -476,7 +476,7 @@ export const constitutions = {
       other: 'Heart rate variability changes; elevated stress markers; possible liver enzyme fluctuations',
       explanation: 'Emotional and stress patterns correlate with HPA axis function and liver health. Magnesium status often plays a role.'
     },
-    bridgeMessage: "Your Qi Stagnation pattern reflects how stress and emotions affect your body. Cortisol patterns, DHEA-S, and magnesium levels often provide insights."
+    bridgeMessage: "Qi Stagnation tendencies reflect how stress and emotions may affect your body. Cortisol patterns, DHEA-S, and magnesium levels often provide insights."
   },
 
   inherited_special: {
@@ -493,7 +493,7 @@ export const constitutions = {
     prevalence: 'Approximately 4-5% in general population',
     primaryOrgans: 'Lung, Kidney (congenital)',
     corePattern: 'Allergies, sensitivities, atopic conditions',
-    description: "Characterized by allergic tendencies, inherited weaknesses, and hypersensitivity. Your constitution includes inherited sensitivities, making you more prone to allergies and reactions. Strengthening your defensive energy and identifying triggers can help you thrive.",
+    description: "Characterized by allergic tendencies, inherited weaknesses, and hypersensitivity. These tendencies include inherited sensitivities that may make you more prone to allergies and reactions. Strengthening your defensive energy and identifying triggers can help you thrive.",
     characteristics: [
       'Allergies (hay fever, allergic rhinitis, asthma)',
       'Skin allergies or eczema, develops hives easily',
@@ -534,7 +534,7 @@ export const constitutions = {
       other: 'Skin prick test positive; elevated specific IgE antibodies',
       explanation: 'Allergic patterns are directly measurable through immune markers. IgE and eosinophils reflect allergic tendency.'
     },
-    bridgeMessage: "Your Inherited Special constitution means your immune system may be more reactive. Total IgE, eosinophil count, and specific sensitivity testing can help identify triggers."
+    bridgeMessage: "Inherited Special tendencies suggest your immune system may be more reactive. Total IgE, eosinophil count, and specific sensitivity testing can help identify triggers."
   }
 };
 
