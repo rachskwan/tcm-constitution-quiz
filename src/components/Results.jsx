@@ -109,10 +109,11 @@ export default function Results({ results }) {
           />
 
           {/* Tendencies section */}
-          {results.tendencies.length > 0 && (
+          {results.tendencies && results.tendencies.length > 0 && (
             <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
-              <h3 className="font-medium text-slate-deep mb-3">You also show tendencies toward:</h3>
-              <div className="space-y-2">
+              <h3 className="font-medium text-slate-deep mb-1">Secondary Tendencies</h3>
+              <p className="text-sm text-slate-deep/50 mb-4">Other patterns present in your constitution profile</p>
+              <div className="space-y-3">
                 {results.tendencies.map(t => (
                   <div
                     key={t.id}
@@ -120,41 +121,57 @@ export default function Results({ results }) {
                     onMouseEnter={() => setHoveredTendency(t.id)}
                     onMouseLeave={() => setHoveredTendency(null)}
                   >
-                    <div className="flex items-center gap-3 p-2 -mx-2 rounded-lg hover:bg-slate-deep/5 cursor-pointer transition-colors">
-                      <div className={`w-8 h-8 rounded-full ${t.headerBg} flex items-center justify-center`}>
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-deep/5 hover:bg-slate-deep/10 cursor-pointer transition-colors">
+                      <div className={`w-10 h-10 rounded-full ${t.headerBg} flex items-center justify-center flex-shrink-0`}>
                         {constitutionIcons[t.id] ? (
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d={constitutionIcons[t.id]} />
                           </svg>
                         ) : (
-                          <span className="text-sm">{t.emoji}</span>
+                          <span className="text-lg">{t.emoji}</span>
                         )}
                       </div>
-                      <div className="flex-1">
-                        <span className="font-medium text-slate-deep">{t.name}</span>
-                        <span className="text-slate-deep/50 ml-2">({t.chinese})</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-medium text-slate-deep">{t.name}</span>
+                          <span className="text-slate-deep/40 text-sm">({t.chinese})</span>
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${
+                            t.strength === 'strong'
+                              ? 'bg-amber-100 text-amber-700'
+                              : 'bg-slate-deep/10 text-slate-deep/60'
+                          }`}>
+                            {t.strength === 'strong' ? 'Notable' : 'Mild'}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-deep/60 mt-0.5 truncate">{t.tagline}</p>
                       </div>
-                      <svg className="w-4 h-4 text-slate-deep/30" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                      <svg className="w-5 h-5 text-slate-deep/30 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                       </svg>
                     </div>
 
-                    {/* Hover tooltip */}
+                    {/* Expanded details */}
                     {hoveredTendency === t.id && (
-                      <div className="mt-2 p-4 bg-slate-deep/5 rounded-lg border border-slate-deep/10 animate-in fade-in duration-200">
-                        <p className="font-serif text-sm text-earth italic mb-3">"{t.tagline}"</p>
+                      <div className="mt-2 p-4 bg-slate-deep/5 rounded-lg border border-slate-deep/10 animate-in fade-in slide-in-from-top-2 duration-200">
                         <p className="text-sm text-slate-deep/70 mb-3">{t.corePattern}</p>
-                        <div className="space-y-1">
-                          <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide">Key characteristics:</p>
-                          <ul className="text-sm text-slate-deep/70 space-y-1">
-                            {t.characteristics.slice(0, 3).map((char, i) => (
+                        <div className="space-y-2">
+                          <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide">Key signs:</p>
+                          <ul className="text-sm text-slate-deep/70 space-y-1.5">
+                            {t.characteristics.slice(0, 4).map((char, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <span className="text-sage mt-0.5">•</span>
+                                <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${t.headerBg}`}></span>
                                 <span>{char}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
+                        {t.watchOutFor && (
+                          <div className="mt-3 pt-3 border-t border-slate-deep/10">
+                            <p className="text-xs text-amber-600">
+                              <span className="font-medium">Watch for:</span> {t.watchOutFor[0]}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

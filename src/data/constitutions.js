@@ -789,11 +789,19 @@ export function calculateConstitution(answers) {
 
   // CCMQ Scoring Criteria:
   // Primary constitution: average >= 3.5 (answers mostly "Often" or "Always")
-  // Tendency: average 3.0-3.49 (answers lean toward "Sometimes" to "Often")
+  // Strong tendency: average 3.0-3.49 (answers lean toward "Sometimes" to "Often")
+  // Mild tendency: average 2.5-2.99 (some presence of pattern)
   // Balanced: No imbalanced score >= 3.0 AND balanced questions average >= 3.5
 
   const primary = sortedScores.filter(s => s.average >= 3.5);
-  const tendencies = sortedScores.filter(s => s.average >= 3.0 && s.average < 3.5);
+  const strongTendencies = sortedScores.filter(s => s.average >= 3.0 && s.average < 3.5);
+  const mildTendencies = sortedScores.filter(s => s.average >= 2.5 && s.average < 3.0);
+
+  // Combine tendencies with strength indicator
+  const tendencies = [
+    ...strongTendencies.map(s => ({ ...s, strength: 'strong' })),
+    ...mildTendencies.map(s => ({ ...s, strength: 'mild' }))
+  ];
 
   // Check if person is primarily balanced
   const hasSignificantImbalance = sortedScores.some(s => s.average >= 3.0);
@@ -802,7 +810,11 @@ export function calculateConstitution(answers) {
   if (isBalanced) {
     return {
       primary: [constitutions.balanced],
-      tendencies: tendencies.slice(0, 2).map(s => constitutions[s.id]),
+      tendencies: tendencies.slice(0, 4).map(s => ({
+        ...constitutions[s.id],
+        strength: s.strength,
+        score: s.average
+      })),
       scores: sortedScores,
       balancedScore: balancedScore
     };
@@ -812,7 +824,11 @@ export function calculateConstitution(answers) {
   if (primary.length === 0 && tendencies.length > 0) {
     return {
       primary: [constitutions[tendencies[0].id]],
-      tendencies: tendencies.slice(1).map(s => constitutions[s.id]),
+      tendencies: tendencies.slice(1).map(s => ({
+        ...constitutions[s.id],
+        strength: s.strength,
+        score: s.average
+      })),
       scores: sortedScores,
       balancedScore: balancedScore
     };
@@ -830,7 +846,11 @@ export function calculateConstitution(answers) {
 
   return {
     primary: primary.map(s => constitutions[s.id]),
-    tendencies: tendencies.map(s => constitutions[s.id]),
+    tendencies: tendencies.map(s => ({
+      ...constitutions[s.id],
+      strength: s.strength,
+      score: s.average
+    })),
     scores: sortedScores,
     balancedScore: balancedScore
   };
