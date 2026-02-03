@@ -843,3 +843,328 @@ export function getConstitution(id) {
 export function getAllConstitutions() {
   return Object.values(constitutions);
 }
+
+// Display Bar Mapping - Wellness indicators based on quiz responses
+// These bars show REPORTED symptoms, not objective measurements
+export const wellnessBars = {
+  domains: [
+    {
+      id: 'energy_vitality',
+      name: 'Energy & Vitality',
+      bars: ['energy_reserve', 'recovery_capacity']
+    },
+    {
+      id: 'thermal_comfort',
+      name: 'Thermal Comfort',
+      bars: ['cold_tolerance', 'heat_tolerance']
+    },
+    {
+      id: 'digestive_comfort',
+      name: 'Digestive Comfort',
+      bars: ['digestive_comfort', 'fluid_balance']
+    },
+    {
+      id: 'emotional_wellbeing',
+      name: 'Emotional Wellbeing',
+      bars: ['emotional_ease', 'stress_response']
+    },
+    {
+      id: 'circulation',
+      name: 'Circulation',
+      bars: ['circulation_quality']
+    },
+    {
+      id: 'sensitivity',
+      name: 'Sensitivity',
+      bars: ['sensitivity_level']
+    },
+    {
+      id: 'overall',
+      name: 'Overall Balance',
+      bars: ['overall_balance']
+    }
+  ],
+
+  bars: {
+    energy_reserve: {
+      id: 'energy_reserve',
+      label: 'Energy & Stamina',
+      description: 'Self-reported fatigue levels, physical endurance, breath capacity',
+      sourceConstitution: 'qi_deficient',
+      gradient: 'from-red-400 via-yellow-400 to-green-500',
+      icon: '⚡',
+      interpretation: {
+        low: { range: [0, 40], label: 'Low Energy', description: 'You reported significant fatigue' },
+        moderate: { range: [40, 60], label: 'Moderate', description: 'Some energy fluctuations reported' },
+        good: { range: [60, 80], label: 'Good Energy', description: 'Generally energetic' },
+        high: { range: [80, 100], label: 'High Vitality', description: 'Robust vitality reported' }
+      },
+      disclaimer: 'Based on self-reported symptoms, not objective measurement of mitochondrial function or ATP levels'
+    },
+    recovery_capacity: {
+      id: 'recovery_capacity',
+      label: 'Recovery & Resilience',
+      description: 'Self-reported ability to recover from illness and bounce back',
+      sourceConstitutions: ['qi_deficient', 'balanced'],
+      gradient: 'from-red-400 via-yellow-400 to-green-500',
+      icon: '🔄',
+      interpretation: {
+        low: { range: [0, 40], label: 'Slow Recovery', description: 'Frequent illness reported' },
+        moderate: { range: [40, 60], label: 'Average', description: 'Moderate resilience' },
+        good: { range: [60, 80], label: 'Good Recovery', description: 'Bounces back well' },
+        high: { range: [80, 100], label: 'Excellent', description: 'Rarely ill, quick recovery' }
+      },
+      disclaimer: 'Self-reported recovery patterns, not measured immune cell counts or inflammatory markers'
+    },
+    cold_tolerance: {
+      id: 'cold_tolerance',
+      label: 'Cold Tolerance',
+      description: 'Self-reported sensitivity to cold temperatures and preference for warmth',
+      sourceConstitution: 'yang_deficient',
+      gradient: 'from-blue-500 via-slate-300 to-orange-400',
+      icon: '❄️',
+      interpretation: {
+        low: { range: [0, 40], label: 'Cold Sensitive', description: 'Very sensitive to cold' },
+        moderate: { range: [40, 60], label: 'Somewhat Sensitive', description: 'Some cold sensitivity' },
+        good: { range: [60, 80], label: 'Normal', description: 'Normal cold tolerance' },
+        high: { range: [80, 100], label: 'Cold Tolerant', description: 'Handles cold well' }
+      },
+      disclaimer: 'Reflects reported thermal sensations, not measured core body temperature or thyroid function'
+    },
+    heat_tolerance: {
+      id: 'heat_tolerance',
+      label: 'Heat Tolerance',
+      description: 'Self-reported sensitivity to heat, warm sensations, night sweats',
+      sourceConstitutions: ['yin_deficient', 'damp_heat'],
+      weights: { yin_deficient: 0.6, damp_heat: 0.4 },
+      gradient: 'from-red-500 via-slate-300 to-cyan-400',
+      icon: '🔥',
+      interpretation: {
+        low: { range: [0, 40], label: 'Heat Sensitive', description: 'Heat intolerant, hot symptoms' },
+        moderate: { range: [40, 60], label: 'Somewhat Sensitive', description: 'Some heat sensitivity' },
+        good: { range: [60, 80], label: 'Normal', description: 'Normal heat tolerance' },
+        high: { range: [80, 100], label: 'Heat Tolerant', description: 'Handles heat well' }
+      },
+      disclaimer: 'Reflects reported heat sensations, not measured core temperature or hydration status'
+    },
+    digestive_comfort: {
+      id: 'digestive_comfort',
+      label: 'Digestive Ease',
+      description: 'Self-reported bloating, stool consistency, appetite stability',
+      sourceConstitutions: ['phlegm_dampness', 'qi_deficient'],
+      weights: { phlegm_dampness: 0.7, qi_deficient: 0.3 },
+      gradient: 'from-red-400 via-yellow-400 to-green-500',
+      icon: '🍃',
+      interpretation: {
+        low: { range: [0, 40], label: 'Discomfort', description: 'Frequent digestive issues reported' },
+        moderate: { range: [40, 60], label: 'Occasional Issues', description: 'Some digestive concerns' },
+        good: { range: [60, 80], label: 'Comfortable', description: 'Generally comfortable' },
+        high: { range: [80, 100], label: 'Strong Digestion', description: 'Excellent digestion reported' }
+      },
+      disclaimer: 'Based on reported symptoms, not measured gut motility, enzyme levels, or microbiome'
+    },
+    fluid_balance: {
+      id: 'fluid_balance',
+      label: 'Fluid Balance',
+      description: 'Self-reported water retention vs dryness sensations',
+      sourceConstitutions: ['phlegm_dampness', 'yin_deficient'],
+      isBalanceBar: true,
+      gradient: 'from-blue-400 via-green-400 to-orange-400',
+      icon: '💧',
+      interpretation: {
+        excess: { label: 'Fluid Excess', description: 'Tendency toward retention, dampness' },
+        balanced: { label: 'Balanced', description: 'Good fluid regulation reported' },
+        deficit: { label: 'Fluid Deficit', description: 'Tendency toward dryness' }
+      },
+      disclaimer: 'Reflects subjective sensations, not measured fluid balance or kidney function'
+    },
+    emotional_ease: {
+      id: 'emotional_ease',
+      label: 'Emotional Flow',
+      description: 'Self-reported mood stability, frustration levels, emotional expression',
+      sourceConstitution: 'qi_stagnation',
+      gradient: 'from-purple-500 via-blue-400 to-green-400',
+      icon: '🌊',
+      interpretation: {
+        low: { range: [0, 40], label: 'Constrained', description: 'Significant emotional tension reported' },
+        moderate: { range: [40, 60], label: 'Some Tension', description: 'Occasional emotional tightness' },
+        good: { range: [60, 80], label: 'Flowing', description: 'Generally good mood flow' },
+        high: { range: [80, 100], label: 'Free', description: 'Excellent emotional expression' }
+      },
+      disclaimer: 'Reflects reported emotional states, not measured cortisol or neurotransmitters'
+    },
+    stress_response: {
+      id: 'stress_response',
+      label: 'Stress Adaptability',
+      description: 'Self-reported response to environmental and emotional stressors',
+      sourceConstitutions: ['qi_stagnation', 'balanced'],
+      weights: { qi_stagnation: 0.5, balanced: 0.5 },
+      gradient: 'from-red-400 via-yellow-400 to-green-500',
+      icon: '🧘',
+      interpretation: {
+        low: { range: [0, 40], label: 'Rigid', description: 'Difficulty adapting to stress' },
+        moderate: { range: [40, 60], label: 'Moderate', description: 'Some adaptability' },
+        good: { range: [60, 80], label: 'Flexible', description: 'Good stress adaptation' },
+        high: { range: [80, 100], label: 'Resilient', description: 'Excellent adaptability' }
+      },
+      disclaimer: 'Self-reported adaptability, not measured HPA axis function or cortisol reactivity'
+    },
+    circulation_quality: {
+      id: 'circulation_quality',
+      label: 'Circulation & Flow',
+      description: 'Self-reported numbness, bruising tendency, complexion quality',
+      sourceConstitution: 'blood_stasis',
+      gradient: 'from-purple-600 via-red-400 to-pink-400',
+      icon: '❤️',
+      interpretation: {
+        low: { range: [0, 40], label: 'Sluggish', description: 'Many circulation concerns reported' },
+        moderate: { range: [40, 60], label: 'Slow', description: 'Some circulation issues' },
+        good: { range: [60, 80], label: 'Smooth', description: 'Generally good flow' },
+        high: { range: [80, 100], label: 'Vibrant', description: 'Excellent circulation reported' }
+      },
+      disclaimer: 'Based on reported symptoms, not measured blood viscosity or Doppler flow'
+    },
+    sensitivity_level: {
+      id: 'sensitivity_level',
+      label: 'Sensitivity Level',
+      description: 'Self-reported allergies, medication reactions, environmental sensitivities',
+      sourceConstitution: 'inherited_special',
+      invertDisplay: true, // Lower sensitivity = better for this bar
+      gradient: 'from-green-400 via-yellow-400 to-red-500',
+      icon: '🛡️',
+      interpretation: {
+        low: { range: [0, 20], label: 'Minimal', description: 'Rarely reactive' },
+        moderate: { range: [20, 40], label: 'Low', description: 'Few sensitivities' },
+        elevated: { range: [40, 60], label: 'Moderate', description: 'Some sensitivities' },
+        high: { range: [60, 100], label: 'Highly Reactive', description: 'Multiple sensitivities reported' }
+      },
+      disclaimer: 'Reflects reported allergies and reactions, not measured IgE levels or allergy testing'
+    },
+    overall_balance: {
+      id: 'overall_balance',
+      label: 'Constitutional Balance',
+      description: 'Degree of overall balance across all systems',
+      sourceConstitutions: ['balanced', 'all_imbalanced'],
+      gradient: 'from-red-400 via-yellow-400 to-emerald-500',
+      icon: '☯️',
+      interpretation: {
+        low: { range: [0, 40], label: 'Imbalanced', description: 'Multiple significant imbalances' },
+        moderate: { range: [40, 60], label: 'Developing', description: 'Working toward balance' },
+        good: { range: [60, 80], label: 'Good Balance', description: 'Mostly balanced' },
+        high: { range: [80, 100], label: 'Optimal', description: 'Strong balance reported' }
+      },
+      disclaimer: 'Represents self-reported symptom balance, not an objective health score or medical diagnosis'
+    }
+  }
+};
+
+// Calculate wellness bar scores from constitution scores
+export function calculateWellnessBars(scores, balancedScore) {
+  const barScores = {};
+
+  // Helper to convert constitution average (1-5 scale) to percentage (0-100)
+  // Constitution scores measure IMBALANCE, so we invert: higher constitution score = lower wellness
+  const invertToWellness = (avg) => {
+    // avg is 1-5, convert to 0-100 inverted
+    // 1 (never) = 100% wellness, 5 (always) = 0% wellness
+    return Math.round(100 - ((avg - 1) / 4) * 100);
+  };
+
+  // Helper to convert balanced score (higher = better) to percentage
+  const balancedToWellness = (avg) => {
+    // avg is 1-5, convert to 0-100 (not inverted)
+    return Math.round(((avg - 1) / 4) * 100);
+  };
+
+  // Get score for a constitution by id
+  const getScore = (constitutionId) => {
+    const found = scores.find(s => s.id === constitutionId);
+    return found ? found.average : 1; // Default to 1 (never) if not found
+  };
+
+  // Energy Reserve - from Qi Deficiency (inverted)
+  barScores.energy_reserve = invertToWellness(getScore('qi_deficient'));
+
+  // Recovery Capacity - weighted combination of Qi Deficiency (inverted) and Balanced
+  const qiDefScore = invertToWellness(getScore('qi_deficient'));
+  const balancedWellness = balancedToWellness(balancedScore.average || 3);
+  barScores.recovery_capacity = Math.round(qiDefScore * 0.5 + balancedWellness * 0.5);
+
+  // Cold Tolerance - from Yang Deficiency (inverted)
+  barScores.cold_tolerance = invertToWellness(getScore('yang_deficient'));
+
+  // Heat Tolerance - weighted Yin Deficiency + Damp Heat (both inverted)
+  const yinDefScore = invertToWellness(getScore('yin_deficient'));
+  const dampHeatScore = invertToWellness(getScore('damp_heat'));
+  barScores.heat_tolerance = Math.round(yinDefScore * 0.6 + dampHeatScore * 0.4);
+
+  // Digestive Comfort - weighted Phlegm-Dampness + Qi Deficiency (both inverted)
+  const phlegmScore = invertToWellness(getScore('phlegm_dampness'));
+  barScores.digestive_comfort = Math.round(phlegmScore * 0.7 + qiDefScore * 0.3);
+
+  // Fluid Balance - compare dampness vs dryness
+  const dampnessScore = getScore('phlegm_dampness');
+  const drynessScore = getScore('yin_deficient');
+  const dampnessDiff = dampnessScore - drynessScore;
+  // Positive = more dampness, Negative = more dryness, Near zero = balanced
+  barScores.fluid_balance = {
+    value: Math.round(50 - (dampnessDiff / 4) * 50), // Center at 50, dampness pulls left, dryness pulls right
+    tendency: dampnessDiff > 0.5 ? 'excess' : dampnessDiff < -0.5 ? 'deficit' : 'balanced'
+  };
+
+  // Emotional Ease - from Qi Stagnation (inverted)
+  barScores.emotional_ease = invertToWellness(getScore('qi_stagnation'));
+
+  // Stress Response - weighted Qi Stagnation (inverted) + Balanced
+  const qiStagScore = invertToWellness(getScore('qi_stagnation'));
+  barScores.stress_response = Math.round(qiStagScore * 0.5 + balancedWellness * 0.5);
+
+  // Circulation Quality - from Blood Stasis (inverted)
+  barScores.circulation_quality = invertToWellness(getScore('blood_stasis'));
+
+  // Sensitivity Level - from Inherited Special (NOT inverted - higher score = more sensitive)
+  // But we display it inverted visually (green = less sensitive is "better")
+  const sensitivityRaw = getScore('inherited_special');
+  barScores.sensitivity_level = Math.round(((sensitivityRaw - 1) / 4) * 100);
+
+  // Overall Balance - Balanced score minus penalty for imbalances
+  let overallScore = balancedWellness;
+  // Penalize for any high imbalance scores
+  scores.forEach(s => {
+    if (s.average >= 3.5) {
+      overallScore -= 15; // Significant penalty for confirmed imbalances
+    } else if (s.average >= 3.0) {
+      overallScore -= 8; // Moderate penalty for tendencies
+    }
+  });
+  barScores.overall_balance = Math.max(0, Math.min(100, overallScore));
+
+  return barScores;
+}
+
+// Get interpretation for a bar score
+export function getBarInterpretation(barId, score) {
+  const bar = wellnessBars.bars[barId];
+  if (!bar) return null;
+
+  // Handle fluid balance specially
+  if (bar.isBalanceBar && typeof score === 'object') {
+    return bar.interpretation[score.tendency];
+  }
+
+  const numScore = typeof score === 'object' ? score.value : score;
+
+  for (const [key, interp] of Object.entries(bar.interpretation)) {
+    if (interp.range && numScore >= interp.range[0] && numScore < interp.range[1]) {
+      return interp;
+    }
+    // Handle the last range (includes upper bound)
+    if (interp.range && numScore === interp.range[1] && interp.range[1] === 100) {
+      return interp;
+    }
+  }
+
+  // Default to the highest range interpretation
+  const ranges = Object.values(bar.interpretation).filter(i => i.range);
+  return ranges[ranges.length - 1];
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getSeasonalRecommendations, getCurrentSeason, getSeasonEmoji, getPropertyColor } from '../data/seasonalFoods'
-import { constitutionIcons, evidenceLevels } from '../data/constitutions'
+import { constitutionIcons, evidenceLevels, wellnessBars, calculateWellnessBars, getBarInterpretation } from '../data/constitutions'
 import SeasonalFoodGuide from './SeasonalFoodGuide'
 import ConstitutionRadarChart from './ConstitutionRadarChart'
 import { sendFoodGuideDemo } from '../services/emailService'
@@ -21,6 +21,11 @@ export default function Results({ results }) {
   const season = getCurrentSeason()
   const seasonalRecs = primaryConstitution ? getSeasonalRecommendations(primaryConstitution.id, season) : null
   const iconPath = primaryConstitution ? constitutionIcons[primaryConstitution.id] : null
+
+  // Calculate wellness bar scores
+  const barScores = results.scores && results.balancedScore
+    ? calculateWellnessBars(results.scores, results.balancedScore)
+    : null
 
   // Safety check
   if (!primaryConstitution) {
@@ -268,6 +273,122 @@ export default function Results({ results }) {
               <div className={`w-2 h-2 rounded-full transition-colors ${activeTab === 'watchout' ? 'bg-gold' : 'bg-slate-deep/20'}`} />
             </div>
           </div>
+
+          {/* Wellness Bars Section */}
+          {barScores && (
+            <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
+              <h3 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
+                <span className="text-xl">📊</span>
+                Your Wellness Profile
+              </h3>
+              <p className="text-sm text-slate-deep/60 mb-4">
+                Based on your reported symptoms and tendencies
+              </p>
+
+              {/* Disclaimer */}
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-5">
+                <p className="text-xs text-amber-700">
+                  <span className="font-medium">Note:</span> These bars reflect your self-reported responses, not clinical measurements. They are for educational purposes only.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                {wellnessBars.domains.map(domain => (
+                  <div key={domain.id}>
+                    <h4 className="text-sm font-medium text-slate-deep/70 uppercase tracking-wide mb-3">
+                      {domain.name}
+                    </h4>
+                    <div className="space-y-4">
+                      {domain.bars.map(barId => {
+                        const bar = wellnessBars.bars[barId];
+                        const score = barScores[barId];
+                        if (!bar || score === undefined) return null;
+
+                        const isFluidBalance = bar.isBalanceBar;
+                        const numericScore = typeof score === 'object' ? score.value : score;
+                        const interpretation = getBarInterpretation(barId, score);
+
+                        return (
+                          <div key={barId} className="group">
+                            <div className="flex items-center justify-between mb-1.5">
+                              <div className="flex items-center gap-2">
+                                <span className="text-base">{bar.icon}</span>
+                                <span className="text-sm font-medium text-slate-deep">{bar.label}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={`text-xs px-2 py-0.5 rounded-full ${
+                                  numericScore >= 60 ? 'bg-green-100 text-green-700' :
+                                  numericScore >= 40 ? 'bg-yellow-100 text-yellow-700' :
+                                  'bg-red-100 text-red-700'
+                                }`}>
+                                  {interpretation?.label || 'Moderate'}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Bar visualization */}
+                            <div className="relative h-3 bg-slate-deep/10 rounded-full overflow-hidden">
+                              {isFluidBalance ? (
+                                // Fluid balance: center-based bar
+                                <>
+                                  <div className="absolute inset-0 flex">
+                                    <div className="w-1/2 bg-gradient-to-r from-blue-200 to-slate-200" />
+                                    <div className="w-1/2 bg-gradient-to-r from-slate-200 to-orange-200" />
+                                  </div>
+                                  <div
+                                    className="absolute top-0 h-full w-1 bg-slate-deep rounded-full transition-all duration-500"
+                                    style={{ left: `${numericScore}%`, transform: 'translateX(-50%)' }}
+                                  />
+                                  <div className="absolute top-0 left-1/2 h-full w-0.5 bg-green-500/50" />
+                                </>
+                              ) : bar.invertDisplay ? (
+                                // Sensitivity: lower is better (green on left)
+                                <>
+                                  <div className={`absolute inset-0 bg-gradient-to-r ${bar.gradient}`} />
+                                  <div
+                                    className="absolute top-0 right-0 h-full bg-slate-deep/20 transition-all duration-500"
+                                    style={{ width: `${100 - numericScore}%` }}
+                                  />
+                                </>
+                              ) : (
+                                // Standard: higher is better
+                                <>
+                                  <div className={`absolute inset-0 bg-gradient-to-r ${bar.gradient}`} />
+                                  <div
+                                    className="absolute top-0 right-0 h-full bg-slate-deep/10 transition-all duration-500"
+                                    style={{ width: `${100 - numericScore}%` }}
+                                  />
+                                </>
+                              )}
+                            </div>
+
+                            {/* Description on hover/focus */}
+                            <p className="text-xs text-slate-deep/50 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {interpretation?.description || bar.description}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Info button for detailed disclaimers */}
+              <details className="mt-6">
+                <summary className="text-xs text-slate-deep/50 cursor-pointer hover:text-slate-deep/70">
+                  View measurement disclaimers
+                </summary>
+                <div className="mt-3 space-y-2 text-xs text-slate-deep/60 bg-slate-deep/5 rounded-lg p-3">
+                  {Object.values(wellnessBars.bars).slice(0, 5).map(bar => (
+                    <p key={bar.id}>
+                      <span className="font-medium">{bar.label}:</span> {bar.disclaimer}
+                    </p>
+                  ))}
+                </div>
+              </details>
+            </div>
+          )}
 
           {/* Seasonal Foods */}
           <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
