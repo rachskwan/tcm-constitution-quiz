@@ -10,6 +10,7 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
   const [showShareCard, setShowShareCard] = useState(false)
   const [friendEmail, setFriendEmail] = useState('')
   const [friendSent, setFriendSent] = useState(false)
+  const [showTheoryExplainer, setShowTheoryExplainer] = useState(false)
   const shareCardRef = useRef(null)
 
   const season = getCurrentSeason()
@@ -114,6 +115,93 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* TCM Food Theory Explainer */}
+          <div className="mx-4 mt-3">
+            <button
+              onClick={() => setShowTheoryExplainer(!showTheoryExplainer)}
+              className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg border border-slate-deep/10 hover:bg-slate-deep/5 transition-colors"
+            >
+              <span className="flex items-center gap-2 text-sm font-medium text-slate-deep">
+                <span>📚</span>
+                Understanding TCM Food Theory
+              </span>
+              <svg
+                className={`w-4 h-4 text-slate-deep/50 transition-transform ${showTheoryExplainer ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {showTheoryExplainer && (
+              <div className="mt-2 bg-white rounded-lg border border-slate-deep/10 p-4 space-y-4 animate-in slide-in-from-top-2 duration-200">
+                {/* Thermal Nature */}
+                <div>
+                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
+                    <span>🌡️</span>
+                    Thermal Nature
+                  </h4>
+                  <p className="text-xs text-slate-deep/70 mb-2">
+                    In TCM, foods have inherent thermal properties that affect the body's internal balance:
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">🔥 Hot</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-orange-100 text-orange-700">☀️ Warm</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600">⚖️ Neutral</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">💧 Cool</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-700">❄️ Cold</span>
+                  </div>
+                </div>
+
+                {/* Five Flavors */}
+                <div>
+                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
+                    <span>👅</span>
+                    Five Flavors
+                  </h4>
+                  <p className="text-xs text-slate-deep/70 mb-2">
+                    Each flavor has specific therapeutic actions in the body:
+                  </p>
+                  <div className="space-y-1.5 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-16 font-medium text-slate-deep">Sweet</span>
+                      <span className="text-slate-deep/60">Tonifies, harmonizes, nourishes</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-16 font-medium text-slate-deep">Sour</span>
+                      <span className="text-slate-deep/60">Astringes, consolidates, retains</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-16 font-medium text-slate-deep">Bitter</span>
+                      <span className="text-slate-deep/60">Drains, dries, descends</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-16 font-medium text-slate-deep">Pungent</span>
+                      <span className="text-slate-deep/60">Disperses, moves, circulates</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-16 font-medium text-slate-deep">Salty</span>
+                      <span className="text-slate-deep/60">Softens, moistens, purges</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Organ Affinity */}
+                <div>
+                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
+                    <span>🫀</span>
+                    Organ Affinity
+                  </h4>
+                  <p className="text-xs text-slate-deep/70">
+                    Foods are believed to "enter" specific organ systems, directing their therapeutic effects. For example, foods that enter the Lung may support respiratory health, while those entering the Kidney may support vitality and the lower back.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Browse Section */}
