@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Design system colors */
+:root {
+  --color-deep-slate: #2C3E50;
+  --color-warm-earth: #8B4513;
+  --color-muted-gold: #D4AF37;
+  --color-sage-green: #87A96B;
+  --color-warm-neutral: #F7F6F4;
+  --color-soft-cream: #FAF9F7;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-warm-neutral);
+  color: var(--color-deep-slate);
+}
+
+/* Typography utilities */
+.font-serif {
+  font-family: 'Crimson Pro', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Custom Tailwind theme extensions via CSS */
+@theme {
+  --color-slate-deep: #2C3E50;
+  --color-earth: #8B4513;
+  --color-earth-light: #A0522D;
+  --color-gold: #D4AF37;
+  --color-gold-light: #E5C158;
+  --color-sage: #87A96B;
+  --color-sage-light: #9BBF82;
+  --color-sage-dark: #6B8B54;
+  --color-neutral-warm: #F7F6F4;
+  --color-neutral-cream: #FAF9F7;
+}
