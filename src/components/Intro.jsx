@@ -61,9 +61,16 @@ export default function Intro({ onStart }) {
       </div>
 
       {/* Time estimate */}
-      <p className="text-sm text-slate-deep/50 mb-4">
+      <p className="text-sm text-slate-deep/50 mb-6">
         24 questions • About 3 minutes
       </p>
+
+      {/* TCM Disclaimer */}
+      <div className="w-full max-w-sm mb-6 p-4 bg-slate-deep/5 rounded-lg border border-slate-deep/10">
+        <p className="text-xs text-slate-deep/70 leading-relaxed">
+          <span className="font-medium text-slate-deep">About TCM:</span> This quiz draws from Traditional Chinese Medicine, a system of health concepts developed in China over 2,000+ years. TCM views wellness through patterns like "yin and yang" balance and body tendencies toward cold, heat, or stagnation. These ideas are traditional, not scientifically validated—consider them one cultural lens on wellbeing.
+        </p>
+      </div>
 
       {/* Start button - using warm earth color instead of gradient */}
       <button
