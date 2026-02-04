@@ -423,6 +423,20 @@ export default function Results({ results }) {
                       <span>📅</span> Quarterly Updates
                     </span>
                   </div>
+
+                  {/* Correlated Biomarkers Blurb */}
+                  <div className="mt-4 p-3 bg-slate-deep/5 rounded-lg">
+                    <p className="text-xs text-slate-deep/70 mb-2">
+                      <span className="font-medium text-slate-deep">Research-correlated biomarkers</span> for {primaryConstitution.name} tendencies:
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-1.5">
+                      {primaryConstitution.biomarkers.primary.slice(0, 4).map((marker, i) => (
+                        <span key={i} className="px-2 py-0.5 bg-white rounded text-xs text-slate-deep/60 border border-slate-deep/10">
+                          {marker}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 <form
