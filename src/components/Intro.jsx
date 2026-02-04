@@ -21,42 +21,36 @@ export default function Intro({ onStart }) {
         "Know thyself" — Discover your body's tendencies through Traditional Chinese Medicine
       </p>
 
-      {/* Benefits */}
-      <div className="w-full max-w-sm space-y-3 mb-10">
-        <div className="flex items-start gap-4 bg-white rounded-lg p-4 border border-sage/20">
-          <div className="w-10 h-10 rounded-lg bg-sage/10 flex items-center justify-center flex-shrink-0">
+      {/* Benefits - horizontal layout */}
+      <div className="w-full max-w-2xl grid grid-cols-3 gap-3 mb-8">
+        <div className="flex flex-col items-center text-center bg-white rounded-lg p-4 border border-sage/20">
+          <div className="w-10 h-10 rounded-lg bg-sage/10 flex items-center justify-center mb-2">
             <svg className="w-5 h-5 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
             </svg>
           </div>
-          <div>
-            <h3 className="font-medium text-slate-deep">Personalized Insights</h3>
-            <p className="text-sm text-slate-deep/60">Understand your body's unique tendencies and patterns</p>
-          </div>
+          <h3 className="font-medium text-slate-deep text-sm">Personalized Insights</h3>
+          <p className="text-xs text-slate-deep/60 mt-1">Understand your unique tendencies</p>
         </div>
 
-        <div className="flex items-start gap-4 bg-white rounded-lg p-4 border border-sage/20">
-          <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
+        <div className="flex flex-col items-center text-center bg-white rounded-lg p-4 border border-sage/20">
+          <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center mb-2">
             <svg className="w-5 h-5 text-earth" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
             </svg>
           </div>
-          <div>
-            <h3 className="font-medium text-slate-deep">Seasonal Food Guide</h3>
-            <p className="text-sm text-slate-deep/60">Get food recommendations tailored to your tendencies</p>
-          </div>
+          <h3 className="font-medium text-slate-deep text-sm">Seasonal Food Guide</h3>
+          <p className="text-xs text-slate-deep/60 mt-1">Foods tailored to your tendencies</p>
         </div>
 
-        <div className="flex items-start gap-4 bg-white rounded-lg p-4 border border-sage/20">
-          <div className="w-10 h-10 rounded-lg bg-earth/10 flex items-center justify-center flex-shrink-0">
+        <div className="flex flex-col items-center text-center bg-white rounded-lg p-4 border border-sage/20">
+          <div className="w-10 h-10 rounded-lg bg-earth/10 flex items-center justify-center mb-2">
             <svg className="w-5 h-5 text-earth" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
             </svg>
           </div>
-          <div>
-            <h3 className="font-medium text-slate-deep">Science Bridge</h3>
-            <p className="text-sm text-slate-deep/60">Learn which biomarkers relate to your tendencies</p>
-          </div>
+          <h3 className="font-medium text-slate-deep text-sm">Science Bridge</h3>
+          <p className="text-xs text-slate-deep/60 mt-1">Biomarkers for your tendencies</p>
         </div>
       </div>
 
@@ -66,8 +60,8 @@ export default function Intro({ onStart }) {
       </p>
 
       {/* TCM Disclaimer */}
-      <div className="w-full max-w-sm mb-6 p-4 bg-slate-deep/5 rounded-lg border border-slate-deep/10">
-        <p className="text-xs text-slate-deep/70 leading-relaxed">
+      <div className="w-full max-w-2xl mb-6 p-3 bg-slate-deep/5 rounded-lg border border-slate-deep/10">
+        <p className="text-xs text-slate-deep/70 leading-relaxed text-center">
           <span className="font-medium text-slate-deep">About TCM:</span> This quiz draws from Traditional Chinese Medicine, a system of health concepts developed in China over 2,000+ years. TCM views wellness through patterns like "yin and yang" balance and body tendencies toward cold, heat, or stagnation. These ideas are traditional, not scientifically validated—consider them one cultural lens on wellbeing.
         </p>
       </div>
@@ -75,13 +69,13 @@ export default function Intro({ onStart }) {
       {/* Start button - using warm earth color instead of gradient */}
       <button
         onClick={onStart}
-        className="w-full max-w-sm py-4 bg-earth hover:bg-earth-light text-white font-medium rounded-lg shadow-sm hover:shadow transition-all"
+        className="w-full max-w-md py-4 bg-earth hover:bg-earth-light text-white font-medium rounded-lg shadow-sm hover:shadow transition-all"
       >
         Begin Assessment
       </button>
 
       {/* Footer note */}
-      <p className="mt-8 text-xs text-slate-deep/40 text-center max-w-sm">
+      <p className="mt-6 text-xs text-slate-deep/40 text-center max-w-md">
         Based on the validated Constitution in Chinese Medicine Questionnaire (CCMQ) used in clinical research
       </p>
     </div>
