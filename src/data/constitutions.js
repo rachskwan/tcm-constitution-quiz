@@ -681,56 +681,49 @@ export const evidenceLevels = {
   }
 };
 
-// Condensed CCMQ Quiz Questions - 30 questions for accurate constitution assessment
-// Based on Wang Qi's Constitution in Chinese Medicine Questionnaire
+// Short-form CCMQ Quiz Questions - 23 questions for accurate constitution assessment
+// Based on Wang Qi's Constitution in Chinese Medicine Questionnaire (short form)
 export const quizQuestions = [
-  // BALANCED CONSTITUTION - 3 questions (reverse-scored: higher = more balanced)
+  // BALANCED CONSTITUTION - 2 questions (reverse-scored: higher = more balanced)
   { id: 1, constitution: 'balanced', text: 'Do you feel energetic and full of vitality?', category: 'Energy', reverseScored: true },
   { id: 2, constitution: 'balanced', text: 'Do you easily adapt to changes in the natural and social environment?', category: 'Adaptability', reverseScored: true },
-  { id: 3, constitution: 'balanced', text: 'Do you rarely get sick or catch colds?', category: 'Immunity', reverseScored: true },
 
-  // QI DEFICIENCY - 4 questions
-  { id: 4, constitution: 'qi_deficient', text: 'Do you feel fatigued or lack energy easily?', category: 'Energy' },
-  { id: 5, constitution: 'qi_deficient', text: 'Do you experience shortness of breath or feel breathless during light activity?', category: 'Energy' },
-  { id: 6, constitution: 'qi_deficient', text: 'Do you sweat spontaneously without exertion or reason?', category: 'Body' },
-  { id: 7, constitution: 'qi_deficient', text: 'Do you catch colds or flu easily?', category: 'Immunity' },
+  // QI DEFICIENCY - 3 questions
+  { id: 3, constitution: 'qi_deficient', text: 'Do you feel fatigued or lack energy easily?', category: 'Energy' },
+  { id: 4, constitution: 'qi_deficient', text: 'Do you experience shortness of breath or feel breathless during light activity?', category: 'Energy' },
+  { id: 5, constitution: 'qi_deficient', text: 'Do you catch colds or flu easily?', category: 'Immunity' },
 
   // YANG DEFICIENCY - 3 questions
-  { id: 8, constitution: 'yang_deficient', text: 'Do you feel cold easily, especially in your hands, feet, back or abdomen?', category: 'Temperature' },
-  { id: 9, constitution: 'yang_deficient', text: 'Are you intolerant of cold weather, air conditioning, or cold foods?', category: 'Temperature' },
-  { id: 10, constitution: 'yang_deficient', text: 'Do you experience loose stools or diarrhea after eating cold food?', category: 'Digestion' },
+  { id: 6, constitution: 'yang_deficient', text: 'Do you feel cold easily, especially in your hands, feet, back or abdomen?', category: 'Temperature' },
+  { id: 7, constitution: 'yang_deficient', text: 'Are you intolerant of cold weather, air conditioning, or cold foods?', category: 'Temperature' },
+  { id: 8, constitution: 'yang_deficient', text: 'Do you experience loose stools or diarrhea after eating cold food?', category: 'Digestion' },
 
-  // YIN DEFICIENCY - 4 questions
-  { id: 11, constitution: 'yin_deficient', text: 'Do you feel hot in your palms, soles of feet, or chest (five-palm heat)?', category: 'Temperature' },
-  { id: 12, constitution: 'yin_deficient', text: 'Do you experience night sweats while sleeping?', category: 'Temperature' },
-  { id: 13, constitution: 'yin_deficient', text: 'Do you have dry mouth or throat, especially at night?', category: 'Hydration' },
-  { id: 14, constitution: 'yin_deficient', text: 'Do you tend toward constipation with dry stools?', category: 'Digestion' },
+  // YIN DEFICIENCY - 3 questions
+  { id: 9, constitution: 'yin_deficient', text: 'Do you feel hot in your palms, soles of feet, or chest (five-palm heat)?', category: 'Temperature' },
+  { id: 10, constitution: 'yin_deficient', text: 'Do you experience night sweats while sleeping?', category: 'Temperature' },
+  { id: 11, constitution: 'yin_deficient', text: 'Do you have dry mouth or throat, especially at night?', category: 'Hydration' },
 
-  // PHLEGM-DAMPNESS - 3 questions
-  { id: 15, constitution: 'phlegm_dampness', text: 'Is your abdomen soft, full, or flabby?', category: 'Body' },
-  { id: 16, constitution: 'phlegm_dampness', text: 'Do you produce a lot of phlegm, especially in the throat?', category: 'Respiratory' },
-  { id: 17, constitution: 'phlegm_dampness', text: 'Do you feel heavy in your body or limbs?', category: 'Body' },
+  // PHLEGM-DAMPNESS - 2 questions
+  { id: 12, constitution: 'phlegm_dampness', text: 'Is your abdomen soft, full, or flabby?', category: 'Body' },
+  { id: 13, constitution: 'phlegm_dampness', text: 'Do you feel heavy in your body or limbs?', category: 'Body' },
 
-  // DAMP-HEAT - 3 questions
-  { id: 18, constitution: 'damp_heat', text: 'Do you have oily skin or acne, especially on your face or back?', category: 'Skin' },
-  { id: 19, constitution: 'damp_heat', text: 'Do you experience a bitter taste in your mouth?', category: 'Digestion' },
-  { id: 20, constitution: 'damp_heat', text: 'Is your stool sticky, smelly, or uncomfortable to pass?', category: 'Digestion' },
+  // DAMP-HEAT - 2 questions
+  { id: 14, constitution: 'damp_heat', text: 'Do you have oily skin or acne, especially on your face or back?', category: 'Skin' },
+  { id: 15, constitution: 'damp_heat', text: 'Is your stool sticky, smelly, or uncomfortable to pass?', category: 'Digestion' },
 
-  // BLOOD STASIS - 3 questions
-  { id: 21, constitution: 'blood_stasis', text: 'Is your facial complexion dull, dark, or grayish?', category: 'Skin' },
-  { id: 22, constitution: 'blood_stasis', text: 'Are your lips dark purple or dull in color?', category: 'Skin' },
-  { id: 23, constitution: 'blood_stasis', text: 'Do you bruise easily?', category: 'Circulation' },
+  // BLOOD STASIS - 2 questions
+  { id: 16, constitution: 'blood_stasis', text: 'Is your facial complexion dull, dark, or grayish?', category: 'Skin' },
+  { id: 17, constitution: 'blood_stasis', text: 'Do you bruise easily?', category: 'Circulation' },
 
-  // QI STAGNATION - 4 questions
-  { id: 24, constitution: 'qi_stagnation', text: 'Do you often feel depressed, anxious, or emotionally low?', category: 'Mood' },
-  { id: 25, constitution: 'qi_stagnation', text: 'Do you sigh frequently?', category: 'Mood' },
-  { id: 26, constitution: 'qi_stagnation', text: 'Do you feel tightness or discomfort in your chest or rib area?', category: 'Body' },
-  { id: 27, constitution: 'qi_stagnation', text: 'Do you have difficulty sleeping due to worry or overthinking?', category: 'Sleep' },
+  // QI STAGNATION - 3 questions
+  { id: 18, constitution: 'qi_stagnation', text: 'Do you often feel depressed, anxious, or emotionally low?', category: 'Mood' },
+  { id: 19, constitution: 'qi_stagnation', text: 'Do you sigh frequently?', category: 'Mood' },
+  { id: 20, constitution: 'qi_stagnation', text: 'Do you feel tightness or discomfort in your chest or rib area?', category: 'Body' },
 
   // INHERITED SPECIAL - 3 questions
-  { id: 28, constitution: 'inherited_special', text: 'Do you have allergies (hay fever, allergic rhinitis, asthma)?', category: 'Immunity' },
-  { id: 29, constitution: 'inherited_special', text: 'Do you have skin allergies or eczema, or develop hives easily?', category: 'Skin' },
-  { id: 30, constitution: 'inherited_special', text: 'Do you have food allergies or intolerances?', category: 'Digestion' }
+  { id: 21, constitution: 'inherited_special', text: 'Do you have allergies (hay fever, allergic rhinitis, asthma)?', category: 'Immunity' },
+  { id: 22, constitution: 'inherited_special', text: 'Do you have skin allergies or eczema, or develop hives easily?', category: 'Skin' },
+  { id: 23, constitution: 'inherited_special', text: 'Do you have food allergies or intolerances?', category: 'Digestion' }
 ];
 
 // Answer options for Likert scale

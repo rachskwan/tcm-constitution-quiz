@@ -109,7 +109,7 @@ export default function Intro({ onStart }) {
 
       {/* Time estimate */}
       <p className="text-sm text-slate-deep/50 mb-4">
-        30 questions • About 3 minutes
+        23 questions • About 2 minutes
       </p>
 
       {/* TCM Disclaimer */}
