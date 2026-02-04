@@ -428,7 +428,7 @@ export default function Results({ results }) {
             </button>
           </div>
 
-          {/* Email Capture */}
+          {/* Email Capture - Combined for Food Guide & Wellness Updates */}
           <div className="bg-white rounded-lg p-6 border border-sage/20">
             {!emailSubmitted ? (
               <>
@@ -439,12 +439,22 @@ export default function Results({ results }) {
                     </svg>
                   </div>
                   <h3 className="font-medium text-slate-deep text-lg mb-2">
-                    Get Your Complete Seasonal Food Guide
+                    Get Your Personalized Wellness Guide
                   </h3>
-                  <p className="text-slate-deep/60 text-sm">
-                    Receive personalized food recommendations for your {primaryConstitution.name} constitution,
-                    plus quarterly updates as seasons change.
+                  <p className="text-slate-deep/60 text-sm mb-4">
+                    Receive your complete {primaryConstitution.name} guide including seasonal food recommendations and biomarker insights.
                   </p>
+                  <div className="flex flex-wrap justify-center gap-2 text-xs">
+                    <span className="px-2 py-1 bg-sage/10 text-sage-dark rounded-full flex items-center gap-1">
+                      <span>🥗</span> Seasonal Food Guide
+                    </span>
+                    <span className="px-2 py-1 bg-gold/10 text-earth rounded-full flex items-center gap-1">
+                      <span>🩸</span> Biomarker Insights
+                    </span>
+                    <span className="px-2 py-1 bg-slate-deep/5 text-slate-deep/70 rounded-full flex items-center gap-1">
+                      <span>📅</span> Quarterly Updates
+                    </span>
+                  </div>
                 </div>
 
                 <form
@@ -506,7 +516,7 @@ export default function Results({ results }) {
                         Sending...
                       </span>
                     ) : (
-                      'Send My Guide'
+                      'Get My Wellness Guide'
                     )}
                   </button>
 
@@ -523,11 +533,11 @@ export default function Results({ results }) {
                   </svg>
                 </div>
                 <h3 className="font-medium text-slate-deep text-lg mb-2">
-                  Your Guide is Ready!
+                  You're All Set!
                 </h3>
                 <p className="text-slate-deep/60 text-sm">
-                  Your personalized {primaryConstitution.name} Seasonal Food Guide PDF has been opened in a new tab.
-                  We'll also send seasonal updates to {email}.
+                  Your personalized {primaryConstitution.name} wellness guide has been sent to {email}.
+                  You'll also receive seasonal food updates and biomarker insights.
                 </p>
                 <a
                   href="/tcm_seasonal_food_guide.pdf"
@@ -537,7 +547,7 @@ export default function Results({ results }) {
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
-                  Download PDF Again
+                  Download Food Guide PDF
                 </a>
                 {saveResults && (
                   <p className="text-sage text-sm mt-3">
@@ -743,26 +753,10 @@ export default function Results({ results }) {
                 </p>
               </div>
 
-              {/* CTA Section */}
-              <div className="border-t border-slate-deep/10 pt-6">
-                <div className="text-center mb-4">
-                  <h4 className="font-medium text-slate-deep mb-2">Ready to Learn More?</h4>
-                  <p className="text-sm text-slate-deep/60">
-                    Order a comprehensive blood testing kit to get personalized insights based on your tendencies.
-                  </p>
-                </div>
-
-                <a
-                  href="https://example.com/blood-test-kit"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block w-full py-3.5 ${primaryConstitution.headerBg} text-white rounded-lg font-medium text-center hover:opacity-90 transition-all`}
-                >
-                  Order Blood Testing Kit
-                </a>
-
-                <p className="text-xs text-slate-deep/40 text-center mt-3">
-                  Convenient at-home testing with detailed analysis
+              {/* Info Note */}
+              <div className="border-t border-slate-deep/10 pt-4">
+                <p className="text-sm text-slate-deep/60 text-center">
+                  Sign up below to receive detailed biomarker insights and wellness updates for your {primaryConstitution.name} tendencies.
                 </p>
               </div>
             </div>
