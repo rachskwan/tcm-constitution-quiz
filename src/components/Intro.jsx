@@ -1,4 +1,29 @@
+import { useState, useEffect } from 'react'
+
+const constitutionTypes = [
+  { emoji: '☯️', name: 'Balanced', tagline: 'Harmony in motion' },
+  { emoji: '🍃', name: 'Qi Deficiency', tagline: 'Gentle energy that needs nurturing' },
+  { emoji: '❄️', name: 'Yang Deficiency', tagline: 'A body that craves warmth' },
+  { emoji: '🔥', name: 'Yin Deficiency', tagline: 'Running warm with inner heat' },
+  { emoji: '💧', name: 'Phlegm-Dampness', tagline: 'A body that holds onto excess' },
+  { emoji: '🌡️', name: 'Damp-Heat', tagline: 'Internal heat meeting moisture' },
+  { emoji: '🩸', name: 'Blood Stasis', tagline: 'Circulation seeking flow' },
+  { emoji: '😔', name: 'Qi Stagnation', tagline: 'Emotions seeking expression' },
+  { emoji: '🌸', name: 'Inherited Special', tagline: 'A sensitive system seeking balance' },
+]
+
 export default function Intro({ onStart }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % constitutionTypes.length)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
+
+  const currentType = constitutionTypes[currentIndex]
+
   return (
     <div className="min-h-screen bg-neutral-warm flex flex-col items-center justify-center px-6 py-12">
       {/* Logo/Icon - using subtle constitutional symbol */}
@@ -54,28 +79,30 @@ export default function Intro({ onStart }) {
         </div>
       </div>
 
-      {/* 9 Constitution Types */}
-      <div className="w-full max-w-2xl mb-6">
+      {/* 9 Constitution Types - Carousel */}
+      <div className="w-full max-w-md mb-6">
         <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which of the 9 body tendencies you have</p>
-        <div className="flex flex-wrap justify-center gap-2">
-          {[
-            { emoji: '☯️', name: 'Balanced' },
-            { emoji: '🍃', name: 'Qi Deficiency' },
-            { emoji: '❄️', name: 'Yang Deficiency' },
-            { emoji: '🔥', name: 'Yin Deficiency' },
-            { emoji: '💧', name: 'Phlegm-Damp' },
-            { emoji: '🌡️', name: 'Damp-Heat' },
-            { emoji: '🩸', name: 'Blood Stasis' },
-            { emoji: '😔', name: 'Qi Stagnation' },
-            { emoji: '🌸', name: 'Inherited' },
-          ].map((type) => (
-            <div
-              key={type.name}
-              className="flex items-center gap-1.5 px-2 py-1 bg-white rounded-full border border-slate-deep/10 text-xs"
-            >
-              <span>{type.emoji}</span>
-              <span className="text-slate-deep/70">{type.name}</span>
+        <div className="bg-white rounded-xl border border-slate-deep/10 p-4 h-20 flex items-center justify-center overflow-hidden">
+          <div
+            key={currentIndex}
+            className="flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500"
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-2xl">{currentType.emoji}</span>
+              <span className="font-medium text-slate-deep">{currentType.name}</span>
             </div>
+            <p className="text-xs text-slate-deep/60 italic">{currentType.tagline}</p>
+          </div>
+        </div>
+        {/* Progress dots */}
+        <div className="flex justify-center gap-1 mt-3">
+          {constitutionTypes.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                i === currentIndex ? 'w-4 bg-gold' : 'w-1 bg-slate-deep/20'
+              }`}
+            />
           ))}
         </div>
       </div>
