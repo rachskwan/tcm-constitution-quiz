@@ -54,8 +54,34 @@ export default function Intro({ onStart }) {
         </div>
       </div>
 
+      {/* 9 Constitution Types */}
+      <div className="w-full max-w-2xl mb-6">
+        <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which of the 9 body tendencies you have</p>
+        <div className="flex flex-wrap justify-center gap-2">
+          {[
+            { emoji: '☯️', name: 'Balanced' },
+            { emoji: '🍃', name: 'Qi Deficiency' },
+            { emoji: '❄️', name: 'Yang Deficiency' },
+            { emoji: '🔥', name: 'Yin Deficiency' },
+            { emoji: '💧', name: 'Phlegm-Damp' },
+            { emoji: '🌡️', name: 'Damp-Heat' },
+            { emoji: '🩸', name: 'Blood Stasis' },
+            { emoji: '😔', name: 'Qi Stagnation' },
+            { emoji: '🌸', name: 'Inherited' },
+          ].map((type) => (
+            <div
+              key={type.name}
+              className="flex items-center gap-1.5 px-2 py-1 bg-white rounded-full border border-slate-deep/10 text-xs"
+            >
+              <span>{type.emoji}</span>
+              <span className="text-slate-deep/70">{type.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Time estimate */}
-      <p className="text-sm text-slate-deep/50 mb-6">
+      <p className="text-sm text-slate-deep/50 mb-4">
         30 questions • About 3 minutes
       </p>
 
