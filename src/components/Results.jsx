@@ -15,7 +15,6 @@ export default function Results({ results }) {
   const [showFoodGuide, setShowFoodGuide] = useState(false)
   const [hoveredTendency, setHoveredTendency] = useState(null)
   const [activeTab, setActiveTab] = useState('characteristics')
-  const [showBloodPanel, setShowBloodPanel] = useState(false)
 
   const primaryConstitution = results.primary[0]
   const season = getCurrentSeason()
@@ -397,37 +396,6 @@ export default function Results({ results }) {
             </button>
           </div>
 
-          {/* Blood Test Bridge */}
-          <div className={`${primaryConstitution.headerBg} rounded-lg p-6 text-white`}>
-            <h3 className="font-medium mb-4 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-              </svg>
-              Want to Learn More?
-            </h3>
-            <p className="text-white/90 leading-relaxed mb-4">
-              {primaryConstitution.bridgeMessage}
-            </p>
-            <div className="bg-white/20 rounded-lg p-4 mb-4">
-              <h4 className="text-sm font-medium uppercase tracking-wide mb-2">
-                Relevant Biomarkers
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {primaryConstitution.biomarkers.primary.map((marker, i) => (
-                  <span key={i} className="px-2 py-1 bg-white/30 rounded text-sm">
-                    {marker}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <button
-              onClick={() => setShowBloodPanel(true)}
-              className="w-full py-3 bg-white text-slate-deep rounded-lg font-medium hover:bg-white/90 transition-colors"
-            >
-              Explore Blood Wellness Panel
-            </button>
-          </div>
-
           {/* Email Capture - Combined for Food Guide & Wellness Updates */}
           <div className="bg-white rounded-lg p-6 border border-sage/20">
             {!emailSubmitted ? (
@@ -495,10 +463,11 @@ export default function Results({ results }) {
                       type="checkbox"
                       checked={saveResults}
                       onChange={(e) => setSaveResults(e.target.checked)}
+                      required
                       className="mt-1 w-4 h-4 rounded border-slate-deep/30 text-sage focus:ring-sage"
                     />
                     <span className="text-sm text-slate-deep/60">
-                      Save my results for later comparison (track how your tendencies shift over time)
+                      I agree to receive wellness updates and seasonal food guides via email <span className="text-red-500">*</span>
                     </span>
                   </label>
 
@@ -603,166 +572,6 @@ export default function Results({ results }) {
         />
       )}
 
-      {/* Blood Wellness Panel Modal */}
-      {showBloodPanel && (
-        <div
-          className="fixed inset-0 bg-slate-deep/60 z-50 flex items-center justify-center p-4"
-          onClick={() => setShowBloodPanel(false)}
-        >
-          <div
-            className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-in zoom-in-95 duration-300"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Header */}
-            <div className={`${primaryConstitution.headerBg} p-6 rounded-t-2xl`}>
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h2 className="text-white font-semibold text-lg">Blood Wellness Panel</h2>
-                    <p className="text-white/70 text-sm">For {primaryConstitution.name} Constitution</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowBloodPanel(false)}
-                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
-                >
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <p className="text-white/90 text-sm leading-relaxed">
-                Based on TCM research, these biomarkers are commonly associated with your tendency patterns and can provide deeper insights.
-              </p>
-            </div>
-
-            {/* Content */}
-            <div className="p-6 space-y-6">
-              {/* Evidence Level Tag */}
-              {(() => {
-                const evidenceKey = evidenceLevels.claimTypes.biomarkers[primaryConstitution.id] || 'moderate';
-                const evidence = evidenceLevels.ratings[evidenceKey];
-                return (
-                  <div className={`${evidence.bgColor} ${evidence.borderColor} border rounded-lg p-3`}>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm">{evidence.icon}</span>
-                      <span className={`text-sm font-medium ${evidence.color}`}>{evidence.label}</span>
-                    </div>
-                    <p className="text-xs text-slate-deep/70">{evidence.description}</p>
-                  </div>
-                );
-              })()}
-
-              {/* Primary Biomarkers */}
-              <div>
-                <h3 className="font-medium text-slate-deep mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-sage"></span>
-                  Recommended Biomarkers
-                </h3>
-                <div className="space-y-2">
-                  {primaryConstitution.biomarkers.primary.map((marker, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 bg-sage/10 rounded-lg">
-                      <div className="w-8 h-8 bg-sage/20 rounded-full flex items-center justify-center">
-                        <svg className="w-4 h-4 text-sage-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3" />
-                        </svg>
-                      </div>
-                      <span className="text-slate-deep font-medium">{marker}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Explanation */}
-              <div className="bg-gold/10 rounded-lg p-4">
-                <h4 className="font-medium text-earth mb-2 text-sm flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                  </svg>
-                  Why These Markers?
-                </h4>
-                <p className="text-earth/80 text-sm leading-relaxed">
-                  {primaryConstitution.biomarkers.explanation}
-                </p>
-              </div>
-
-              {/* Additional biomarker categories if available */}
-              {primaryConstitution.biomarkers.immune && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Immune Markers</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.immune}
-                  </p>
-                </div>
-              )}
-
-              {primaryConstitution.biomarkers.metabolic && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Metabolic Markers</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.metabolic}
-                  </p>
-                </div>
-              )}
-
-              {primaryConstitution.biomarkers.hormonal && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Hormonal Markers</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.hormonal}
-                  </p>
-                </div>
-              )}
-
-              {primaryConstitution.biomarkers.inflammatory && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Inflammatory Markers</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.inflammatory}
-                  </p>
-                </div>
-              )}
-
-              {primaryConstitution.biomarkers.gutMicrobiome && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Gut Microbiome</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.gutMicrobiome}
-                  </p>
-                </div>
-              )}
-
-              {primaryConstitution.biomarkers.genetic && (
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-2">Genetic Markers</h4>
-                  <p className="text-sm text-slate-deep/60 bg-slate-deep/5 p-3 rounded-lg">
-                    {primaryConstitution.biomarkers.genetic}
-                  </p>
-                </div>
-              )}
-
-              {/* Research Disclaimer */}
-              <div className="bg-slate-deep/5 rounded-lg p-3 border border-slate-deep/10">
-                <p className="text-xs text-slate-deep/60 leading-relaxed">
-                  <span className="font-medium">Research Note:</span> {evidenceLevels.disclaimers.biomarkers}
-                </p>
-              </div>
-
-              {/* Info Note */}
-              <div className="border-t border-slate-deep/10 pt-4">
-                <p className="text-sm text-slate-deep/60 text-center">
-                  Sign up below to receive detailed biomarker insights and wellness updates for your {primaryConstitution.name} tendencies.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
