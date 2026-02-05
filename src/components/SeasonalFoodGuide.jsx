@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { getCurrentSeason, getSeasonEmoji, getSeasonName } from '../data/seasonalFoods'
-import { healthFocuses, getHealthFocusFoods, getFoodIcon, getFoodDescription, celebrityConstitutions } from '../data/healthFocusFoods'
+import { healthFocuses, getHealthFocusFoods, getFoodIcon, getFoodDescription } from '../data/healthFocusFoods'
 import { constitutionIcons, evidenceLevels } from '../data/constitutions'
 
 export default function SeasonalFoodGuide({ constitution, onClose }) {
@@ -8,16 +8,12 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
   const [activeSection, setActiveSection] = useState('browse') // browse, top, avoid, recipe, share
   const [selectedFood, setSelectedFood] = useState(null)
   const [showShareCard, setShowShareCard] = useState(false)
-  const [friendEmail, setFriendEmail] = useState('')
-  const [friendSent, setFriendSent] = useState(false)
-  const [showTheoryExplainer, setShowTheoryExplainer] = useState(false)
   const shareCardRef = useRef(null)
 
   const season = getCurrentSeason()
   const year = new Date().getFullYear()
   const focusData = getHealthFocusFoods(constitution.id, selectedFocus)
   const focus = healthFocuses[selectedFocus]
-  const celebrities = celebrityConstitutions[constitution.id] || []
   const iconPath = constitutionIcons[constitution.id]
 
   const focusColors = {
@@ -28,13 +24,6 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
   }
 
   const colors = focusColors[selectedFocus]
-
-  const handleCompareWithFriend = (e) => {
-    e.preventDefault()
-    setFriendSent(true)
-    console.log('Invite sent to:', friendEmail)
-    setTimeout(() => setFriendSent(false), 3000)
-  }
 
   const sections = [
     { id: 'browse', icon: '🍽️', label: 'Browse' },
@@ -115,93 +104,6 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 </p>
               </div>
             </div>
-          </div>
-
-          {/* TCM Food Theory Explainer */}
-          <div className="mx-4 mt-3">
-            <button
-              onClick={() => setShowTheoryExplainer(!showTheoryExplainer)}
-              className="w-full flex items-center justify-between px-3 py-2 bg-white rounded-lg border border-slate-deep/10 hover:bg-slate-deep/5 transition-colors"
-            >
-              <span className="flex items-center gap-2 text-sm font-medium text-slate-deep">
-                <span>📚</span>
-                Understanding TCM Food Theory
-              </span>
-              <svg
-                className={`w-4 h-4 text-slate-deep/50 transition-transform ${showTheoryExplainer ? 'rotate-180' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            {showTheoryExplainer && (
-              <div className="mt-2 bg-white rounded-lg border border-slate-deep/10 p-4 space-y-4 animate-in slide-in-from-top-2 duration-200">
-                {/* Thermal Nature */}
-                <div>
-                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
-                    <span>🌡️</span>
-                    Thermal Nature
-                  </h4>
-                  <p className="text-xs text-slate-deep/70 mb-2">
-                    In TCM, foods have inherent thermal properties that affect the body's internal balance:
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">🔥 Hot</span>
-                    <span className="px-2 py-1 rounded-full text-xs bg-orange-100 text-orange-700">☀️ Warm</span>
-                    <span className="px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600">⚖️ Neutral</span>
-                    <span className="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700">💧 Cool</span>
-                    <span className="px-2 py-1 rounded-full text-xs bg-indigo-100 text-indigo-700">❄️ Cold</span>
-                  </div>
-                </div>
-
-                {/* Five Flavors */}
-                <div>
-                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
-                    <span>👅</span>
-                    Five Flavors
-                  </h4>
-                  <p className="text-xs text-slate-deep/70 mb-2">
-                    Each flavor has specific therapeutic actions in the body:
-                  </p>
-                  <div className="space-y-1.5 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-16 font-medium text-slate-deep">Sweet</span>
-                      <span className="text-slate-deep/60">Tonifies, harmonizes, nourishes</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-16 font-medium text-slate-deep">Sour</span>
-                      <span className="text-slate-deep/60">Astringes, consolidates, retains</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-16 font-medium text-slate-deep">Bitter</span>
-                      <span className="text-slate-deep/60">Drains, dries, descends</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-16 font-medium text-slate-deep">Pungent</span>
-                      <span className="text-slate-deep/60">Disperses, moves, circulates</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-16 font-medium text-slate-deep">Salty</span>
-                      <span className="text-slate-deep/60">Softens, moistens, purges</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Organ Affinity */}
-                <div>
-                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
-                    <span>🫀</span>
-                    Organ Affinity
-                  </h4>
-                  <p className="text-xs text-slate-deep/70">
-                    Foods are believed to "enter" specific organ systems, directing their therapeutic effects. For example, foods that enter the Lung may support respiratory health, while those entering the Kidney may support vitality and the lower back.
-                  </p>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Browse Section */}
@@ -373,13 +275,14 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                     <p className="text-sm text-slate-deep/50">{focus.name} Focus • {getSeasonName(season)} {year}</p>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  {focusData.top5.slice(0, 3).map((food, i) => (
-                    <div key={i} className="flex-1 bg-white rounded-lg p-2 text-center">
-                      <span className="text-xl block">{getFoodIcon(food.name)}</span>
-                      <span className="text-[10px] text-slate-deep/60">{food.name.split(' ')[0]}</span>
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg p-3 border border-amber-200/50">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">🍵</span>
+                    <div>
+                      <p className="text-sm font-medium text-amber-800">What tea will you get?</p>
+                      <p className="text-xs text-amber-700/70">Take the quiz to find out</p>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
 
@@ -393,54 +296,6 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 </svg>
                 Create Story Card
               </button>
-
-              {/* Invite Friend */}
-              <div className="bg-white rounded-xl p-4 border border-slate-deep/10">
-                <h4 className="font-medium text-slate-deep mb-3">Compare with a friend</h4>
-                {!friendSent ? (
-                  <form onSubmit={handleCompareWithFriend} className="flex gap-2">
-                    <input
-                      type="email"
-                      value={friendEmail}
-                      onChange={(e) => setFriendEmail(e.target.value)}
-                      placeholder="Friend's email"
-                      required
-                      className="flex-1 px-3 py-2 rounded-lg border border-slate-deep/20 text-sm focus:outline-none focus:border-sage text-slate-deep"
-                    />
-                    <button
-                      type="submit"
-                      className="px-4 py-2 bg-slate-deep text-white rounded-lg text-sm font-medium"
-                    >
-                      Invite
-                    </button>
-                  </form>
-                ) : (
-                  <p className="text-sage text-sm flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Invite sent!
-                  </p>
-                )}
-              </div>
-
-              {/* Celebrities */}
-              {celebrities.length > 0 && (
-                <div className="bg-gold/10 rounded-xl p-4">
-                  <h4 className="font-medium text-slate-deep mb-2 flex items-center gap-2">
-                    <span>⭐</span>
-                    Famous {constitution.name} types
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {celebrities.map((celeb, i) => (
-                      <span key={i} className="px-3 py-1 bg-white rounded-full text-sm text-slate-deep">
-                        {celeb}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-xs text-slate-deep/40 mt-2">*Based on public characteristics</p>
-                </div>
-              )}
 
               {/* Seasonal Reminder */}
               <div className="bg-sage/10 rounded-xl p-4">
@@ -575,17 +430,42 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                   <p className="text-white/80 text-xs mb-2">
                     {getSeasonEmoji(season)} {getSeasonName(season)} • {focus.name}
                   </p>
-                  <div className="bg-white/20 rounded-lg p-2 mb-3">
-                    <p className="text-xs font-medium mb-1">My Top 3:</p>
-                    <div className="flex gap-2">
-                      {focusData.top5.slice(0, 3).map((food, i) => (
-                        <div key={i} className="text-center flex-1">
-                          <span className="text-xl block">{getFoodIcon(food.name)}</span>
-                          <span className="text-[9px]">{food.name.split(' ')[0]}</span>
+                  {constitution.recommendedTeas && (
+                    <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 mb-3">
+                      <div className="flex items-center gap-4">
+                        {/* Illustrated Tea Cup */}
+                        <div className="w-16 h-16 flex-shrink-0">
+                          <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-lg">
+                            {/* Steam */}
+                            <path d="M24 8 Q26 4 24 0" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6">
+                              <animate attributeName="d" values="M24 8 Q26 4 24 0;M24 8 Q22 4 24 0;M24 8 Q26 4 24 0" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M32 6 Q34 2 32 -2" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.5">
+                              <animate attributeName="d" values="M32 6 Q34 2 32 -2;M32 6 Q30 2 32 -2;M32 6 Q34 2 32 -2" dur="2.5s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M40 8 Q42 4 40 0" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6">
+                              <animate attributeName="d" values="M40 8 Q42 4 40 0;M40 8 Q38 4 40 0;M40 8 Q42 4 40 0" dur="2.2s" repeatCount="indefinite"/>
+                            </path>
+                            {/* Cup */}
+                            <ellipse cx="32" cy="18" rx="18" ry="6" fill="#fff8e7"/>
+                            <path d="M14 18 L16 48 Q16 54 32 54 Q48 54 48 48 L50 18" fill="#fff8e7" stroke="#e8dcc8" strokeWidth="1"/>
+                            {/* Tea liquid */}
+                            <ellipse cx="32" cy="20" rx="15" ry="4" fill="#c9a66b" opacity="0.8"/>
+                            {/* Cup handle */}
+                            <path d="M50 24 Q58 24 58 34 Q58 44 50 44" fill="none" stroke="#fff8e7" strokeWidth="4" strokeLinecap="round"/>
+                            <path d="M50 24 Q56 24 56 34 Q56 44 50 44" fill="none" stroke="#e8dcc8" strokeWidth="1" strokeLinecap="round"/>
+                            {/* Saucer */}
+                            <ellipse cx="32" cy="56" rx="24" ry="6" fill="#fff8e7" stroke="#e8dcc8" strokeWidth="1"/>
+                            <ellipse cx="32" cy="56" rx="16" ry="4" fill="#f5efe6"/>
+                          </svg>
                         </div>
-                      ))}
+                        <div className="flex-1">
+                          <p className="text-[10px] font-medium text-white/70 uppercase tracking-wider mb-1">My Tea</p>
+                          <p className="text-base font-medium text-white leading-snug">{constitution.recommendedTeas.split(',')[0].trim()}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <p className="font-serif text-xs italic text-white/80">"{constitution.tagline}"</p>
                 </div>
 

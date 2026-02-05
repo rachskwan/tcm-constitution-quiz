@@ -37,13 +37,13 @@ export default function Intro({ onStart }) {
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3">
-        Body Constitution Assessment
+      <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3 max-w-md">
+        Discover Your Body's Tendencies Through Traditional Chinese Medicine
       </h1>
 
-      {/* Subtitle - using Crimson Pro for wisdom text */}
-      <p className="font-serif text-lg text-slate-deep/70 text-center mb-10 max-w-md italic">
-        "Know thyself" — Discover your body's tendencies through Traditional Chinese Medicine
+      {/* Subtitle */}
+      <p className="text-lg text-slate-deep/70 text-center mb-10 max-w-md">
+        See what your body needs for every season — spring, summer, fall, and winter
       </p>
 
       {/* Benefits - horizontal layout */}
@@ -79,9 +79,9 @@ export default function Intro({ onStart }) {
         </div>
       </div>
 
-      {/* 9 Constitution Types - Carousel */}
+      {/* 9 Constitution Patterns - Carousel */}
       <div className="w-full max-w-md mb-6">
-        <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which of the 9 body tendencies you have</p>
+        <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which patterns you're expressing right now</p>
         <div className="bg-white rounded-xl border border-slate-deep/10 p-4 h-20 flex items-center justify-center overflow-hidden">
           <div
             key={currentIndex}
@@ -115,7 +115,7 @@ export default function Intro({ onStart }) {
       {/* TCM Disclaimer */}
       <div className="w-full max-w-2xl mb-6 p-3 bg-slate-deep/5 rounded-lg border border-slate-deep/10">
         <p className="text-xs text-slate-deep/70 leading-relaxed text-center">
-          <span className="font-medium text-slate-deep">About TCM:</span> This quiz draws from Traditional Chinese Medicine, a system of health concepts developed in China over 2,000+ years. TCM views wellness through patterns like "yin and yang" balance and body tendencies toward cold, heat, or stagnation. These ideas are traditional, not scientifically validated—consider them one cultural lens on wellbeing.
+          <span className="font-medium text-slate-deep">This isn't a personality test.</span> Unlike MBTI, TCM sees patterns as layered, situational, and changeable. You're not discovering who you <em>are</em> — you're seeing what you're <em>expressing</em> right now. These patterns shift with seasons, stress, and life phases. Balance is the goal, and movement is the point.
         </p>
       </div>
 

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getSeasonalRecommendations, getCurrentSeason, getSeasonEmoji, getPropertyColor } from '../data/seasonalFoods'
-import { constitutionIcons, evidenceLevels } from '../data/constitutions'
+import { constitutionIcons } from '../data/constitutions'
 import SeasonalFoodGuide from './SeasonalFoodGuide'
 import ConstitutionRadarChart from './ConstitutionRadarChart'
 import { sendFoodGuideDemo } from '../services/emailService'
@@ -14,7 +14,11 @@ export default function Results({ results }) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showFoodGuide, setShowFoodGuide] = useState(false)
   const [hoveredTendency, setHoveredTendency] = useState(null)
-  const [activeTab, setActiveTab] = useState('characteristics')
+  const [showShareCard, setShowShareCard] = useState(false)
+  const [expandedSections, setExpandedSections] = useState({ understanding: true })
+  const [activeGuideTab, setActiveGuideTab] = useState('notice')
+  const [shareStatus, setShareStatus] = useState(null)
+  const shareCardRef = useRef(null)
 
   const primaryConstitution = results.primary[0]
   const season = getCurrentSeason()
@@ -71,40 +75,78 @@ export default function Results({ results }) {
         </div>
 
         {/* Constitution name */}
-        <h1 className={`text-3xl font-semibold text-slate-deep mb-3 text-center transition-all duration-500 ${revealStage >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <h1 className={`text-3xl font-semibold text-slate-deep mb-2 text-center transition-all duration-500 ${revealStage >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {primaryConstitution.name}
         </h1>
 
-        {/* Tagline - using Crimson Pro */}
-        <p className={`font-serif text-xl text-earth italic mb-6 text-center transition-all duration-500 ${revealStage >= 3 ? 'opacity-100' : 'opacity-0'}`}>
-          "{primaryConstitution.tagline}"
-        </p>
+        {/* Archetype */}
+        {primaryConstitution.archetype && (
+          <div className={`text-center mb-4 transition-all duration-500 ${revealStage >= 3 ? 'opacity-100' : 'opacity-0'}`}>
+            <p className="text-lg font-medium text-earth">{primaryConstitution.archetype}</p>
+            <p className="text-sm text-slate-deep/60">"{primaryConstitution.archetypeTitle}"</p>
+          </div>
+        )}
+
+        {/* Archetype Insight */}
+        {primaryConstitution.archetypeInsight && (
+          <p className={`font-serif text-lg text-slate-deep/80 italic mb-4 text-center max-w-md transition-all duration-500 ${revealStage >= 3 ? 'opacity-100' : 'opacity-0'}`}>
+            → {primaryConstitution.archetypeInsight}
+          </p>
+        )}
+
+        {/* Quiet Clue - the "how did it know that?" moment */}
+        {primaryConstitution.quietClue && (
+          <div className={`mb-6 transition-all duration-700 ${revealStage >= 4 ? 'opacity-100' : 'opacity-0'}`}>
+            <p className="text-center text-slate-deep/50 text-sm mb-1">You might say:</p>
+            <p className="font-serif text-xl text-earth italic text-center">
+              "{primaryConstitution.quietClue}"
+            </p>
+          </div>
+        )}
 
         {/* Description */}
         <div className={`max-w-lg text-center transition-all duration-700 ${revealStage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <p className="text-slate-deep/70 leading-relaxed mb-4">
-            {primaryConstitution.description}
-          </p>
+          {/* Pattern framing - not identity */}
+          <div className="mb-4 p-3 bg-slate-deep/5 rounded-lg border border-slate-deep/10">
+            <p className="text-xs text-slate-deep/60 leading-relaxed">
+              <span className="font-medium text-slate-deep">This is a pattern you're expressing</span> — not a fixed identity.
+              TCM sees tendencies as layered and situational. They shift with seasons, stress, and life phases.
+              <span className="italic"> Movement toward balance is the point.</span>
+            </p>
+          </div>
 
           {/* Primary constitution percentage bar */}
-          {results.maxScore && results.scores && results.scores[0] && (
+          {results.theoreticalMax && results.scores && results.scores[0] && (
             <div className="max-w-xs mx-auto">
               <div className="flex justify-between text-sm text-slate-deep/60 mb-1.5">
                 <span>Match Strength</span>
-                <span>{Math.round((results.scores[0].total / results.maxScore) * 100)}%</span>
+                <span>{Math.round((results.scores[0].total / results.theoreticalMax) * 100)}%</span>
               </div>
               <div className="h-2 bg-slate-deep/10 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-1000 ${primaryConstitution.headerBg}`}
-                  style={{ width: `${Math.round((results.scores[0].total / results.maxScore) * 100)}%` }}
+                  style={{ width: `${Math.round((results.scores[0].total / results.theoreticalMax) * 100)}%` }}
                 />
               </div>
             </div>
           )}
         </div>
 
+        {/* Share button */}
+        <div className={`mt-8 transition-all duration-500 ${revealStage >= 4 ? 'opacity-100' : 'opacity-0'}`}>
+          <button
+            onClick={() => setShowShareCard(true)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-deep/20 rounded-full text-slate-deep/70 hover:text-slate-deep hover:border-slate-deep/40 transition-all text-sm font-medium"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            Share Results
+          </button>
+        </div>
+
         {/* Scroll indicator */}
-        <div className={`mt-12 transition-all duration-500 ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`mt-8 transition-all duration-500 ${showDetails ? 'opacity-100' : 'opacity-0'}`}>
           <div className="flex flex-col items-center text-slate-deep/40">
             <span className="text-sm mb-2">Scroll for more</span>
             <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,9 +172,9 @@ export default function Results({ results }) {
               <p className="text-sm text-slate-deep/50 mb-4">Other patterns present in your tendency profile</p>
               <div className="space-y-3">
                 {results.tendencies.map(t => {
-                  // Calculate percentage for the bar
-                  const maxScore = results.maxScore || 1
-                  const percentage = Math.round((t.score / maxScore) * 100)
+                  // Calculate percentage for the bar using theoretical max
+                  const theoreticalMax = results.theoreticalMax || 54
+                  const percentage = Math.round((t.score / theoreticalMax) * 100)
 
                   return (
                   <div
@@ -180,23 +222,29 @@ export default function Results({ results }) {
                     {/* Expanded details */}
                     {hoveredTendency === t.id && (
                       <div className="mt-2 p-4 bg-slate-deep/5 rounded-lg border border-slate-deep/10 animate-in fade-in slide-in-from-top-2 duration-200">
-                        <p className="text-sm text-slate-deep/70 mb-3">{t.corePattern}</p>
-                        <div className="space-y-2">
-                          <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide">Key signs:</p>
+                        {/* Explanation */}
+                        <p className="text-sm text-slate-deep/80 mb-4 italic leading-relaxed">{t.description}</p>
+
+                        {/* Common Signs */}
+                        <div className="mb-4">
+                          <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide mb-2">Common Signs</p>
                           <ul className="text-sm text-slate-deep/70 space-y-1.5">
-                            {t.characteristics.slice(0, 4).map((char, i) => (
+                            {t.characteristics.slice(0, 5).map((char, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${t.headerBg}`}></span>
+                                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 ${t.headerBg}`}></span>
                                 <span>{char}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        {t.watchOutFor && (
-                          <div className="mt-3 pt-3 border-t border-slate-deep/10">
-                            <p className="text-xs text-amber-600">
-                              <span className="font-medium">Watch for:</span> {t.watchOutFor[0]}
+
+                        {/* Lifestyle Guidance */}
+                        {t.lifestyleGuidance && (
+                          <div className="p-3 bg-sage/10 rounded-lg">
+                            <p className="text-xs font-medium text-sage-dark uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+                              <span>🧘</span> Lifestyle Guidance
                             </p>
+                            <p className="text-sm text-slate-deep/70 leading-relaxed">{t.lifestyleGuidance}</p>
                           </div>
                         )}
                       </div>
@@ -208,221 +256,288 @@ export default function Results({ results }) {
             </div>
           )}
 
-          {/* Tabbed Profile Section */}
-          <div className="bg-white rounded-lg border border-slate-deep/10 overflow-hidden">
-            {/* Tab Headers */}
-            <div className="flex border-b border-slate-deep/10">
-              <button
-                onClick={() => setActiveTab('characteristics')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                  activeTab === 'characteristics'
-                    ? 'text-slate-deep bg-slate-deep/5 border-b-2 border-gold -mb-px'
-                    : 'text-slate-deep/50 hover:text-slate-deep hover:bg-slate-deep/5'
-                }`}
-              >
-                <span className="hidden sm:inline">Characteristics</span>
-                <span className="sm:hidden">Traits</span>
-              </button>
-              <button
-                onClick={() => setActiveTab('strengths')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                  activeTab === 'strengths'
-                    ? 'text-sage-dark bg-sage/10 border-b-2 border-sage -mb-px'
-                    : 'text-slate-deep/50 hover:text-slate-deep hover:bg-slate-deep/5'
-                }`}
-              >
-                Strengths
-              </button>
-              <button
-                onClick={() => setActiveTab('watchout')}
-                className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
-                  activeTab === 'watchout'
-                    ? 'text-earth bg-gold/10 border-b-2 border-gold -mb-px'
-                    : 'text-slate-deep/50 hover:text-slate-deep hover:bg-slate-deep/5'
-                }`}
-              >
-                <span className="hidden sm:inline">Watch Out</span>
-                <span className="sm:hidden">Avoid</span>
-              </button>
+          {/* Mode Shifts - Same archetype, different conditions */}
+          {primaryConstitution.modes && (
+            <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
+              <h3 className="font-medium text-slate-deep mb-1 flex items-center gap-2">
+                <span>🔄</span> {primaryConstitution.archetype} in Different Conditions
+              </h3>
+              <p className="text-sm text-slate-deep/50 mb-5">Same pattern, different expressions. Your body has habits under pressure—and they change with support.</p>
+
+              <div className="space-y-4">
+                {/* Baseline Mode */}
+                <div className="relative pl-6 pb-4 border-l-2 border-slate-deep/20">
+                  <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-slate-deep/20 border-2 border-white"></div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-slate-deep/40 uppercase tracking-wide">Day-to-day</span>
+                  </div>
+                  <p className="font-medium text-slate-deep">{primaryConstitution.modes.baseline.name}</p>
+                  <p className="text-sm text-slate-deep/60">{primaryConstitution.modes.baseline.description}</p>
+                </div>
+
+                {/* Strain Mode */}
+                <div className="relative pl-6 pb-4 border-l-2 border-amber-300">
+                  <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-amber-400 border-2 border-white"></div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-amber-600 uppercase tracking-wide">Under prolonged stress</span>
+                  </div>
+                  <p className="font-medium text-amber-700">{primaryConstitution.modes.strain.name}</p>
+                  <p className="text-sm text-amber-700/70">{primaryConstitution.modes.strain.description}</p>
+                </div>
+
+                {/* Recovery Mode */}
+                <div className="relative pl-6 border-l-2 border-sage">
+                  <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-sage border-2 border-white"></div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-medium text-sage-dark uppercase tracking-wide">When supported</span>
+                  </div>
+                  <p className="font-medium text-sage-dark">{primaryConstitution.modes.recovery.name}</p>
+                  <p className="text-sm text-sage-dark/70">{primaryConstitution.modes.recovery.description}</p>
+                </div>
+              </div>
+
+              <div className="mt-5 pt-4 border-t border-slate-deep/10">
+                <p className="text-xs text-slate-deep/50 italic text-center">
+                  The archetype stays the same. The expression changes.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Comprehensive Guide Section - Tabbed Interface */}
+          <div className="bg-white rounded-2xl border border-slate-deep/10 overflow-hidden shadow-sm">
+            {/* Header */}
+            <div className={`${primaryConstitution.headerBg} px-5 py-4 text-white`}>
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <span className="text-2xl">{primaryConstitution.emoji}</span>
+                Your {primaryConstitution.name} Guide
+              </h3>
+              <p className="text-white/80 text-sm mt-0.5">{primaryConstitution.chinese} • {primaryConstitution.pinyin}</p>
+            </div>
+
+            {/* Description - Always visible */}
+            <div className="px-5 py-4 border-b border-slate-deep/10">
+              <p className="text-slate-deep/70 leading-relaxed text-sm">{primaryConstitution.description}</p>
+            </div>
+
+            {/* Tab Navigation */}
+            <div className="flex overflow-x-auto border-b border-slate-deep/10 px-2 pt-2 gap-1 scrollbar-hide">
+              {[
+                { id: 'notice', label: 'You Might Notice', icon: '👁️' },
+                { id: 'signs', label: 'Physical Signs', icon: '🔍' },
+                { id: 'strengths', label: 'Strengths', icon: '✨' },
+                { id: 'lifestyle', label: 'Lifestyle', icon: '🧘' },
+                { id: 'mindful', label: 'Be Mindful', icon: '⚠️' },
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveGuideTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-t-lg whitespace-nowrap transition-all ${
+                    activeGuideTab === tab.id
+                      ? `${primaryConstitution.bgLight} ${primaryConstitution.headerBg === 'bg-sage' || primaryConstitution.headerBg === 'bg-sage-dark' ? 'text-sage-dark' : primaryConstitution.headerBg === 'bg-gold' ? 'text-earth' : 'text-slate-deep'} border-b-2 border-current -mb-[2px]`
+                      : 'text-slate-deep/50 hover:text-slate-deep/70 hover:bg-slate-deep/5'
+                  }`}
+                >
+                  <span>{tab.icon}</span>
+                  <span className="hidden sm:inline">{tab.label}</span>
+                </button>
+              ))}
             </div>
 
             {/* Tab Content */}
-            <div className="p-5">
-              {activeTab === 'characteristics' && (
-                <div className="animate-in fade-in duration-200">
-                  <div className="flex items-center gap-2 mb-4">
-                    <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                    </svg>
-                    <span className="text-sm text-slate-deep/60">Common patterns for {primaryConstitution.name}</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {primaryConstitution.characteristics.map((char, i) => (
-                      <li key={i} className="flex items-start gap-3 text-slate-deep/70">
-                        <span className="text-gold mt-1">•</span>
-                        {char}
-                      </li>
-                    ))}
-                  </ul>
+            <div className="p-5 min-h-[220px]">
+              {/* You Might Notice */}
+              {activeGuideTab === 'notice' && primaryConstitution.behavioralTells && (
+                <div className="animate-in fade-in duration-200 space-y-4">
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    When this pattern is expressing, you might notice that you {primaryConstitution.behavioralTells[0]?.toLowerCase()}. It's also common to find yourself {primaryConstitution.behavioralTells[1]?.toLowerCase()}, or to catch yourself {primaryConstitution.behavioralTells[2]?.toLowerCase()}.
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    {primaryConstitution.behavioralTells[3] && `You may also notice a pull toward ${primaryConstitution.behavioralTells[3]?.toLowerCase()}.`} These are signals—your body's way of communicating what it needs right now.
+                  </p>
+                  {primaryConstitution.bodyReactions && (
+                    <div className="p-4 bg-purple-50/50 rounded-xl border border-purple-100">
+                      <p className="text-sm text-slate-deep/80 leading-relaxed">
+                        <span className="font-medium text-purple-700">Under stress</span>, your system currently responds in characteristic ways: {primaryConstitution.bodyReactions.join('. ').toLowerCase()}. Recognizing these patterns early gives you the chance to shift before they deepen.
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {activeTab === 'strengths' && (
-                <div className="animate-in fade-in duration-200">
-                  <div className="flex items-center gap-2 mb-4">
-                    <svg className="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                    </svg>
-                    <span className="text-sm text-slate-deep/60">Natural advantages of your tendencies</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {primaryConstitution.strengths.map((strength, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sage-dark">
-                        <span className="text-sage mt-1">•</span>
-                        {strength}
-                      </li>
-                    ))}
-                  </ul>
+              {/* Physical Signs */}
+              {activeGuideTab === 'signs' && (
+                <div className="animate-in fade-in duration-200 space-y-4">
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    TCM practitioners look for physical markers that reflect current internal patterns. When this pattern is present, signs often include {primaryConstitution.characteristics.slice(0, 3).join(', ').toLowerCase()}.
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    You might also experience {primaryConstitution.characteristics.slice(3, 5).join(' and ').toLowerCase()}. {primaryConstitution.characteristics[5] && `${primaryConstitution.characteristics[5]} can also show up with this pattern.`}
+                  </p>
+                  {primaryConstitution.tongueSign && (
+                    <div className="p-4 bg-slate-deep/5 rounded-xl">
+                      <p className="text-sm text-slate-deep/80 leading-relaxed">
+                        <span className="font-medium text-slate-deep">Tongue diagnosis</span> is a key assessment tool in TCM. This pattern often shows: {primaryConstitution.tongueSign.toLowerCase()}. {primaryConstitution.pulseSign && `The pulse may feel ${primaryConstitution.pulseSign.toLowerCase()}.`}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {activeTab === 'watchout' && (
-                <div className="animate-in fade-in duration-200">
-                  <div className="flex items-center gap-2 mb-4">
-                    <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                    </svg>
-                    <span className="text-sm text-slate-deep/60">Things to be mindful of</span>
+              {/* Strengths */}
+              {activeGuideTab === 'strengths' && (
+                <div className="animate-in fade-in duration-200 space-y-4">
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    When this pattern is in balance, certain qualities tend to emerge more easily. You may find yourself {primaryConstitution.strengths[0]?.toLowerCase()}—not because you're forcing it, but because your system is resourced enough to express it.
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    People expressing this pattern often notice they're {primaryConstitution.strengths[1]?.toLowerCase()}, and find it easier to be {primaryConstitution.strengths[2]?.toLowerCase()}. {primaryConstitution.strengths[3] && `There's also more capacity to be ${primaryConstitution.strengths[3]?.toLowerCase()} when the pattern is supported.`}
+                  </p>
+                  <div className="p-4 bg-sage/10 rounded-xl border border-sage/30">
+                    <p className="text-sm text-sage-dark leading-relaxed">
+                      These aren't fixed traits—they're what becomes available when your system has what it needs. Support the pattern, and these qualities have room to show up.
+                    </p>
                   </div>
-                  <ul className="space-y-3">
-                    {primaryConstitution.watchOutFor.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-earth">
-                        <span className="text-gold mt-1">•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               )}
-            </div>
 
-            {/* Swipe hint for mobile */}
-            <div className="px-5 pb-4 flex justify-center gap-1.5">
-              <div className={`w-2 h-2 rounded-full transition-colors ${activeTab === 'characteristics' ? 'bg-gold' : 'bg-slate-deep/20'}`} />
-              <div className={`w-2 h-2 rounded-full transition-colors ${activeTab === 'strengths' ? 'bg-sage' : 'bg-slate-deep/20'}`} />
-              <div className={`w-2 h-2 rounded-full transition-colors ${activeTab === 'watchout' ? 'bg-gold' : 'bg-slate-deep/20'}`} />
+              {/* Lifestyle */}
+              {activeGuideTab === 'lifestyle' && (
+                <div className="animate-in fade-in duration-200 space-y-4">
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    {primaryConstitution.lifestyleGuidance}
+                  </p>
+                  {primaryConstitution.seasonalAdvice && (
+                    <div className="p-4 bg-gold/10 rounded-xl">
+                      <p className="text-sm text-slate-deep/80 leading-relaxed">
+                        <span className="font-medium text-earth">Seasonal considerations:</span> {primaryConstitution.seasonalAdvice}
+                      </p>
+                    </div>
+                  )}
+                  {primaryConstitution.emotionalTendency && (
+                    <div className="p-4 bg-purple-50 rounded-xl border border-purple-100">
+                      <p className="text-sm text-slate-deep/80 leading-relaxed">
+                        <span className="font-medium text-purple-700">Emotionally</span>, this pattern currently leans toward {primaryConstitution.emotionalTendency.toLowerCase()}. Knowing this helps you recognize the terrain and work with it, rather than against it.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Be Mindful */}
+              {activeGuideTab === 'mindful' && (
+                <div className="animate-in fade-in duration-200 space-y-4">
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    Right now, your system may be more sensitive to certain things. You might find that {primaryConstitution.watchOutFor[0]?.toLowerCase()} affects you more than usual, or that {primaryConstitution.watchOutFor[1]?.toLowerCase()} can throw things off balance.
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    It's also worth noticing how {primaryConstitution.watchOutFor.slice(2).join(' and ').toLowerCase()} land for you. These are patterns to observe and adjust—not permanent restrictions.
+                  </p>
+                  {primaryConstitution.diseaseRisk && (
+                    <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                      <p className="text-sm text-amber-900/80 leading-relaxed">
+                        <span className="font-medium text-amber-700">Patterns to watch:</span> If this pattern goes unsupported over time, there may be increased susceptibility to {primaryConstitution.diseaseRisk.toLowerCase()}. This is useful information for prevention—patterns can shift with the right support.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Seasonal Foods */}
-          <div className="bg-white rounded-lg p-6 border border-slate-deep/10">
-            <h3 className="font-medium text-slate-deep mb-4 flex items-center gap-2">
-              <span className="text-xl">{getSeasonEmoji(season)}</span>
-              {season.charAt(0).toUpperCase() + season.slice(1)} Food Guide
-            </h3>
-
-            {/* Evidence Tag for Food Recommendations */}
-            <div className={`${evidenceLevels.ratings.traditional.bgColor} ${evidenceLevels.ratings.traditional.borderColor} border rounded-lg p-2.5 mb-4`}>
-              <div className="flex items-center gap-2">
-                <span className="text-xs">{evidenceLevels.ratings.traditional.icon}</span>
-                <span className={`text-xs font-medium ${evidenceLevels.ratings.traditional.color}`}>{evidenceLevels.ratings.traditional.label}</span>
-                <span className="text-xs text-slate-deep/50">|</span>
-                <span className="text-xs text-slate-deep/60">Based on classical TCM theory</span>
-              </div>
-            </div>
-
-            {/* Principle */}
-            {seasonalRecs.principle && (
-              <p className="font-serif text-slate-deep/60 text-sm mb-4 italic">
-                "{seasonalRecs.principle}"
-              </p>
-            )}
-
-            {/* Emphasize - Show 3 foods */}
-            <div className="mb-6">
-              <h4 className="text-sm font-medium text-sage-dark uppercase tracking-wide mb-3">
-                Emphasize These Foods
-              </h4>
-              <div className="space-y-2">
-                {seasonalRecs.emphasize.slice(0, 3).map((food, i) => (
-                  <div key={i} className="bg-sage/10 rounded-lg p-3">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-medium text-slate-deep">{food.name}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded ${getPropertyColor(food.property)}`}>
-                        {food.property}
-                      </span>
-                    </div>
-                    <p className="text-sage-dark text-sm">{food.benefit}</p>
+          {/* Seasonal Foods - Visual Card */}
+          <div className="bg-gradient-to-br from-sage/10 to-earth/5 rounded-2xl overflow-hidden border border-sage/20">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-sage to-sage-dark px-6 py-4 text-white">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{getSeasonEmoji(season)}</span>
+                  <div>
+                    <h3 className="text-lg font-semibold">{season.charAt(0).toUpperCase() + season.slice(1)} Foods</h3>
+                    <p className="text-white/70 text-sm">For your {primaryConstitution.name} constitution</p>
                   </div>
-                ))}
+                </div>
               </div>
-              {seasonalRecs.emphasize.length > 3 && (
-                <p className="text-xs text-sage mt-2">+{seasonalRecs.emphasize.length - 3} more in full guide</p>
-              )}
             </div>
 
-            {/* Minimize - Show 3 foods */}
-            <div>
-              <h4 className="text-sm font-medium text-earth uppercase tracking-wide mb-3">
-                Minimize or Avoid
-              </h4>
-              <div className="space-y-2">
-                {(() => {
-                  // Ensure at least 3 avoid items by combining minimize with general avoid guidance
-                  const minimizeItems = seasonalRecs.minimize || [];
-                  const avoidItems = [...minimizeItems];
+            <div className="p-5 space-y-5">
+              {/* TCM Food Theory Introduction */}
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-slate-deep mb-3 flex items-center gap-2">
+                    <span>🍽️</span>
+                    Food as Medicine in TCM
+                  </h4>
+                  <p className="text-sm text-slate-deep/70 leading-relaxed mb-3">
+                    In Traditional Chinese Medicine, food isn't just nutrition—it's a form of gentle, daily medicine. Every food has a <span className="font-medium text-slate-deep">thermal nature</span> (warming, cooling, or neutral) and an affinity for certain organs. The goal isn't restriction, but alignment: eating in a way that supports what your body is expressing right now.
+                  </p>
+                  <p className="text-sm text-slate-deep/70 leading-relaxed">
+                    Unlike Western diets that focus on calories and macros, TCM food therapy looks at <span className="font-medium text-slate-deep">how food moves energy</span> in your body. A "healthy" food for one pattern might create imbalance in another. That's why your current pattern matters.
+                  </p>
+                </div>
 
-                  // Add general avoid items if we have less than 3
-                  if (avoidItems.length < 3 && seasonalRecs.avoid) {
-                    const generalAvoids = seasonalRecs.avoid.split(',').map(item => ({
-                      name: item.trim(),
-                      property: 'Varies',
-                      reason: 'Not ideal for your tendencies'
-                    }));
-                    avoidItems.push(...generalAvoids);
-                  }
+                {/* Why Season Matters */}
+                <div className="bg-white rounded-xl p-4 border border-slate-deep/10">
+                  <p className="text-xs font-medium text-sage-dark uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                    <span>{getSeasonEmoji(season)}</span>
+                    Why {season.charAt(0).toUpperCase() + season.slice(1)} Matters
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    {season === 'spring' && "Spring is a time of rising energy and renewal. The Liver is most active now, making this an ideal time for light, fresh foods that support detoxification and smooth the flow of Qi. Your body is naturally ready to shed winter's heaviness."}
+                    {season === 'summer' && "Summer brings peak Yang energy—heat and expansion. The Heart is most active, and your body needs cooling, hydrating foods to balance the external heat. This is the time for lighter meals, more raw foods, and staying well-hydrated."}
+                    {season === 'autumn' && "Autumn is a time of turning inward and letting go. The Lungs are most active, making this season about moistening dryness and building reserves for winter. Warming soups and foods that nourish Yin help your body prepare for the colder months."}
+                    {season === 'winter' && "Winter is the most Yin time of year—cold, dark, and still. The Kidneys are most active, and your body needs warming, nourishing foods to conserve energy. This is the time for slow-cooked meals, bone broths, and foods that build deep reserves."}
+                  </p>
+                </div>
 
-                  // Add common items for this constitution if still less than 3
-                  if (avoidItems.length < 3) {
-                    const commonAvoids = [
-                      { name: 'Processed Foods', property: 'Varies', reason: 'Lack vital Qi, difficult to digest' },
-                      { name: 'Excessive Sugar', property: 'Varies', reason: 'Creates dampness, weakens spleen' },
-                      { name: 'Late Night Eating', property: 'Varies', reason: 'Disrupts digestive rhythm' }
-                    ];
-                    avoidItems.push(...commonAvoids.slice(0, 3 - avoidItems.length));
-                  }
+                {/* Your Pattern + This Season */}
+                <div className="bg-gradient-to-r from-sage/10 to-gold/10 rounded-xl p-4 border border-sage/20">
+                  <p className="text-xs font-medium text-earth uppercase tracking-wide mb-2 flex items-center gap-1.5">
+                    <span>{primaryConstitution.emoji}</span>
+                    Your {primaryConstitution.archetype} in {season.charAt(0).toUpperCase() + season.slice(1)}
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed mb-3">
+                    {primaryConstitution.corePattern}. Given what your body is currently expressing, {season} brings specific considerations for how you eat.
+                  </p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">
+                    {primaryConstitution.seasonalAdvice}
+                  </p>
+                </div>
 
-                  return avoidItems.slice(0, 3).map((food, i) => (
-                    <div key={i} className="bg-gold/10 rounded-lg p-3">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-medium text-slate-deep">{food.name}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded ${getPropertyColor(food.property)}`}>
-                          {food.property}
-                        </span>
-                      </div>
-                      <p className="text-earth text-sm">{food.reason}</p>
+                {/* Core Dietary Principles */}
+                <div className="bg-white rounded-xl p-4 border border-slate-deep/10">
+                  <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide mb-2">Your Food Principles</p>
+                  <p className="text-sm text-slate-deep/80 leading-relaxed">{primaryConstitution.dietaryPrinciples}</p>
+                </div>
+              </div>
+
+              {/* Tea recommendation */}
+              {seasonalRecs.tea && (
+                <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">🍵</span>
+                    <div>
+                      <p className="text-xs text-amber-700 font-medium uppercase tracking-wide mb-1">Recommended Tea for Your Pattern</p>
+                      <p className="text-sm text-slate-deep font-medium mb-2">{seasonalRecs.tea}</p>
+                      <p className="text-xs text-amber-800/70 leading-relaxed">
+                        In TCM, teas are more than beverages—they're a simple way to shift your internal environment. This tea supports your current pattern by {primaryConstitution.id === 'yang_deficient' || primaryConstitution.id === 'qi_deficient' ? 'gently warming and tonifying your system' : primaryConstitution.id === 'yin_deficient' || primaryConstitution.id === 'damp_heat' ? 'cooling and moistening to balance internal heat' : primaryConstitution.id === 'phlegm_dampness' ? 'promoting movement and reducing accumulation' : primaryConstitution.id === 'blood_stasis' ? 'invigorating circulation and promoting flow' : primaryConstitution.id === 'qi_stagnation' ? 'soothing tension and promoting smooth energy flow' : primaryConstitution.id === 'inherited_special' ? 'gently supporting your system without overstimulation' : 'maintaining your current balance'}.
+                      </p>
                     </div>
-                  ));
-                })()}
-              </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Open Full Food Guide Button */}
+              <button
+                onClick={() => setShowFoodGuide(true)}
+                className="w-full py-3 bg-earth hover:bg-earth-light text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                View Full Food Guide
+              </button>
             </div>
-
-            {/* Tea recommendation */}
-            {seasonalRecs.tea && (
-              <div className="mt-4 pt-4 border-t border-slate-deep/10">
-                <p className="text-slate-deep/70 text-sm">
-                  <span className="font-medium">Recommended tea:</span> {seasonalRecs.tea}
-                </p>
-              </div>
-            )}
-
-            {/* Open Full Food Guide Button */}
-            <button
-              onClick={() => setShowFoodGuide(true)}
-              className="w-full mt-4 py-3 bg-earth hover:bg-earth-light text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2"
-            >
-              Open Full Seasonal Food Guide
-            </button>
           </div>
 
           {/* Email Capture - Combined for Food Guide & Wellness Updates */}
@@ -580,29 +695,11 @@ export default function Results({ results }) {
             </button>
           </div>
 
-          {/* General Disclaimer */}
+          {/* Disclaimer */}
           <div className="mt-8 pt-6 border-t border-slate-deep/10">
-            <div className="bg-slate-deep/5 rounded-lg p-4">
-              <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-slate-deep/40 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                </svg>
-                <div>
-                  <h4 className="text-sm font-medium text-slate-deep/70 mb-1">About This Assessment</h4>
-                  <p className="text-xs text-slate-deep/60 leading-relaxed mb-2">
-                    {evidenceLevels.disclaimers.general}
-                  </p>
-                  <div className="flex flex-wrap gap-2 text-[10px]">
-                    <span className={`px-2 py-1 rounded ${evidenceLevels.ratings.strong.bgColor} ${evidenceLevels.ratings.strong.color}`}>
-                      {evidenceLevels.ratings.strong.icon} Quiz Validity: Strong Evidence
-                    </span>
-                    <span className={`px-2 py-1 rounded ${evidenceLevels.ratings.traditional.bgColor} ${evidenceLevels.ratings.traditional.color}`}>
-                      {evidenceLevels.ratings.traditional.icon} Food Recommendations: Traditional Theory
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="text-xs text-slate-deep/50 text-center leading-relaxed">
+              This assessment is based on traditional Chinese medicine principles and is for educational purposes only. It does not replace professional medical advice, diagnosis, or treatment. Please consult a licensed healthcare practitioner for personalized guidance.
+            </p>
           </div>
         </div>
       )}
@@ -613,6 +710,126 @@ export default function Results({ results }) {
           constitution={primaryConstitution}
           onClose={() => setShowFoodGuide(false)}
         />
+      )}
+
+      {/* Share Card Modal */}
+      {showShareCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setShowShareCard(false)}>
+          <div className="w-full max-w-sm" onClick={e => e.stopPropagation()}>
+            {/* Share Card */}
+            <div ref={shareCardRef} className="bg-gradient-to-br from-neutral-warm to-white rounded-2xl overflow-hidden shadow-xl">
+              {/* Header */}
+              <div className={`${primaryConstitution.headerBg} p-5 text-center text-white`}>
+                <div className="text-3xl mb-2">{primaryConstitution.emoji}</div>
+                <h3 className="text-xl font-semibold mb-0.5">{primaryConstitution.name}</h3>
+                {primaryConstitution.archetype && (
+                  <p className="text-white/90 text-sm font-medium">{primaryConstitution.archetype}</p>
+                )}
+                <p className="text-white/60 text-xs mt-1">{primaryConstitution.archetypeTitle}</p>
+              </div>
+
+              {/* Content */}
+              <div className="p-5">
+                {/* Match Strength */}
+                <div className="mb-4">
+                  <div className="flex justify-between text-sm text-slate-deep/60 mb-1">
+                    <span>Match Strength</span>
+                    <span>{Math.round((results.scores[0]?.total / results.theoreticalMax) * 100)}%</span>
+                  </div>
+                  <div className="h-2 bg-slate-deep/10 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full ${primaryConstitution.headerBg}`}
+                      style={{ width: `${Math.round((results.scores[0]?.total / results.theoreticalMax) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Secondary Tendencies */}
+                {results.tendencies && results.tendencies.length > 0 && (
+                  <div className="mb-4">
+                    <p className="text-xs font-medium text-slate-deep/50 uppercase tracking-wide mb-2">Secondary Tendencies</p>
+                    <div className="flex flex-wrap gap-2">
+                      {results.tendencies.slice(0, 3).map(t => (
+                        <span key={t.id} className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-deep/5 rounded-full text-sm text-slate-deep/70">
+                          <span>{t.emoji}</span>
+                          <span>{t.name}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* My Tea */}
+                {primaryConstitution.recommendedTeas && (
+                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-200/50">
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl">🍵</span>
+                      <div>
+                        <p className="text-[10px] font-medium text-amber-700/60 uppercase tracking-wide">My Tea</p>
+                        <p className="text-sm font-medium text-amber-800">{primaryConstitution.recommendedTeas.split(',')[0].trim()}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Footer */}
+                <div className="mt-4 pt-4 border-t border-slate-deep/10 text-center">
+                  <p className="text-xs text-slate-deep/40">Take the quiz at tcm-quiz.com</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Share Actions */}
+            <div className="mt-4 flex gap-3">
+              <button
+                onClick={async () => {
+                  const shareText = `My TCM Constitution: ${primaryConstitution.name}\n${primaryConstitution.archetype} — "${primaryConstitution.archetypeTitle}"\n\n→ ${primaryConstitution.archetypeInsight}\n\n🍵 My tea: ${primaryConstitution.recommendedTeas?.split(',')[0].trim() || 'Take the quiz to find yours!'}\n\ntcm-quiz.com`
+
+                  if (navigator.share) {
+                    try {
+                      await navigator.share({
+                        title: 'My TCM Constitution Results',
+                        text: shareText
+                      })
+                      setShareStatus('shared')
+                    } catch (err) {
+                      if (err.name !== 'AbortError') {
+                        console.error('Share failed:', err)
+                      }
+                    }
+                  } else {
+                    await navigator.clipboard.writeText(shareText)
+                    setShareStatus('copied')
+                    setTimeout(() => setShareStatus(null), 2000)
+                  }
+                }}
+                className="flex-1 py-3 bg-slate-deep text-white rounded-xl font-medium hover:bg-slate-deep/90 transition-colors flex items-center justify-center gap-2"
+              >
+                {shareStatus === 'copied' ? (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    {navigator.share ? 'Share' : 'Copy to Clipboard'}
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => setShowShareCard(false)}
+                className="px-5 py-3 bg-white border border-slate-deep/20 text-slate-deep/70 rounded-xl font-medium hover:bg-slate-deep/5 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
     </div>

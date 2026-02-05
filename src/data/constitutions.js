@@ -27,6 +27,37 @@ export const constitutions = {
     bgLight: 'bg-sage/5',
     headerBg: 'bg-sage',
     tagline: 'Harmony in motion',
+    archetype: 'The Thermostat',
+    archetypeTitle: 'The Regulator',
+    archetypeInsight: 'Others feel steadier around you—even if you don\'t notice it.',
+    quietClue: "My body feels boring—in a good way.",
+    layeredExpression: {
+      systemTends: 'steady energy, easy recovery, and emotional resilience',
+      underPressure: 'temporary Qi Stagnation (tension, sighing) that resolves quickly',
+      whenUnsupported: 'gradual Qi Deficiency if rest and nourishment are neglected long-term'
+    },
+    modes: {
+      baseline: { name: 'Responsive', description: 'Adaptable, even-keeled, naturally regulates' },
+      strain: { name: 'Mirroring', description: 'Temporarily takes on others\' patterns under prolonged stress' },
+      recovery: { name: 'Anchored', description: 'Returns to baseline quickly, becomes the steady presence others orient around' }
+    },
+    behavioralTells: [
+      'Rarely needs caffeine or avoids it intentionally',
+      'Can skip a meal or sleep poorly and still function',
+      'Doesn\'t ruminate much after conflict',
+      'Others vent to them without planning to'
+    ],
+    phenotypicTendencies: [
+      'Body temperature feels "neutral" to others',
+      'Minimal seasonal symptom swings',
+      'Skin heals cleanly, scars lightly',
+      'Menstrual cycles (if applicable) are predictable'
+    ],
+    bodyReactions: [
+      'Stress response ramps up only as much as needed',
+      'Immune symptoms appear briefly, then disappear',
+      'Appetite returns naturally after illness'
+    ],
     prevalence: 'Approximately 32-34% in general population',
     primaryOrgans: 'All organs in harmony',
     corePattern: 'Good energy, adaptable, resilient',
@@ -67,7 +98,9 @@ export const constitutions = {
       gutMicrobiome: 'Diverse microbiome; high Bifidobacterium and Lactobacillus; healthy Firmicutes/Bacteroidetes ratio',
       explanation: 'Even with balanced constitution, regular monitoring helps maintain your excellent baseline and catch any shifts early.'
     },
-    bridgeMessage: "Your balanced tendencies are wonderful! Regular wellness screening helps you maintain this harmony and catch any subtle shifts before they become patterns."
+    bridgeMessage: "Your balanced tendencies are wonderful! Regular wellness screening helps you maintain this harmony and catch any subtle shifts before they become patterns.",
+    seasonalAdvice: "You adapt well to all seasons. Simply follow nature: lighter foods and more activity in spring/summer, warming foods and more rest in autumn/winter.",
+    lifestyleGuidance: "Maintain your balance with moderate, consistent exercise — walking, tai chi, swimming. Prioritize regular sleep and wake times. Practice gratitude or brief meditation. Your constitution is a gift; the goal is preservation."
   },
 
   qi_deficient: {
@@ -81,6 +114,37 @@ export const constitutions = {
     bgLight: 'bg-earth/5',
     headerBg: 'bg-earth',
     tagline: 'Gentle energy that needs nurturing',
+    archetype: 'The Candle',
+    archetypeTitle: 'The Giver',
+    archetypeInsight: 'You show up quietly and consistently, but burnout comes easily.',
+    quietClue: "I'm not sick—I'm just wiped.",
+    layeredExpression: {
+      systemTends: 'fatigue, weak immunity, and spontaneous sweating',
+      underPressure: 'Yang Deficiency (cold extremities, low motivation) or Phlegm-Dampness (heaviness, brain fog)',
+      whenUnsupported: 'Blood Stasis (poor circulation, lingering symptoms) as energy fails to move blood'
+    },
+    modes: {
+      baseline: { name: 'Quiet Giver', description: 'Gentle, steady, knows their limits intuitively' },
+      strain: { name: 'Flickering Flame', description: 'Brain fog, emotional flatness, cancels plans, gets sick easily' },
+      recovery: { name: 'Steady Glow', description: 'Energy becomes predictable, confidence improves, can do more without overextending' }
+    },
+    behavioralTells: [
+      'Plans rest around obligations, not vice versa',
+      'Cancels plans at the last minute due to fatigue',
+      'Gets overwhelmed by multi-step tasks',
+      'Feels guilty resting but can\'t push through'
+    ],
+    phenotypicTendencies: [
+      'Voice trails off at the end of sentences',
+      'Dark under-eye shadows without insomnia',
+      'Gets winded climbing stairs',
+      'Hands may tremble when tired or hungry'
+    ],
+    bodyReactions: [
+      'Stress → heaviness rather than anxiety',
+      'Illness starts mild but lingers',
+      'Exercise initially helps, then exhausts for days'
+    ],
     prevalence: 'Approximately 12-13% in general population',
     primaryOrgans: 'Spleen, Lung',
     corePattern: 'Low energy, weak voice, catches illness easily',
@@ -125,7 +189,9 @@ export const constitutions = {
       other: 'Low energy metabolism markers; reduced ATP production',
       explanation: 'Fatigue and weakness symptoms often correlate with anemia markers and B-vitamin deficiencies.'
     },
-    bridgeMessage: "Your results suggest Qi-Deficient tendencies, often characterized by fatigue and low energy. A blood wellness panel can reveal if underlying factors like iron status (ferritin), B12, or thyroid markers may be contributing."
+    bridgeMessage: "Your results suggest Qi-Deficient tendencies, often characterized by fatigue and low energy. A blood wellness panel can reveal if underlying factors like iron status (ferritin), B12, or thyroid markers may be contributing.",
+    seasonalAdvice: "Spring and autumn transitions are your vulnerable periods. Bundle up, avoid wind exposure, and increase warming foods during these times. Summer heat can also deplete you — stay hydrated with warm (not iced) water.",
+    lifestyleGuidance: "Gentle, consistent movement is key — tai chi, qigong, or slow walks. Avoid intense exercise that leaves you drained. Prioritize 7–9 hours of sleep. Avoid overwork and learn to say no. Breathing exercises (abdominal breathing for 5 min daily) directly build Qi."
   },
 
   yang_deficient: {
@@ -139,6 +205,37 @@ export const constitutions = {
     bgLight: 'bg-slate-deep/5',
     headerBg: 'bg-slate-deep',
     tagline: 'A body that craves warmth',
+    archetype: 'The Ember',
+    archetypeTitle: 'The Quiet Endurer',
+    archetypeInsight: 'You have depth and loyalty, but momentum takes effort.',
+    quietClue: "I don't feel driven—I feel depleted of warmth.",
+    layeredExpression: {
+      systemTends: 'cold intolerance, low metabolism, and fluid retention',
+      underPressure: 'Qi Deficiency (exhaustion, weak voice) or Phlegm-Dampness (puffiness, foggy thinking)',
+      whenUnsupported: 'Blood Stasis (poor circulation, fixed cold pain) as cold congeals the blood over time'
+    },
+    modes: {
+      baseline: { name: 'Slow Burn', description: 'Grounded, enduring, patient, moves at their own pace' },
+      strain: { name: 'Dimming', description: 'Cold, disengaged, heavy, motivation drops' },
+      recovery: { name: 'Warm Ember', description: 'Inner warmth returns, motivation stabilizes, feels more present' }
+    },
+    behavioralTells: [
+      'Moves slowly in the morning, clearer at night',
+      'Loves hot showers, blankets, soups',
+      'Dreads winter more than others',
+      'Feels emotionally muted under stress'
+    ],
+    phenotypicTendencies: [
+      'Cold lower back, knees, or abdomen',
+      'Swelling around ankles or eyes',
+      'Pale tongue, slow digestion',
+      'Weight gain without increased intake'
+    ],
+    bodyReactions: [
+      'Cold weather worsens everything',
+      'Stress → shutdown, not agitation',
+      'Libido and motivation drop together'
+    ],
     prevalence: 'Approximately 9-10% in general population',
     primaryOrgans: 'Kidney, Spleen',
     corePattern: 'Cold intolerance, cold extremities, preference for warmth',
@@ -184,7 +281,9 @@ export const constitutions = {
       other: 'Low basal metabolic rate; cold extremity temperature',
       explanation: 'Research shows Yang deficiency correlates with thyroid function and vitamin D levels.'
     },
-    bridgeMessage: "Your tendencies suggest sensitivity to cold and low metabolic warmth. Research shows these patterns correlate with thyroid function and vitamin D levels."
+    bridgeMessage: "Your tendencies suggest sensitivity to cold and low metabolic warmth. Research shows these patterns correlate with thyroid function and vitamin D levels.",
+    seasonalAdvice: "Winter is your hardest season. Prepare early in autumn with warming foods and layered clothing. Avoid swimming in cold water. Summer is your healing season — use it to gently rebuild Yang reserves.",
+    lifestyleGuidance: "Keep your lower back, abdomen, and feet warm — these are Yang reservoirs. Moxibustion is highly beneficial for you. Moderate sun exposure (morning sunlight) supports Yang. Exercise regularly but don't exhaust yourself — brisk walking, gentle jogging. Warm foot soaks before bed with ginger slices."
   },
 
   yin_deficient: {
@@ -198,6 +297,37 @@ export const constitutions = {
     bgLight: 'bg-gold/5',
     headerBg: 'bg-gold',
     tagline: 'Running warm with inner heat',
+    archetype: 'The Lightning',
+    archetypeTitle: 'The Spark',
+    archetypeInsight: 'Your mind and body move fast, sometimes faster than recovery.',
+    quietClue: "I'm exhausted—but I can't stop.",
+    layeredExpression: {
+      systemTends: 'heat signs, dryness, and restless energy that doesn\'t restore',
+      underPressure: 'Qi Stagnation (irritability, chest tightness) or Damp-Heat (inflammation, skin flares)',
+      whenUnsupported: 'progressive Yang Deficiency as internal heat burns through reserves'
+    },
+    modes: {
+      baseline: { name: 'Bright Spark', description: 'Sharp, driven, creative, quick-thinking' },
+      strain: { name: 'Overheating', description: 'Wired but tired, irritable, sleepless, can\'t slow down' },
+      recovery: { name: 'Focused Fire', description: 'Sustained energy, calmer intensity, creativity flows without burnout' }
+    },
+    behavioralTells: [
+      'Gets second wind late at night',
+      'Overworks despite knowing better',
+      'Feels tired but restless',
+      'Finds silence uncomfortable'
+    ],
+    phenotypicTendencies: [
+      'Warm palms and soles at night',
+      'Red tongue tip, flushed cheeks',
+      'Thirst in small sips',
+      'Muscle tightness without bulk'
+    ],
+    bodyReactions: [
+      'Stress → insomnia, irritability',
+      'Illness brings heat, not chills',
+      'Rest feels unsatisfying unless prolonged'
+    ],
     prevalence: 'Approximately 8-9% in general population',
     primaryOrgans: 'Kidney, Liver, Lung',
     corePattern: 'Heat sensations, dry skin/mouth, warm palms/soles',
@@ -243,7 +373,9 @@ export const constitutions = {
       other: 'Signs of oxidative stress; increased internal heat markers',
       explanation: 'Heat and dryness symptoms are often associated with HPA axis patterns and hormonal balance.'
     },
-    bridgeMessage: "Your Yin-Deficient tendencies suggest your body may run warm and lack adequate cooling fluids. Cortisol patterns, inflammatory markers, and hormone levels often reflect these patterns."
+    bridgeMessage: "Your Yin-Deficient tendencies suggest your body may run warm and lack adequate cooling fluids. Cortisol patterns, inflammatory markers, and hormone levels often reflect these patterns.",
+    seasonalAdvice: "Autumn dryness and summer heat are your biggest challenges. In autumn, increase moistening foods and protect your lungs. In summer, avoid prolonged sun exposure and stay well-hydrated with room-temperature water.",
+    lifestyleGuidance: "Avoid staying up late — Yin regenerates between 11 PM and 3 AM. Practice calming exercises: yoga, swimming, walking by water. Avoid saunas, hot yoga, and intense cardio that causes excessive sweating. Keep your environment humidified. Meditation and slow breathing help settle internal heat."
   },
 
   phlegm_dampness: {
@@ -257,6 +389,37 @@ export const constitutions = {
     bgLight: 'bg-sage/5',
     headerBg: 'bg-sage',
     tagline: 'A body that holds onto excess',
+    archetype: 'The Fog',
+    archetypeTitle: 'The Absorber',
+    archetypeInsight: 'You take in more than you realize—emotions, environments, stress.',
+    quietClue: "I feel weighed down—not tired, not sad.",
+    layeredExpression: {
+      systemTends: 'heaviness, sluggish metabolism, and accumulation of excess',
+      underPressure: 'Qi Deficiency (fatigue, weak digestion) or Damp-Heat (skin issues, irritability)',
+      whenUnsupported: 'Blood Stasis (poor circulation, fixed masses) as dampness congeals over time'
+    },
+    modes: {
+      baseline: { name: 'Soft Landing', description: 'Calm, comfort-seeking, reflective, absorbs stress well' },
+      strain: { name: 'Heavy Fog', description: 'Sluggish, mentally clouded, avoidant, hard to initiate' },
+      recovery: { name: 'Clearing Mist', description: 'Clearer thinking, lighter body, more mobile and motivated' }
+    },
+    behavioralTells: [
+      'Procrastination tied to mental heaviness, not fear',
+      'Feels best after movement but resists starting',
+      'Comfort eating when stressed',
+      'Avoids humid or rainy days if possible'
+    ],
+    phenotypicTendencies: [
+      'Bloating after small meals',
+      'Brain fog after carbs',
+      'Mucus without infection',
+      'Sweet or bland taste preference'
+    ],
+    bodyReactions: [
+      'Stress → lethargy, zoning out',
+      'Illness feels "thick" and slow',
+      'Symptoms worsen when sedentary'
+    ],
     prevalence: 'Approximately 8-9% in general population',
     primaryOrgans: 'Spleen, Lung',
     corePattern: 'Heaviness, oily skin, sluggish digestion, excess mucus',
@@ -302,7 +465,9 @@ export const constitutions = {
       other: 'Elevated visceral fat markers; metabolic syndrome panel abnormalities',
       explanation: 'Research shows Phlegm-Dampness constitution correlates with metabolic markers.'
     },
-    bridgeMessage: "These tendencies are associated with metabolic patterns that often show up in lipid panels and blood sugar markers."
+    bridgeMessage: "These tendencies are associated with metabolic patterns that often show up in lipid panels and blood sugar markers.",
+    seasonalAdvice: "Late summer (humid season) and rainy periods are your worst times. Use dehumidifiers indoors, avoid sitting on damp ground, and increase aromatic, damp-resolving foods like ginger and citrus peel during these periods.",
+    lifestyleGuidance: "Movement is your medicine — you benefit most from vigorous exercise that induces sweating: running, cycling, HIIT, dance. Avoid damp environments and air-dry thoroughly after showering. Dry-brushing the skin helps stimulate circulation. Don't nap excessively; stay active during the day."
   },
 
   damp_heat: {
@@ -316,6 +481,37 @@ export const constitutions = {
     bgLight: 'bg-earth/5',
     headerBg: 'bg-earth',
     tagline: 'Internal heat meeting stagnant moisture',
+    archetype: 'The Geyser',
+    archetypeTitle: 'The Reactor',
+    archetypeInsight: 'Intensity is your strength—and your warning signal.',
+    quietClue: "It builds until I snap.",
+    layeredExpression: {
+      systemTends: 'inflammation, oily skin, and intense reactions that resolve fast',
+      underPressure: 'Phlegm-Dampness (heaviness, sluggishness) or Yin Deficiency (dryness, heat intensifies)',
+      whenUnsupported: 'Yin Deficiency as prolonged heat consumes your cooling fluids'
+    },
+    modes: {
+      baseline: { name: 'Contained Fire', description: 'Passionate, intense, powerful energy held in reserve' },
+      strain: { name: 'Erupting', description: 'Reactive, inflamed, explosive, skin flares, temper spikes' },
+      recovery: { name: 'Directed Heat', description: 'Powerful but controlled, decisive, intensity becomes productive' }
+    },
+    behavioralTells: [
+      'Holds it together publicly, vents privately',
+      'Feels trapped easily',
+      'Quick to anger when overheated or hungry',
+      'Strong sense of injustice'
+    ],
+    phenotypicTendencies: [
+      'Red, inflamed skin flares',
+      'Strong-smelling sweat',
+      'Bitter mouth taste',
+      'Heat intolerance'
+    ],
+    bodyReactions: [
+      'Stress → inflammation, eruptions',
+      'Illness comes on fast and intense',
+      'Symptoms improve quickly once released'
+    ],
     prevalence: 'Approximately 6-7% in general population',
     primaryOrgans: 'Liver, Gallbladder, Spleen',
     corePattern: 'Greasy skin with breakouts, bitter taste, irritability',
@@ -359,7 +555,9 @@ export const constitutions = {
       other: 'Signs of oxidative stress combined with dampness markers',
       explanation: 'Damp-Heat patterns often show up in inflammatory markers and liver function tests.'
     },
-    bridgeMessage: "Damp-Heat tendencies often correlate with inflammatory markers and liver function. Our blood panel includes hsCRP and liver enzymes to help you understand and address these patterns."
+    bridgeMessage: "Damp-Heat tendencies often correlate with inflammatory markers and liver function. Our blood panel includes hsCRP and liver enzymes to help you understand and address these patterns.",
+    seasonalAdvice: "Summer and humid climates are your biggest triggers. During hot, humid weather, increase cooling foods, stay hydrated, and shower promptly after sweating. Autumn's dryness actually helps you — embrace it.",
+    lifestyleGuidance: "Regular vigorous exercise to sweat out damp-heat — swimming, running, and cycling are excellent. Keep your living space cool and well-ventilated. Wear breathable natural fabrics. Avoid staying up late (generates internal heat). Limit stress and anger — practice cooling breathwork."
   },
 
   blood_stasis: {
@@ -373,6 +571,37 @@ export const constitutions = {
     bgLight: 'bg-slate-deep/5',
     headerBg: 'bg-slate-deep',
     tagline: 'Circulation seeking flow',
+    archetype: 'The Glacier',
+    archetypeTitle: 'The Holder',
+    archetypeInsight: 'Your body remembers what your mind has moved past.',
+    quietClue: "This has been here a long time.",
+    layeredExpression: {
+      systemTends: 'poor circulation, fixed pain, and slow-moving symptoms',
+      underPressure: 'Qi Stagnation (emotional tension, moving pain) or Qi Deficiency (exhaustion makes circulation worse)',
+      whenUnsupported: 'Yang Deficiency as cold congeals blood further, deepening stagnation'
+    },
+    modes: {
+      baseline: { name: 'Still Waters', description: 'Stoic, steady, enduring, holds things together' },
+      strain: { name: 'Frozen', description: 'Pain-bound, emotionally sealed, stuck in old patterns' },
+      recovery: { name: 'Thawing', description: 'Softer, more flexible, emotions flow, presence returns' }
+    },
+    behavioralTells: [
+      'Remembers injuries and losses vividly',
+      'High pain tolerance, low complaint rate',
+      'Resists abrupt changes',
+      'Feels emotionally "contained"'
+    ],
+    phenotypicTendencies: [
+      'Old scars that ache',
+      'Fixed pain points',
+      'Darker pigmentation in lips or under eyes',
+      'Menstrual clots or chronic cramps'
+    ],
+    bodyReactions: [
+      'Stress → pain localization',
+      'Healing is slow but steady',
+      'Symptoms persist once established'
+    ],
     prevalence: 'Approximately 7-8% in general population',
     primaryOrgans: 'Liver, Heart',
     corePattern: 'Dark complexion, fixed pain, easy bruising',
@@ -417,7 +646,9 @@ export const constitutions = {
       other: 'Abnormal coagulation (elevated PT, APTT); elevated fibrin; blood viscosity changes; urinary albumin may be elevated',
       explanation: 'Blood stasis patterns correlate with coagulation markers and cardiovascular indicators.'
     },
-    bridgeMessage: "Blood Stasis tendencies suggest circulation may benefit from support. Homocysteine, fibrinogen, and inflammatory markers often reflect these patterns."
+    bridgeMessage: "Blood Stasis tendencies suggest circulation may benefit from support. Homocysteine, fibrinogen, and inflammatory markers often reflect these patterns.",
+    seasonalAdvice: "Cold winter months worsen blood stasis as vessels constrict. Keep warm, stay active indoors, and increase warming circulatory foods. Spring is your best season for rejuvenation — use it to establish movement routines.",
+    lifestyleGuidance: "Movement is essential — walking, dancing, stretching, yoga. Anything that gets blood flowing regularly. Avoid sitting or standing in one position for long periods. Gua sha and cupping are particularly beneficial for you. Warm baths with Epsom salt or aromatic herbs. Emotional stagnation worsens blood stasis — express your feelings."
   },
 
   qi_stagnation: {
@@ -431,6 +662,37 @@ export const constitutions = {
     bgLight: 'bg-sage/5',
     headerBg: 'bg-sage-dark',
     tagline: 'Emotions seeking expression',
+    archetype: 'The Knot',
+    archetypeTitle: 'The Tense Thinker',
+    archetypeInsight: 'Stress lives in the in-between spaces of your life.',
+    quietClue: "I just need things to move.",
+    layeredExpression: {
+      systemTends: 'tension, mood swings, and symptoms that move around the body',
+      underPressure: 'Blood Stasis (fixed pain, darker complexion) or Yin Deficiency (heat signs from prolonged frustration)',
+      whenUnsupported: 'Phlegm nodules (lumps, masses) as stagnant Qi generates phlegm over time'
+    },
+    modes: {
+      baseline: { name: 'Coiled Spring', description: 'Thoughtful, alert, restrained, holds tension productively' },
+      strain: { name: 'Wound Tight', description: 'Tense, ruminative, irritable, chest tightness, sighing' },
+      recovery: { name: 'Unwinding', description: 'Fluid, expressive, relieved, movement and emotion flow freely' }
+    },
+    behavioralTells: [
+      'Sighs unconsciously',
+      'Jaw clenching, shoulder tension',
+      'Mood improves immediately with movement',
+      'Feels stuck rather than weak'
+    ],
+    phenotypicTendencies: [
+      'IBS-like digestion',
+      'PMS or headaches before stressors',
+      'Neck and upper back tension',
+      'Variable appetite'
+    ],
+    bodyReactions: [
+      'Stress → tightness, bloating',
+      'Relief after crying, stretching, walking',
+      'Symptoms migrate rather than disappear'
+    ],
     prevalence: 'Approximately 8-9% in general population',
     primaryOrgans: 'Liver, Spleen',
     corePattern: 'Emotional sensitivity, sighing, chest/side tension',
@@ -476,7 +738,9 @@ export const constitutions = {
       other: 'Heart rate variability changes; elevated stress markers; possible liver enzyme fluctuations',
       explanation: 'Emotional and stress patterns correlate with HPA axis function and liver health. Magnesium status often plays a role.'
     },
-    bridgeMessage: "Qi Stagnation tendencies reflect how stress and emotions may affect your body. Cortisol patterns, DHEA-S, and magnesium levels often provide insights."
+    bridgeMessage: "Qi Stagnation tendencies reflect how stress and emotions may affect your body. Cortisol patterns, DHEA-S, and magnesium levels often provide insights.",
+    seasonalAdvice: "Spring is both your best and most volatile season — Liver Qi naturally rises, which can either free stagnation or cause emotional turbulence. Channel spring energy into new projects and outdoor activity. Autumn's inward energy can make stagnation worse — stay social and active.",
+    lifestyleGuidance: "Emotional expression is your medicine. Journal, talk to friends, seek therapy if needed. Vigorous exercise that involves the whole body — running, martial arts, dance, boxing — physically moves stuck Qi. Sing, chant, or practice breathwork to open the throat and chest. Spend time in nature. Create routines but leave room for spontaneity."
   },
 
   inherited_special: {
@@ -490,6 +754,37 @@ export const constitutions = {
     bgLight: 'bg-gold/5',
     headerBg: 'bg-gold',
     tagline: 'A sensitive system seeking balance',
+    archetype: 'The Antenna',
+    archetypeTitle: 'The Sensor',
+    archetypeInsight: 'You notice subtle shifts long before others do.',
+    quietClue: "My body reacts before I decide.",
+    layeredExpression: {
+      systemTends: 'hypersensitivity, allergic responses, and environmental reactivity',
+      underPressure: 'any pattern can amplify—your sensitivity makes you a mirror for imbalance',
+      whenUnsupported: 'Qi Deficiency (weakened protective energy) or Yin Deficiency (dryness worsens skin/respiratory issues)'
+    },
+    modes: {
+      baseline: { name: 'Tuned In', description: 'Perceptive, attuned, careful, reads environments accurately' },
+      strain: { name: 'Overloaded', description: 'Overstimulated, reactive, allergies flare, needs to withdraw' },
+      recovery: { name: 'Clear Signal', description: 'Sensitivity becomes insight, selective about what to let in, boundaries strengthen' }
+    },
+    behavioralTells: [
+      'Notices lighting, sound, smells immediately',
+      'Avoids crowded environments',
+      'Reads ingredient labels carefully',
+      'Feels "off" before others notice issues'
+    ],
+    phenotypicTendencies: [
+      'Eczema, allergies, asthma',
+      'Food sensitivities',
+      'Thin margin between fine and overwhelmed',
+      'Highly variable energy'
+    ],
+    bodyReactions: [
+      'Stress → hypersensitivity',
+      'Immune responses are fast and dramatic',
+      'Symptoms appear early, resolve slowly'
+    ],
     prevalence: 'Approximately 4-5% in general population',
     primaryOrgans: 'Lung, Kidney (congenital)',
     corePattern: 'Allergies, sensitivities, atopic conditions',
@@ -534,7 +829,9 @@ export const constitutions = {
       other: 'Skin prick test positive; elevated specific IgE antibodies',
       explanation: 'Allergic patterns are directly measurable through immune markers. IgE and eosinophils reflect allergic tendency.'
     },
-    bridgeMessage: "Inherited Special tendencies suggest your immune system may be more reactive. Total IgE, eosinophil count, and specific sensitivity testing can help identify triggers."
+    bridgeMessage: "Inherited Special tendencies suggest your immune system may be more reactive. Total IgE, eosinophil count, and specific sensitivity testing can help identify triggers.",
+    seasonalAdvice: "Spring (pollen) and autumn (dust, mold, dryness) are typically your hardest seasons. Pre-treat: start immune-supporting herbs and acupuncture 2–4 weeks before your known difficult season begins.",
+    lifestyleGuidance: "Know your triggers and plan around them. Strengthen your Wei Qi (defensive energy) through regular moderate exercise and adequate sleep. Nasal rinsing with saline during allergy season. Acupuncture can be very effective for modulating immune hypersensitivity. Build resilience gradually rather than avoiding everything — work with a practitioner."
   }
 };
 
@@ -900,6 +1197,66 @@ export const quizQuestions = [
       { text: "Numbness or tingling in extremities", scores: { blood_stasis: 2, qi_deficient: 1 } },
     ],
   },
+  {
+    id: 19,
+    category: "Appetite",
+    text: "How would you describe your appetite?",
+    icon: "🍜",
+    options: [
+      { text: "Consistent and satisfied after meals", scores: { balanced: 3 } },
+      { text: "Poor appetite, food doesn't appeal to me", scores: { qi_deficient: 2, phlegm_dampness: 1 } },
+      { text: "Strong appetite but I feel heavy or sluggish after eating", scores: { phlegm_dampness: 2, damp_heat: 1 } },
+      { text: "Hungry often but eating doesn't satisfy me for long", scores: { yin_deficient: 2, damp_heat: 1 } },
+    ],
+  },
+  {
+    id: 20,
+    category: "Mental Clarity",
+    text: "How is your mental clarity and focus?",
+    icon: "🧠",
+    options: [
+      { text: "Clear and sharp — I can concentrate well", scores: { balanced: 3 } },
+      { text: "Foggy or muddled, especially after meals", scores: { phlegm_dampness: 3 } },
+      { text: "Racing thoughts, hard to focus on one thing", scores: { qi_stagnation: 2, yin_deficient: 1 } },
+      { text: "Forgetful and easily mentally fatigued", scores: { qi_deficient: 2, blood_stasis: 1 } },
+    ],
+  },
+  {
+    id: 21,
+    category: "Sensitivities",
+    text: "How sensitive are you to medications, foods, or environments?",
+    icon: "⚠️",
+    options: [
+      { text: "I tolerate most things without issue", scores: { balanced: 3 } },
+      { text: "I react strongly to medications — need lower doses", scores: { inherited_special: 3 } },
+      { text: "Certain foods cause immediate digestive upset", scores: { inherited_special: 2, qi_deficient: 1 } },
+      { text: "Sensitive to smells, chemicals, or environmental changes", scores: { inherited_special: 2, qi_stagnation: 1 } },
+    ],
+  },
+  {
+    id: 22,
+    category: "Urination",
+    text: "What best describes your urination patterns?",
+    icon: "💧",
+    options: [
+      { text: "Normal frequency and color", scores: { balanced: 3 } },
+      { text: "Frequent, clear, or copious urination", scores: { yang_deficient: 3 } },
+      { text: "Dark, scanty, or burning sensation", scores: { damp_heat: 2, yin_deficient: 1 } },
+      { text: "Difficulty starting or dribbling", scores: { qi_deficient: 2, blood_stasis: 1 } },
+    ],
+  },
+  {
+    id: 23,
+    category: "Recovery",
+    text: "How do you recover from illness or exertion?",
+    icon: "🔄",
+    options: [
+      { text: "Quickly — I bounce back within a day or two", scores: { balanced: 3 } },
+      { text: "Slowly — I need extra rest and feel drained for a while", scores: { qi_deficient: 2, yang_deficient: 1 } },
+      { text: "Lingering symptoms that seem to move around or return", scores: { blood_stasis: 2, qi_stagnation: 1 } },
+      { text: "I recover but am left with residual phlegm or congestion", scores: { phlegm_dampness: 3 } },
+    ],
+  },
 ];
 
 // Calculate constitution scores from answers
@@ -925,29 +1282,46 @@ export function calculateConstitution(answers) {
     }
   });
 
-  // Calculate maximum possible score (18 questions * 3 max points = 54)
-  const maxPossibleScore = quizQuestions.length * 3;
+  // Get the maximum score achieved by any constitution
+  const maxScoreAchieved = Math.max(...Object.values(scores), 1);
+
+  // Theoretical maximum: 18 questions * 3 points = 54
+  const theoreticalMax = quizQuestions.length * 3;
 
   // Convert to sorted array with id and total
+  // Normalize to 0-5 scale based on the highest score achieved (not theoretical max)
+  // This ensures the chart has good visual volume
   const sortedScores = Object.entries(scores)
     .filter(([_, total]) => total > 0)
     .map(([id, total]) => ({
       id,
       total,
-      average: total / maxPossibleScore * 5 // Normalize to 0-5 scale for compatibility
+      // Scale so highest scorer gets ~4.5, others proportionally
+      average: (total / maxScoreAchieved) * 4.5
     }))
     .sort((a, b) => b.total - a.total);
 
-  // Get the maximum score achieved
+  // maxScore for relative comparisons (highest achieved)
   const maxScore = sortedScores[0]?.total || 1;
 
-  // Determine primary constitution (highest scorer)
-  // If balanced has high score relative to others, use balanced
+  // Determine primary constitution
   const balancedScore = scores.balanced || 0;
-  const highestImbalanceScore = sortedScores.find(s => s.id !== 'balanced')?.total || 0;
+  const imbalancedScores = sortedScores.filter(s => s.id !== 'balanced');
+  const highestImbalanceScore = imbalancedScores[0]?.total || 0;
 
-  // Primary is balanced if balanced score is highest and significantly higher than others
-  const isBalanced = balancedScore >= highestImbalanceScore && balancedScore >= maxPossibleScore * 0.4;
+  // For balanced classification, no tendency should exceed 2 points on the spider diagram (0-5 scale)
+  // The spider chart normalizes: average = (total / maxScoreAchieved) * 4.5
+  // If balanced is highest, maxScoreAchieved = balancedScore
+  // For imbalance to show <= 2 on chart: (imbalance / balancedScore) * 4.5 <= 2
+  // So: imbalance <= balancedScore * (2 / 4.5) = balancedScore * 0.444
+  const maxImbalanceForBalanced = balancedScore * (2 / 4.5);
+
+  // Someone is ONLY balanced if:
+  // 1. Balanced score is the highest
+  // 2. All imbalance tendencies would show <= 2 on the spider diagram
+  const isBalanced =
+    balancedScore > highestImbalanceScore && // Balanced must be strictly highest
+    highestImbalanceScore <= maxImbalanceForBalanced; // No tendency exceeds 2 on spider chart
 
   if (isBalanced) {
     // Filter out balanced from tendencies
@@ -965,18 +1339,19 @@ export function calculateConstitution(answers) {
       tendencies,
       scores: sortedScores,
       rawScores: scores,
-      maxScore
+      maxScore,
+      theoreticalMax
     };
   }
 
-  // Otherwise, highest scorer is primary
-  const primaryScore = sortedScores[0];
+  // Otherwise, highest IMBALANCE scorer is primary (not balanced, even if balanced scored highest)
+  const primaryScore = imbalancedScores[0];
   const primary = primaryScore ? [constitutions[primaryScore.id]] : [constitutions.balanced];
 
-  // Tendencies are the next highest scorers (excluding primary and balanced if it's low)
-  const tendencies = sortedScores
+  // Tendencies are the other imbalance scorers (excluding primary)
+  const tendencies = imbalancedScores
     .slice(1)
-    .filter(s => s.total > 0 && s.id !== 'balanced')
+    .filter(s => s.total > 0)
     .slice(0, 4)
     .map(s => ({
       ...constitutions[s.id],
@@ -989,7 +1364,8 @@ export function calculateConstitution(answers) {
     tendencies,
     scores: sortedScores,
     rawScores: scores,
-    maxScore
+    maxScore,
+    theoreticalMax
   };
 }
 

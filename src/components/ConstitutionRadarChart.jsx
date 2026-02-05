@@ -193,6 +193,16 @@ export default function ConstitutionRadarChart({ scores, primaryId }) {
           <span>Other Types</span>
         </div>
       </div>
+
+      {/* How to read your results */}
+      <div className="mt-4 pt-4 border-t border-slate-deep/10 space-y-3">
+        <p className="text-sm text-slate-deep/70 leading-relaxed">
+          <span className="font-medium text-slate-deep">Reading your profile:</span> Most people express 2–3 patterns. Your primary tendency is strongest right now, but secondary patterns also shape your experience. These are snapshots — they shift with seasons, stress, and life phases.
+        </p>
+        <p className="text-xs text-sage-dark bg-sage/10 rounded-lg px-3 py-2">
+          <span className="font-medium">The goal is balance</span> — not fixing who you are, but supporting how you move.
+        </p>
+      </div>
     </div>
   )
 }
