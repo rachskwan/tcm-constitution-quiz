@@ -166,12 +166,10 @@ export default function ConstitutionRadarChart({ scores, primaryId }) {
         <div className="mt-4 p-3 bg-slate-deep/5 rounded-lg">
           <div className="flex items-center gap-2 mb-2">
             <div className={`w-6 h-6 rounded-full ${constitutions[hoveredPoint].headerBg} flex items-center justify-center`}>
-              {constitutionIcons[hoveredPoint] ? (
+              {constitutionIcons[hoveredPoint] && (
                 <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d={constitutionIcons[hoveredPoint]} />
                 </svg>
-              ) : (
-                <span className="text-xs">{constitutions[hoveredPoint].emoji}</span>
               )}
             </div>
             <span className="font-medium text-slate-deep">{constitutions[hoveredPoint].name}</span>

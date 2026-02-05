@@ -96,11 +96,8 @@ export default function Quiz({ onComplete }) {
             </span>
           </div>
 
-          {/* Question with icon */}
+          {/* Question */}
           <div className="text-center mb-8">
-            {question.icon && (
-              <span className="text-4xl block mb-4">{question.icon}</span>
-            )}
             <h2 className="text-2xl font-semibold text-slate-deep leading-relaxed">
               {question.text}
             </h2>

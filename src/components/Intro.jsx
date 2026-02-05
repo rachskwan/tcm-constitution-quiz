@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 
 const constitutionTypes = [
-  { emoji: '☯️', name: 'Balanced', archetype: 'The Thermostat', tagline: 'Harmony in motion' },
-  { emoji: '🍃', name: 'Qi Deficiency', archetype: 'The Candle', tagline: 'Gentle energy that needs nurturing' },
-  { emoji: '❄️', name: 'Yang Deficiency', archetype: 'The Ember', tagline: 'A body that craves warmth' },
-  { emoji: '🔥', name: 'Yin Deficiency', archetype: 'The Lightning', tagline: 'Running warm with inner heat' },
-  { emoji: '💧', name: 'Phlegm-Dampness', archetype: 'The Fog', tagline: 'A body that holds onto excess' },
-  { emoji: '🌡️', name: 'Damp-Heat', archetype: 'The Geyser', tagline: 'Internal heat meeting moisture' },
-  { emoji: '🩸', name: 'Blood Stasis', archetype: 'The Glacier', tagline: 'Circulation seeking flow' },
-  { emoji: '😔', name: 'Qi Stagnation', archetype: 'The Knot', tagline: 'Emotions seeking expression' },
-  { emoji: '🌸', name: 'Inherited Special', archetype: 'The Antenna', tagline: 'A sensitive system seeking balance' },
+  { name: 'Balanced', archetype: 'The Thermostat', tagline: 'Harmony in motion' },
+  { name: 'Qi Deficiency', archetype: 'The Candle', tagline: 'Gentle energy that needs nurturing' },
+  { name: 'Yang Deficiency', archetype: 'The Ember', tagline: 'A body that craves warmth' },
+  { name: 'Yin Deficiency', archetype: 'The Lightning', tagline: 'Running warm with inner heat' },
+  { name: 'Phlegm-Dampness', archetype: 'The Fog', tagline: 'A body that holds onto excess' },
+  { name: 'Damp-Heat', archetype: 'The Geyser', tagline: 'Internal heat meeting moisture' },
+  { name: 'Blood Stasis', archetype: 'The Glacier', tagline: 'Circulation seeking flow' },
+  { name: 'Qi Stagnation', archetype: 'The Knot', tagline: 'Emotions seeking expression' },
+  { name: 'Inherited Special', archetype: 'The Antenna', tagline: 'A sensitive system seeking balance' },
 ]
 
 export default function Intro({ onStart }) {
@@ -86,7 +86,6 @@ export default function Intro({ onStart }) {
             className="flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500"
           >
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-2xl">{currentType.emoji}</span>
               <span className="text-lg font-semibold text-earth">{currentType.archetype}</span>
             </div>
             <p className="text-sm text-slate-deep/70">{currentType.name}</p>

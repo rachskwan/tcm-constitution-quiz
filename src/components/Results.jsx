@@ -60,12 +60,10 @@ export default function Results({ results }) {
       <div className={`min-h-screen flex flex-col items-center justify-center px-6 py-12 transition-all duration-500 ${showDetails ? 'min-h-0' : ''}`}>
         {/* Icon */}
         <div className={`w-24 h-24 mb-6 rounded-full ${primaryConstitution.headerBg} flex items-center justify-center transition-all duration-700 ${revealStage >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
-          {iconPath ? (
+          {iconPath && (
             <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
               <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
             </svg>
-          ) : (
-            <span className="text-4xl">{primaryConstitution.emoji}</span>
           )}
         </div>
 
@@ -185,12 +183,10 @@ export default function Results({ results }) {
                   >
                     <div className="flex items-center gap-3 p-3 rounded-lg bg-slate-deep/5 hover:bg-slate-deep/10 cursor-pointer transition-colors">
                       <div className={`w-10 h-10 rounded-full ${t.headerBg} flex items-center justify-center flex-shrink-0`}>
-                        {constitutionIcons[t.id] ? (
+                        {constitutionIcons[t.id] && (
                           <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d={constitutionIcons[t.id]} />
                           </svg>
-                        ) : (
-                          <span className="text-lg">{t.emoji}</span>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -340,7 +336,11 @@ export default function Results({ results }) {
             {/* Header */}
             <div className={`${primaryConstitution.headerBg} px-5 py-4 text-white`}>
               <h3 className="text-lg font-semibold flex items-center gap-2">
-                <span className="text-2xl">{primaryConstitution.emoji}</span>
+                {iconPath && (
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
+                  </svg>
+                )}
                 Your {primaryConstitution.name} Guide
               </h3>
               <p className="text-white/80 text-sm mt-0.5">{primaryConstitution.chinese} • {primaryConstitution.pinyin}</p>
@@ -524,7 +524,6 @@ export default function Results({ results }) {
                 {/* Your Pattern + This Season */}
                 <div className="bg-gradient-to-r from-sage/10 to-gold/10 rounded-xl p-4 border border-sage/20">
                   <p className="text-xs font-medium text-earth uppercase tracking-wide mb-2 flex items-center gap-1.5">
-                    <span>{primaryConstitution.emoji}</span>
                     Your {primaryConstitution.archetype} in {season.charAt(0).toUpperCase() + season.slice(1)}
                   </p>
                   <p className="text-sm text-slate-deep/80 leading-relaxed mb-3">
@@ -744,7 +743,13 @@ export default function Results({ results }) {
             <div ref={shareCardRef} className="bg-gradient-to-br from-neutral-warm to-white rounded-2xl overflow-hidden shadow-xl">
               {/* Header */}
               <div className={`${primaryConstitution.headerBg} p-5 text-center text-white`}>
-                <div className="text-3xl mb-2">{primaryConstitution.emoji}</div>
+                {iconPath && (
+                  <div className="flex justify-center mb-2">
+                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
+                    </svg>
+                  </div>
+                )}
                 <h3 className="text-xl font-semibold mb-0.5">{primaryConstitution.name}</h3>
                 {primaryConstitution.archetype && (
                   <p className="text-white/90 text-sm font-medium">{primaryConstitution.archetype}</p>
@@ -775,7 +780,6 @@ export default function Results({ results }) {
                     <div className="flex flex-wrap gap-2">
                       {results.tendencies.slice(0, 3).map(t => (
                         <span key={t.id} className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-deep/5 rounded-full text-sm text-slate-deep/70">
-                          <span>{t.emoji}</span>
                           <span>{t.name}</span>
                         </span>
                       ))}

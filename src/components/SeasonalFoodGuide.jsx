@@ -45,9 +45,7 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
                 </svg>
-              ) : (
-                <span className="text-lg">{constitution.emoji}</span>
-              )}
+              ) : null}
             </div>
             <div>
               <h2 className="font-semibold text-lg leading-tight">
@@ -262,12 +260,10 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
               <div className={`${colors.bg} rounded-xl p-4`}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className={`w-12 h-12 rounded-full ${colors.headerBg} flex items-center justify-center`}>
-                    {iconPath ? (
+                    {iconPath && (
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
                       </svg>
-                    ) : (
-                      <span className="text-xl">{constitution.emoji}</span>
                     )}
                   </div>
                   <div>
@@ -418,7 +414,11 @@ export default function SeasonalFoodGuide({ constitution, onClose }) {
                 <div className="relative z-10">
                   <p className="text-white/80 text-xs">My TCM Tendencies</p>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-2xl">{constitution.emoji}</span>
+                    {iconPath && (
+                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
+                      </svg>
+                    )}
                     <div>
                       <h3 className="text-xl font-semibold">{constitution.name}</h3>
                       <p className="text-white/80 text-xs">{constitution.chinese}</p>
