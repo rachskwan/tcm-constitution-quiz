@@ -26,6 +26,11 @@ export default function Intro({ onStart }) {
 
   return (
     <div className="min-h-screen bg-neutral-warm flex flex-col items-center justify-center px-6 py-12">
+      {/* Tea Icon */}
+      <div className="w-16 h-16 mb-6 rounded-full bg-white border-2 border-gold/30 flex items-center justify-center shadow-sm">
+        <span className="text-3xl">🍵</span>
+      </div>
+
       {/* Title */}
       <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3 max-w-md">
         How Traditional Chinese Medicine Understands Your Body's Patterns
