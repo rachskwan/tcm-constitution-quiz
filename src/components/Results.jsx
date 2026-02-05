@@ -273,6 +273,11 @@ export default function Results({ results }) {
                   </div>
                   <p className="font-medium text-slate-deep">{primaryConstitution.modes.baseline.name}</p>
                   <p className="text-sm text-slate-deep/60">{primaryConstitution.modes.baseline.description}</p>
+                  {primaryConstitution.layeredExpression && (
+                    <p className="text-xs text-slate-deep/50 mt-2 italic">
+                      Your system currently tends to show: {primaryConstitution.layeredExpression.systemTends}
+                    </p>
+                  )}
                 </div>
 
                 {/* Strain Mode */}
@@ -283,7 +288,30 @@ export default function Results({ results }) {
                   </div>
                   <p className="font-medium text-amber-700">{primaryConstitution.modes.strain.name}</p>
                   <p className="text-sm text-amber-700/70">{primaryConstitution.modes.strain.description}</p>
+                  {primaryConstitution.layeredExpression && (
+                    <div className="mt-2 p-2.5 bg-amber-50 rounded-lg border border-amber-200/50">
+                      <p className="text-xs text-amber-800/80">
+                        <span className="font-medium">May lean toward:</span> {primaryConstitution.layeredExpression.underPressure}
+                      </p>
+                    </div>
+                  )}
                 </div>
+
+                {/* Unsupported / Neglected */}
+                {primaryConstitution.layeredExpression && (
+                  <div className="relative pl-6 pb-4 border-l-2 border-red-200">
+                    <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-red-300 border-2 border-white"></div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-medium text-red-400 uppercase tracking-wide">If neglected long-term</span>
+                    </div>
+                    <p className="font-medium text-red-400">Pattern Deepening</p>
+                    <div className="mt-1 p-2.5 bg-red-50 rounded-lg border border-red-100">
+                      <p className="text-xs text-red-700/80">
+                        <span className="font-medium">Can develop:</span> {primaryConstitution.layeredExpression.whenUnsupported}
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Recovery Mode */}
                 <div className="relative pl-6 border-l-2 border-sage">
@@ -293,6 +321,9 @@ export default function Results({ results }) {
                   </div>
                   <p className="font-medium text-sage-dark">{primaryConstitution.modes.recovery.name}</p>
                   <p className="text-sm text-sage-dark/70">{primaryConstitution.modes.recovery.description}</p>
+                  <p className="text-xs text-sage-dark/60 mt-2 italic">
+                    With the right support, these secondary patterns ease and your primary expression stabilizes.
+                  </p>
                 </div>
               </div>
 
