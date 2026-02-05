@@ -38,7 +38,7 @@ export default function Intro({ onStart }) {
 
       {/* Title */}
       <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3 max-w-md">
-        Discover Your Body's Tendencies Through Traditional Chinese Medicine
+        What Does Eastern Medicine Say About Your Wellness?
       </h1>
 
       {/* Subtitle */}
