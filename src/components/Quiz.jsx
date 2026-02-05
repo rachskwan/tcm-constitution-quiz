@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { quizQuestions, answerOptions, calculateConstitution } from '../data/constitutions'
+import { quizQuestions, calculateConstitution } from '../data/constitutions'
 
 // Motivational messages for different quiz phases
 const getMotivationalMessage = (progress) => {
@@ -27,8 +27,8 @@ export default function Quiz({ onComplete }) {
 
   const motivationalMessage = useMemo(() => getMotivationalMessage(progress), [progress])
 
-  const handleAnswer = (value) => {
-    setAnswers(prev => ({ ...prev, [question.id]: value }))
+  const handleAnswer = (optionIndex) => {
+    setAnswers(prev => ({ ...prev, [question.id]: optionIndex }))
 
     setIsTransitioning(true)
     setTimeout(() => {
@@ -36,7 +36,7 @@ export default function Quiz({ onComplete }) {
         setCurrentQuestion(prev => prev + 1)
       } else {
         // Quiz complete - calculate results
-        const newAnswers = { ...answers, [question.id]: value }
+        const newAnswers = { ...answers, [question.id]: optionIndex }
         const results = calculateConstitution(newAnswers)
         onComplete(results)
       }
@@ -96,28 +96,33 @@ export default function Quiz({ onComplete }) {
             </span>
           </div>
 
-          {/* Question */}
-          <h2 className="text-2xl font-semibold text-slate-deep leading-relaxed mb-10">
-            {question.text}
-          </h2>
+          {/* Question with icon */}
+          <div className="text-center mb-8">
+            {question.icon && (
+              <span className="text-4xl block mb-4">{question.icon}</span>
+            )}
+            <h2 className="text-2xl font-semibold text-slate-deep leading-relaxed">
+              {question.text}
+            </h2>
+          </div>
 
-          {/* Answer options */}
+          {/* Answer options - specific to each question */}
           <div className="space-y-3">
-            {answerOptions.map((option) => {
-              const isSelected = answers[question.id] === option.value
+            {question.options.map((option, index) => {
+              const isSelected = answers[question.id] === index
               return (
                 <button
-                  key={option.value}
-                  onClick={() => handleAnswer(option.value)}
+                  key={index}
+                  onClick={() => handleAnswer(index)}
                   className={`w-full p-4 rounded-lg border transition-all duration-200 text-left
                     ${isSelected
                       ? 'border-sage bg-sage/10 text-slate-deep'
                       : 'border-slate-deep/15 bg-white hover:border-sage/50 hover:bg-sage/5 text-slate-deep'
                     }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-lg">{option.label}</span>
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="font-medium leading-snug">{option.text}</span>
+                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0
                       ${isSelected
                         ? 'border-sage bg-sage'
                         : 'border-slate-deep/30'

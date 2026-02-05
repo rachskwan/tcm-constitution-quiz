@@ -82,9 +82,25 @@ export default function Results({ results }) {
 
         {/* Description */}
         <div className={`max-w-lg text-center transition-all duration-700 ${revealStage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <p className="text-slate-deep/70 leading-relaxed">
+          <p className="text-slate-deep/70 leading-relaxed mb-4">
             {primaryConstitution.description}
           </p>
+
+          {/* Primary constitution percentage bar */}
+          {results.maxScore && results.scores && results.scores[0] && (
+            <div className="max-w-xs mx-auto">
+              <div className="flex justify-between text-sm text-slate-deep/60 mb-1.5">
+                <span>Match Strength</span>
+                <span>{Math.round((results.scores[0].total / results.maxScore) * 100)}%</span>
+              </div>
+              <div className="h-2 bg-slate-deep/10 rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all duration-1000 ${primaryConstitution.headerBg}`}
+                  style={{ width: `${Math.round((results.scores[0].total / results.maxScore) * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Scroll indicator */}
@@ -113,7 +129,12 @@ export default function Results({ results }) {
               <h3 className="font-medium text-slate-deep mb-1">Secondary Tendencies</h3>
               <p className="text-sm text-slate-deep/50 mb-4">Other patterns present in your tendency profile</p>
               <div className="space-y-3">
-                {results.tendencies.map(t => (
+                {results.tendencies.map(t => {
+                  // Calculate percentage for the bar
+                  const maxScore = results.maxScore || 1
+                  const percentage = Math.round((t.score / maxScore) * 100)
+
+                  return (
                   <div
                     key={t.id}
                     className="relative"
@@ -142,7 +163,14 @@ export default function Results({ results }) {
                             {t.strength === 'strong' ? 'Notable' : 'Mild'}
                           </span>
                         </div>
-                        <p className="text-sm text-slate-deep/60 mt-0.5 truncate">{t.tagline}</p>
+                        {/* Percentage bar */}
+                        <div className="mt-2 h-1.5 bg-slate-deep/10 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full rounded-full transition-all duration-700 ${t.headerBg}`}
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                        <p className="text-sm text-slate-deep/60 mt-1.5 truncate">{t.tagline}</p>
                       </div>
                       <svg className="w-5 h-5 text-slate-deep/30 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -174,7 +202,8 @@ export default function Results({ results }) {
                       </div>
                     )}
                   </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}

@@ -681,171 +681,315 @@ export const evidenceLevels = {
   }
 };
 
-// Short-form CCMQ Quiz Questions - 23 questions for accurate constitution assessment
-// Based on Wang Qi's Constitution in Chinese Medicine Questionnaire (short form)
+// 18-Question TCM Constitution Assessment
+// Based on Wang Qi's Nine Constitution Framework with specific option scoring
 export const quizQuestions = [
-  // BALANCED CONSTITUTION - 2 questions (reverse-scored: higher = more balanced)
-  { id: 1, constitution: 'balanced', text: 'Do you feel energetic and full of vitality?', category: 'Energy', reverseScored: true },
-  { id: 2, constitution: 'balanced', text: 'Do you easily adapt to changes in the natural and social environment?', category: 'Adaptability', reverseScored: true },
-
-  // QI DEFICIENCY - 3 questions
-  { id: 3, constitution: 'qi_deficient', text: 'Do you feel fatigued or lack energy easily?', category: 'Energy' },
-  { id: 4, constitution: 'qi_deficient', text: 'Do you experience shortness of breath or feel breathless during light activity?', category: 'Energy' },
-  { id: 5, constitution: 'qi_deficient', text: 'Do you catch colds or flu easily?', category: 'Immunity' },
-
-  // YANG DEFICIENCY - 3 questions
-  { id: 6, constitution: 'yang_deficient', text: 'Do you feel cold easily, especially in your hands, feet, back or abdomen?', category: 'Temperature' },
-  { id: 7, constitution: 'yang_deficient', text: 'Are you intolerant of cold weather, air conditioning, or cold foods?', category: 'Temperature' },
-  { id: 8, constitution: 'yang_deficient', text: 'Do you experience loose stools or diarrhea after eating cold food?', category: 'Digestion' },
-
-  // YIN DEFICIENCY - 3 questions
-  { id: 9, constitution: 'yin_deficient', text: 'Do you feel hot in your palms, soles of feet, or chest (five-palm heat)?', category: 'Temperature' },
-  { id: 10, constitution: 'yin_deficient', text: 'Do you experience night sweats while sleeping?', category: 'Temperature' },
-  { id: 11, constitution: 'yin_deficient', text: 'Do you have dry mouth or throat, especially at night?', category: 'Hydration' },
-
-  // PHLEGM-DAMPNESS - 2 questions
-  { id: 12, constitution: 'phlegm_dampness', text: 'Is your abdomen soft, full, or flabby?', category: 'Body' },
-  { id: 13, constitution: 'phlegm_dampness', text: 'Do you feel heavy in your body or limbs?', category: 'Body' },
-
-  // DAMP-HEAT - 2 questions
-  { id: 14, constitution: 'damp_heat', text: 'Do you have oily skin or acne, especially on your face or back?', category: 'Skin' },
-  { id: 15, constitution: 'damp_heat', text: 'Is your stool sticky, smelly, or uncomfortable to pass?', category: 'Digestion' },
-
-  // BLOOD STASIS - 2 questions
-  { id: 16, constitution: 'blood_stasis', text: 'Is your facial complexion dull, dark, or grayish?', category: 'Skin' },
-  { id: 17, constitution: 'blood_stasis', text: 'Do you bruise easily?', category: 'Circulation' },
-
-  // QI STAGNATION - 3 questions
-  { id: 18, constitution: 'qi_stagnation', text: 'Do you often feel depressed, anxious, or emotionally low?', category: 'Mood' },
-  { id: 19, constitution: 'qi_stagnation', text: 'Do you sigh frequently?', category: 'Mood' },
-  { id: 20, constitution: 'qi_stagnation', text: 'Do you feel tightness or discomfort in your chest or rib area?', category: 'Body' },
-
-  // INHERITED SPECIAL - 3 questions
-  { id: 21, constitution: 'inherited_special', text: 'Do you have allergies (hay fever, allergic rhinitis, asthma)?', category: 'Immunity' },
-  { id: 22, constitution: 'inherited_special', text: 'Do you have skin allergies or eczema, or develop hives easily?', category: 'Skin' },
-  { id: 23, constitution: 'inherited_special', text: 'Do you have food allergies or intolerances?', category: 'Digestion' }
-];
-
-// Answer options for Likert scale
-export const answerOptions = [
-  { value: 1, label: 'Never' },
-  { value: 2, label: 'Rarely' },
-  { value: 3, label: 'Sometimes' },
-  { value: 4, label: 'Often' },
-  { value: 5, label: 'Always' }
+  {
+    id: 1,
+    category: "Energy",
+    text: "How would you describe your energy levels on most days?",
+    icon: "⚡",
+    options: [
+      { text: "Steady and reliable throughout the day", scores: { balanced: 3 } },
+      { text: "I tire easily and need frequent rest", scores: { qi_deficient: 3 } },
+      { text: "Low energy with a persistent feeling of heaviness", scores: { phlegm_dampness: 3 } },
+      { text: "Wired but tired — restless energy I can't channel", scores: { yin_deficient: 2, qi_stagnation: 1 } },
+    ],
+  },
+  {
+    id: 2,
+    category: "Temperature",
+    text: "How do you relate to temperature?",
+    icon: "🌡️",
+    options: [
+      { text: "I'm comfortable in most environments", scores: { balanced: 3 } },
+      { text: "I feel cold easily, especially hands and feet", scores: { yang_deficient: 3 } },
+      { text: "I often feel warm, especially at night", scores: { yin_deficient: 3 } },
+      { text: "I feel hot and heavy, especially in humid weather", scores: { damp_heat: 3 } },
+    ],
+  },
+  {
+    id: 3,
+    category: "Digestion",
+    text: "What best describes your digestion?",
+    icon: "🍽️",
+    options: [
+      { text: "Regular and comfortable — rarely an issue", scores: { balanced: 3 } },
+      { text: "Bloating and loose stools, especially after eating", scores: { qi_deficient: 2, phlegm_dampness: 1 } },
+      { text: "Irregular — alternates with my mood or stress levels", scores: { qi_stagnation: 3 } },
+      { text: "Acid reflux, burning sensation, or urgent stools", scores: { damp_heat: 3 } },
+    ],
+  },
+  {
+    id: 4,
+    category: "Sleep",
+    text: "How is your sleep quality?",
+    icon: "🌙",
+    options: [
+      { text: "I fall asleep easily and wake refreshed", scores: { balanced: 3 } },
+      { text: "I sleep a lot but still feel tired", scores: { qi_deficient: 2, phlegm_dampness: 1 } },
+      { text: "I have trouble falling or staying asleep, vivid dreams", scores: { yin_deficient: 3 } },
+      { text: "My mind races at night; I can't switch off", scores: { qi_stagnation: 3 } },
+    ],
+  },
+  {
+    id: 5,
+    category: "Emotions",
+    text: "What emotional pattern do you most identify with?",
+    icon: "🫀",
+    options: [
+      { text: "Generally even-keeled and optimistic", scores: { balanced: 3 } },
+      { text: "I worry a lot and overthink things", scores: { qi_deficient: 1, qi_stagnation: 2 } },
+      { text: "I get frustrated or irritable easily", scores: { qi_stagnation: 2, damp_heat: 1 } },
+      { text: "I feel low, melancholic, or emotionally flat", scores: { qi_stagnation: 2, blood_stasis: 1 } },
+    ],
+  },
+  {
+    id: 6,
+    category: "Skin",
+    text: "How would you describe your skin?",
+    icon: "✨",
+    options: [
+      { text: "Smooth, well-moisturized, even-toned", scores: { balanced: 3 } },
+      { text: "Dry, flaky, or dull", scores: { yin_deficient: 2, blood_stasis: 1 } },
+      { text: "Oily, prone to acne or breakouts", scores: { damp_heat: 2, phlegm_dampness: 1 } },
+      { text: "Easily irritated, rashes, or allergic reactions", scores: { inherited_special: 3 } },
+    ],
+  },
+  {
+    id: 7,
+    category: "Body Shape",
+    text: "Which best describes your body tendency?",
+    icon: "🧍",
+    options: [
+      { text: "Proportionate, maintain weight easily", scores: { balanced: 3 } },
+      { text: "Thin, struggle to gain weight or muscle", scores: { yin_deficient: 2, qi_deficient: 1 } },
+      { text: "Gain weight easily, especially around the middle", scores: { phlegm_dampness: 3 } },
+      { text: "Sturdy build but feel stiff or tight often", scores: { blood_stasis: 2, qi_stagnation: 1 } },
+    ],
+  },
+  {
+    id: 8,
+    category: "Immunity",
+    text: "How often do you get sick?",
+    icon: "🛡️",
+    options: [
+      { text: "Rarely — maybe once a year", scores: { balanced: 3 } },
+      { text: "Frequently — I catch every cold going around", scores: { qi_deficient: 3 } },
+      { text: "Allergies or sensitivities more than infections", scores: { inherited_special: 3 } },
+      { text: "Rarely sick but when I am, it lingers for weeks", scores: { yang_deficient: 2, blood_stasis: 1 } },
+    ],
+  },
+  {
+    id: 9,
+    category: "Thirst",
+    text: "How do you experience thirst?",
+    icon: "🥤",
+    options: [
+      { text: "Normal — I drink when thirsty and feel satisfied", scores: { balanced: 3 } },
+      { text: "Rarely thirsty, prefer warm or hot drinks", scores: { yang_deficient: 3 } },
+      { text: "Often thirsty, prefer cold drinks", scores: { yin_deficient: 2, damp_heat: 1 } },
+      { text: "Thirsty but drinking doesn't seem to help, dry mouth", scores: { blood_stasis: 2, yin_deficient: 1 } },
+    ],
+  },
+  {
+    id: 10,
+    category: "Complexion",
+    text: "What does your face tend to look like?",
+    icon: "🪞",
+    options: [
+      { text: "Rosy, healthy glow", scores: { balanced: 3 } },
+      { text: "Pale or sallow", scores: { qi_deficient: 2, yang_deficient: 1 } },
+      { text: "Flushed cheeks, especially in the afternoon", scores: { yin_deficient: 3 } },
+      { text: "Dark spots, dark circles, or dull/dusky tone", scores: { blood_stasis: 3 } },
+    ],
+  },
+  {
+    id: 11,
+    category: "Sweat",
+    text: "How do you sweat?",
+    icon: "💦",
+    options: [
+      { text: "Normally — with exercise or heat", scores: { balanced: 3 } },
+      { text: "I sweat easily, even without exertion", scores: { qi_deficient: 3 } },
+      { text: "Night sweats, or sweating from palms/soles", scores: { yin_deficient: 3 } },
+      { text: "Sticky, heavy sweat with a strong smell", scores: { damp_heat: 2, phlegm_dampness: 1 } },
+    ],
+  },
+  {
+    id: 12,
+    category: "Pain",
+    text: "Do you experience recurring pain or discomfort?",
+    icon: "🩹",
+    options: [
+      { text: "Rarely — I'm generally pain-free", scores: { balanced: 3 } },
+      { text: "Cold-related pain — lower back, knees, or abdomen in winter", scores: { yang_deficient: 3 } },
+      { text: "Fixed, sharp pain that doesn't move (e.g., menstrual cramps)", scores: { blood_stasis: 3 } },
+      { text: "Migrating tightness or distension — ribs, chest, or throat", scores: { qi_stagnation: 3 } },
+    ],
+  },
+  {
+    id: 13,
+    category: "Breath & Voice",
+    text: "How about your breath and voice?",
+    icon: "🗣️",
+    options: [
+      { text: "Clear voice, fresh breath, no issues", scores: { balanced: 3 } },
+      { text: "Soft or weak voice, shortness of breath easily", scores: { qi_deficient: 3 } },
+      { text: "Dry throat, sometimes hoarse", scores: { yin_deficient: 3 } },
+      { text: "Bad breath or a bitter/metallic taste", scores: { damp_heat: 3 } },
+    ],
+  },
+  {
+    id: 14,
+    category: "Stress Response",
+    text: "When you're under stress, what happens in your body?",
+    icon: "😤",
+    options: [
+      { text: "I manage it well — some tension but it passes", scores: { balanced: 3 } },
+      { text: "My stomach knots up, I lose appetite or get nauseous", scores: { qi_stagnation: 3 } },
+      { text: "I break out in rashes, hives, or my allergies flare", scores: { inherited_special: 2, damp_heat: 1 } },
+      { text: "I feel exhausted and want to collapse", scores: { qi_deficient: 2, yang_deficient: 1 } },
+    ],
+  },
+  {
+    id: 15,
+    category: "Morning State",
+    text: "How do you typically feel when you wake up?",
+    icon: "🌅",
+    options: [
+      { text: "Refreshed and ready to go", scores: { balanced: 3 } },
+      { text: "Groggy, heavy, takes a long time to get moving", scores: { phlegm_dampness: 3 } },
+      { text: "Dry mouth and throat, sometimes with night sweat residue", scores: { yin_deficient: 3 } },
+      { text: "Cold, stiff, and needing warmth to loosen up", scores: { yang_deficient: 2, blood_stasis: 1 } },
+    ],
+  },
+  {
+    id: 16,
+    category: "Tongue",
+    text: "Look at your tongue in a mirror right now. What do you see?",
+    icon: "👅",
+    options: [
+      { text: "Pink with a thin white coating", scores: { balanced: 3 } },
+      { text: "Pale and puffy with scalloped edges (teeth marks)", scores: { qi_deficient: 2, yang_deficient: 1 } },
+      { text: "Red with little or no coating, possibly cracked", scores: { yin_deficient: 3 } },
+      { text: "Thick, yellow or greasy coating", scores: { damp_heat: 2, phlegm_dampness: 1 } },
+    ],
+  },
+  {
+    id: 17,
+    category: "Seasonal Sensitivity",
+    text: "Which season do you dread the most?",
+    icon: "🍂",
+    options: [
+      { text: "No strong preference — I adapt to each", scores: { balanced: 3 } },
+      { text: "Winter — the cold makes everything worse", scores: { yang_deficient: 3 } },
+      { text: "Summer — the heat and humidity drain me", scores: { yin_deficient: 1, damp_heat: 2 } },
+      { text: "Spring — allergies and mood swings hit hard", scores: { inherited_special: 1, qi_stagnation: 2 } },
+    ],
+  },
+  {
+    id: 18,
+    category: "Circulation",
+    text: "How is your circulation?",
+    icon: "❤️‍🔥",
+    options: [
+      { text: "Good — warm extremities, healthy color", scores: { balanced: 3 } },
+      { text: "Poor — cold fingers/toes even in warm rooms", scores: { yang_deficient: 2, blood_stasis: 1 } },
+      { text: "I bruise very easily or have visible veins/spider veins", scores: { blood_stasis: 3 } },
+      { text: "Numbness or tingling in extremities", scores: { blood_stasis: 2, qi_deficient: 1 } },
+    ],
+  },
 ];
 
 // Calculate constitution scores from answers
+// answers: object where keys are question IDs and values are selected option indices
 export function calculateConstitution(answers) {
+  // Initialize scores for each constitution
   const scores = {};
-  let balancedScore = { total: 0, count: 0, average: 0 };
-
-  // Initialize scores for each constitution (excluding balanced)
   Object.keys(constitutions).forEach(key => {
-    if (key !== 'balanced') {
-      scores[key] = { total: 0, count: 0, average: 0 };
-    }
+    scores[key] = 0;
   });
 
   // Calculate scores from quiz answers
   quizQuestions.forEach(question => {
-    const answer = answers[question.id];
-    if (answer) {
-      if (question.constitution === 'balanced') {
-        // Balanced questions are reverse-scored for comparison
-        // Higher answers mean more balanced
-        balancedScore.total += answer;
-        balancedScore.count += 1;
-      } else if (scores[question.constitution]) {
-        scores[question.constitution].total += answer;
-        scores[question.constitution].count += 1;
-      }
+    const selectedOptionIndex = answers[question.id];
+    if (selectedOptionIndex !== undefined && question.options[selectedOptionIndex]) {
+      const option = question.options[selectedOptionIndex];
+      // Add scores for each constitution mentioned in this option
+      Object.entries(option.scores).forEach(([constitutionKey, scoreValue]) => {
+        if (scores[constitutionKey] !== undefined) {
+          scores[constitutionKey] += scoreValue;
+        }
+      });
     }
   });
 
-  // Calculate averages for imbalanced constitutions
-  Object.keys(scores).forEach(key => {
-    if (scores[key].count > 0) {
-      scores[key].average = scores[key].total / scores[key].count;
-    }
-  });
+  // Calculate maximum possible score (18 questions * 3 max points = 54)
+  const maxPossibleScore = quizQuestions.length * 3;
 
-  // Calculate balanced average
-  if (balancedScore.count > 0) {
-    balancedScore.average = balancedScore.total / balancedScore.count;
-  }
-
-  // Determine primary and secondary constitutions
+  // Convert to sorted array with id and total
   const sortedScores = Object.entries(scores)
-    .map(([key, data]) => ({ id: key, ...data }))
-    .sort((a, b) => b.average - a.average);
+    .filter(([_, total]) => total > 0)
+    .map(([id, total]) => ({
+      id,
+      total,
+      average: total / maxPossibleScore * 5 // Normalize to 0-5 scale for compatibility
+    }))
+    .sort((a, b) => b.total - a.total);
 
-  // CCMQ Scoring Criteria:
-  // Primary constitution: average >= 3.5 (answers mostly "Often" or "Always")
-  // Strong tendency: average 3.0-3.49 (answers lean toward "Sometimes" to "Often")
-  // Mild tendency: average 2.5-2.99 (some presence of pattern)
-  // Balanced: No imbalanced score >= 3.0 AND balanced questions average >= 3.5
+  // Get the maximum score achieved
+  const maxScore = sortedScores[0]?.total || 1;
 
-  const primary = sortedScores.filter(s => s.average >= 3.5);
-  const strongTendencies = sortedScores.filter(s => s.average >= 3.0 && s.average < 3.5);
-  const mildTendencies = sortedScores.filter(s => s.average >= 2.5 && s.average < 3.0);
+  // Determine primary constitution (highest scorer)
+  // If balanced has high score relative to others, use balanced
+  const balancedScore = scores.balanced || 0;
+  const highestImbalanceScore = sortedScores.find(s => s.id !== 'balanced')?.total || 0;
 
-  // Combine tendencies with strength indicator
-  const tendencies = [
-    ...strongTendencies.map(s => ({ ...s, strength: 'strong' })),
-    ...mildTendencies.map(s => ({ ...s, strength: 'mild' }))
-  ];
-
-  // Check if person is primarily balanced
-  const hasSignificantImbalance = sortedScores.some(s => s.average >= 3.0);
-  const isBalanced = !hasSignificantImbalance && balancedScore.average >= 3.5;
+  // Primary is balanced if balanced score is highest and significantly higher than others
+  const isBalanced = balancedScore >= highestImbalanceScore && balancedScore >= maxPossibleScore * 0.4;
 
   if (isBalanced) {
+    // Filter out balanced from tendencies
+    const tendencies = sortedScores
+      .filter(s => s.id !== 'balanced' && s.total > 0)
+      .slice(0, 4)
+      .map(s => ({
+        ...constitutions[s.id],
+        strength: s.total >= maxScore * 0.7 ? 'strong' : 'mild',
+        score: s.total
+      }));
+
     return {
       primary: [constitutions.balanced],
-      tendencies: tendencies.slice(0, 4).map(s => ({
-        ...constitutions[s.id],
-        strength: s.strength,
-        score: s.average
-      })),
+      tendencies,
       scores: sortedScores,
-      balancedScore: balancedScore
+      rawScores: scores,
+      maxScore
     };
   }
 
-  // If no primary but has tendencies, use the strongest tendency as primary
-  if (primary.length === 0 && tendencies.length > 0) {
-    return {
-      primary: [constitutions[tendencies[0].id]],
-      tendencies: tendencies.slice(1).map(s => ({
-        ...constitutions[s.id],
-        strength: s.strength,
-        score: s.average
-      })),
-      scores: sortedScores,
-      balancedScore: balancedScore
-    };
-  }
+  // Otherwise, highest scorer is primary
+  const primaryScore = sortedScores[0];
+  const primary = primaryScore ? [constitutions[primaryScore.id]] : [constitutions.balanced];
 
-  // If no primary and no tendencies, classify as Balanced
-  if (primary.length === 0 && tendencies.length === 0) {
-    return {
-      primary: [constitutions.balanced],
-      tendencies: [],
-      scores: sortedScores,
-      balancedScore: balancedScore
-    };
-  }
+  // Tendencies are the next highest scorers (excluding primary and balanced if it's low)
+  const tendencies = sortedScores
+    .slice(1)
+    .filter(s => s.total > 0 && s.id !== 'balanced')
+    .slice(0, 4)
+    .map(s => ({
+      ...constitutions[s.id],
+      strength: s.total >= maxScore * 0.7 ? 'strong' : 'mild',
+      score: s.total
+    }));
 
   return {
-    primary: primary.map(s => constitutions[s.id]),
-    tendencies: tendencies.map(s => ({
-      ...constitutions[s.id],
-      strength: s.strength,
-      score: s.average
-    })),
+    primary,
+    tendencies,
     scores: sortedScores,
-    balancedScore: balancedScore
+    rawScores: scores,
+    maxScore
   };
 }
 
