@@ -293,22 +293,6 @@ export default function Results({ results }) {
                   )}
                 </div>
 
-                {/* Unsupported / Neglected */}
-                {primaryConstitution.layeredExpression && (
-                  <div className="relative pl-6 pb-4 border-l-2 border-red-200">
-                    <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-red-300 border-2 border-white"></div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-medium text-red-400 uppercase tracking-wide">If neglected long-term</span>
-                    </div>
-                    <p className="font-medium text-red-400">Pattern Deepening</p>
-                    <div className="mt-1 p-2.5 bg-red-50 rounded-lg border border-red-100">
-                      <p className="text-xs text-red-700/80">
-                        <span className="font-medium">Can develop:</span> {primaryConstitution.layeredExpression.whenUnsupported}
-                      </p>
-                    </div>
-                  </div>
-                )}
-
                 {/* Recovery Mode */}
                 <div className="relative pl-6 border-l-2 border-sage">
                   <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-sage border-2 border-white"></div>
