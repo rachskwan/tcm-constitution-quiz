@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 
 const constitutionTypes = [
-  { emoji: '☯️', name: 'Balanced', tagline: 'Harmony in motion' },
-  { emoji: '🍃', name: 'Qi Deficiency', tagline: 'Gentle energy that needs nurturing' },
-  { emoji: '❄️', name: 'Yang Deficiency', tagline: 'A body that craves warmth' },
-  { emoji: '🔥', name: 'Yin Deficiency', tagline: 'Running warm with inner heat' },
-  { emoji: '💧', name: 'Phlegm-Dampness', tagline: 'A body that holds onto excess' },
-  { emoji: '🌡️', name: 'Damp-Heat', tagline: 'Internal heat meeting moisture' },
-  { emoji: '🩸', name: 'Blood Stasis', tagline: 'Circulation seeking flow' },
-  { emoji: '😔', name: 'Qi Stagnation', tagline: 'Emotions seeking expression' },
-  { emoji: '🌸', name: 'Inherited Special', tagline: 'A sensitive system seeking balance' },
+  { emoji: '☯️', name: 'Balanced', archetype: 'The Thermostat', tagline: 'Harmony in motion' },
+  { emoji: '🍃', name: 'Qi Deficiency', archetype: 'The Candle', tagline: 'Gentle energy that needs nurturing' },
+  { emoji: '❄️', name: 'Yang Deficiency', archetype: 'The Ember', tagline: 'A body that craves warmth' },
+  { emoji: '🔥', name: 'Yin Deficiency', archetype: 'The Lightning', tagline: 'Running warm with inner heat' },
+  { emoji: '💧', name: 'Phlegm-Dampness', archetype: 'The Fog', tagline: 'A body that holds onto excess' },
+  { emoji: '🌡️', name: 'Damp-Heat', archetype: 'The Geyser', tagline: 'Internal heat meeting moisture' },
+  { emoji: '🩸', name: 'Blood Stasis', archetype: 'The Glacier', tagline: 'Circulation seeking flow' },
+  { emoji: '😔', name: 'Qi Stagnation', archetype: 'The Knot', tagline: 'Emotions seeking expression' },
+  { emoji: '🌸', name: 'Inherited Special', archetype: 'The Antenna', tagline: 'A sensitive system seeking balance' },
 ]
 
 export default function Intro({ onStart }) {
@@ -82,16 +82,17 @@ export default function Intro({ onStart }) {
       {/* 9 Constitution Patterns - Carousel */}
       <div className="w-full max-w-md mb-6">
         <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which patterns you're expressing right now</p>
-        <div className="bg-white rounded-xl border border-slate-deep/10 p-4 h-20 flex items-center justify-center overflow-hidden">
+        <div className="bg-white rounded-xl border border-slate-deep/10 p-4 h-24 flex items-center justify-center overflow-hidden">
           <div
             key={currentIndex}
             className="flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500"
           >
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-0.5">
               <span className="text-2xl">{currentType.emoji}</span>
               <span className="font-medium text-slate-deep">{currentType.name}</span>
             </div>
-            <p className="text-xs text-slate-deep/60 italic">{currentType.tagline}</p>
+            <p className="text-sm font-medium text-earth">{currentType.archetype}</p>
+            <p className="text-xs text-slate-deep/60 italic mt-0.5">{currentType.tagline}</p>
           </div>
         </div>
         {/* Progress dots */}
