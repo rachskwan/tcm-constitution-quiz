@@ -599,18 +599,11 @@ export default function Results({ results }) {
                     </span>
                   </div>
 
-                  {/* Correlated Biomarkers Blurb */}
+                  {/* Biomarker Blurb */}
                   <div className="mt-4 p-3 bg-slate-deep/5 rounded-lg">
-                    <p className="text-xs text-slate-deep/70 mb-2">
-                      <span className="font-medium text-slate-deep">Research-correlated biomarkers</span> for {primaryConstitution.name} tendencies:
+                    <p className="text-xs text-slate-deep/70 leading-relaxed">
+                      <span className="font-medium text-slate-deep">Why track biomarkers?</span> Your body's patterns show up not just in how you feel, but in measurable markers like energy levels, inflammation, and metabolic health. Tracking these alongside your TCM tendencies can help you understand what's working—and what needs adjustment to get back on track.
                     </p>
-                    <div className="flex flex-wrap justify-center gap-1.5">
-                      {primaryConstitution.biomarkers.primary.slice(0, 4).map((marker, i) => (
-                        <span key={i} className="px-2 py-0.5 bg-white rounded text-xs text-slate-deep/60 border border-slate-deep/10">
-                          {marker}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
