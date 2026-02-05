@@ -26,16 +26,6 @@ export default function Intro({ onStart }) {
 
   return (
     <div className="min-h-screen bg-neutral-warm flex flex-col items-center justify-center px-6 py-12">
-      {/* Logo/Icon - using subtle constitutional symbol */}
-      <div className="w-20 h-20 mb-8 rounded-full bg-white border-2 border-gold/30 flex items-center justify-center shadow-sm">
-        <svg className="w-10 h-10 text-earth" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 2C12 2 8 6 8 12C8 18 12 22 12 22" />
-          <path d="M12 2C12 2 16 6 16 12C16 18 12 22 12 22" />
-          <path d="M2 12H22" />
-        </svg>
-      </div>
-
       {/* Title */}
       <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3 max-w-md">
         What Does Eastern Medicine Say About Your Wellness?
