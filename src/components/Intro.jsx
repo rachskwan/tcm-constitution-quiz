@@ -89,10 +89,10 @@ export default function Intro({ onStart }) {
           >
             <div className="flex items-center gap-2 mb-0.5">
               <span className="text-2xl">{currentType.emoji}</span>
-              <span className="font-medium text-slate-deep">{currentType.name}</span>
+              <span className="text-lg font-semibold text-earth">{currentType.archetype}</span>
             </div>
-            <p className="text-sm font-medium text-earth">{currentType.archetype}</p>
-            <p className="text-xs text-slate-deep/60 italic mt-0.5">{currentType.tagline}</p>
+            <p className="text-sm text-slate-deep/70">{currentType.name}</p>
+            <p className="text-xs text-slate-deep/50 italic mt-0.5">{currentType.tagline}</p>
           </div>
         </div>
         {/* Progress dots */}
