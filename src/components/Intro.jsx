@@ -82,18 +82,21 @@ export default function Intro({ onStart }) {
       {/* 9 Constitution Patterns - Carousel */}
       <div className="w-full max-w-md mb-6">
         <p className="text-xs text-slate-deep/50 text-center mb-3">Discover which patterns you're expressing right now</p>
-        <div className="bg-white rounded-xl border border-slate-deep/10 p-4 h-24 flex items-center justify-center overflow-hidden">
+        <button
+          onClick={() => setShowInfoModal(true)}
+          className="w-full bg-white rounded-xl border border-slate-deep/10 p-4 h-24 flex items-center justify-center overflow-hidden hover:border-earth/30 hover:shadow-sm transition-all cursor-pointer group"
+        >
           <div
             key={currentIndex}
             className="flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500"
           >
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-lg font-semibold text-earth">{currentType.archetype}</span>
+              <span className="text-lg font-semibold text-earth group-hover:text-earth-light transition-colors">{currentType.archetype}</span>
             </div>
             <p className="text-sm text-slate-deep/70">{currentType.name}</p>
             <p className="text-xs text-slate-deep/50 italic mt-0.5">{currentType.tagline}</p>
           </div>
-        </div>
+        </button>
         {/* Progress dots */}
         <div className="flex justify-center gap-1 mt-3">
           {constitutionTypes.map((_, i) => (
@@ -105,13 +108,7 @@ export default function Intro({ onStart }) {
             />
           ))}
         </div>
-        {/* Learn More link */}
-        <button
-          onClick={() => setShowInfoModal(true)}
-          className="mt-3 text-sm text-earth hover:text-earth-light underline underline-offset-2 transition-colors"
-        >
-          View all 9 patterns & learn more
-        </button>
+        <p className="mt-2 text-xs text-slate-deep/40 text-center">Tap to view all patterns</p>
       </div>
 
       {/* Time estimate */}
