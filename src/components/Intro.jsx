@@ -26,9 +26,12 @@ export default function Intro({ onStart }) {
 
   return (
     <div className="min-h-screen bg-neutral-warm flex flex-col items-center justify-center px-6 py-12">
-      {/* Tea Icon */}
-      <div className="w-16 h-16 mb-6 rounded-full bg-white border-2 border-gold/30 flex items-center justify-center shadow-sm">
-        <span className="text-3xl">🍵</span>
+      {/* Logo */}
+      <div className="w-16 h-16 mb-6 rounded-full bg-sage flex items-center justify-center shadow-sm">
+        <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+          <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+        </svg>
       </div>
 
       {/* Title */}
