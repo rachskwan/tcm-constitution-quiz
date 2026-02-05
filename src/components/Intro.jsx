@@ -28,7 +28,7 @@ export default function Intro({ onStart }) {
     <div className="min-h-screen bg-neutral-warm flex flex-col items-center justify-center px-6 py-12">
       {/* Title */}
       <h1 className="text-3xl font-semibold text-slate-deep text-center mb-3 max-w-md">
-        What Does Eastern Medicine Say About Your Wellness?
+        How Traditional Chinese Medicine Understands Your Body's Patterns
       </h1>
 
       {/* Subtitle */}
